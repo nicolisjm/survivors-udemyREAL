@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://sel7rxkk35v0"
-path="res://.godot/imported/player.png-254b4d5c81b4615bcefcddac081a583c.ctex"
+uid="uid://bf56sjhhoogjj"
+path="res://.godot/imported/experience_vial.png-dbf1ea34f61212251cf060e6e03a4355.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://scenes/Player/player.png"
-dest_files=["res://.godot/imported/player.png-254b4d5c81b4615bcefcddac081a583c.ctex"]
+source_file="res://scenes/game_object/experience_vial/experience_vial.png"
+dest_files=["res://.godot/imported/experience_vial.png-dbf1ea34f61212251cf060e6e03a4355.ctex"]
 
 [params]
 
