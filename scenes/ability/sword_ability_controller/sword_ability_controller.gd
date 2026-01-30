@@ -3,10 +3,14 @@ extends Node
 const MAX_RANGE = 150
 
 @export var sword_ability: PackedScene
+
 var damage = 5
+var base_wait_time
 
 func _ready() -> void:
+	base_wait_time = $Timer.wait_time
 	$Timer.timeout.connect(on_timer_timeout)
+	GameEvents.ability_upgrade_added.connect(on_ability_upgrade_added)
 	
 
 func on_timer_timeout():
@@ -28,7 +32,8 @@ func on_timer_timeout():
 	)
 		
 	var sword_instance = sword_ability.instantiate() as SwordAbility
-	player.get_parent().add_child(sword_instance)
+	var foreground_layer = get_tree().get_first_node_in_group("foreground_layer")
+	foreground_layer.add_child(sword_instance)
 	
 	sword_instance.hitbox_component.damage = damage
 	
@@ -37,3 +42,24 @@ func on_timer_timeout():
 	
 	var enemy_direction = enemies[0].global_position - sword_instance.global_position
 	sword_instance.rotation = enemy_direction.angle()
+
+
+func on_ability_upgrade_added(upgrade: AbilityUpgrade, current_upgrades: Dictionary):
+	if upgrade.id != "sword_rate":
+		return
+	
+	var quantity = current_upgrades["sword_rate"]["quantity"]
+
+	var per_upgrade_reduction = 0.1
+	var multiplier = pow(1.0 - per_upgrade_reduction, quantity)
+
+	var min_wait = 0.01 # hard safety floor
+
+	$Timer.wait_time = max(base_wait_time * multiplier, min_wait)
+	$Timer.start()
+	print($Timer.wait_time)
+	
+	
+	
+	
+	
