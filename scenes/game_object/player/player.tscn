@@ -5,6 +5,17 @@
 [ext_resource type="PackedScene" uid="uid://bqdioauh5c0xw" path="res://scenes/ability/sword_ability_controller/sword_ability_controller.tscn" id="2_gqjuk"]
 [ext_resource type="PackedScene" uid="uid://40irphxwdaut" path="res://scenes/component/health_component.tscn" id="2_ss5pk"]
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ss5pk"]
+bg_color = Color(0.24705882, 0.14901961, 0.19215687, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tj6oj"]
+bg_color = Color(0.2627451, 0.88235295, 0.7019608, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.24705882, 0.14901961, 0.19215687, 1)
+
 [sub_resource type="CircleShape2D" id="CircleShape2D_s3670"]
 radius = 32.0
 
@@ -30,7 +41,22 @@ max_health = 100.0
 wait_time = 0.5
 one_shot = true
 
+[node name="HealthBar" type="ProgressBar" parent="." unique_id=765525217]
+custom_minimum_size = Vector2(32, 4)
+offset_left = -16.0
+offset_top = -21.0
+offset_right = 16.0
+offset_bottom = -17.0
+pivot_offset_ratio = Vector2(16, 2)
+mouse_filter = 2
+theme_override_styles/background = SubResource("StyleBoxFlat_ss5pk")
+theme_override_styles/fill = SubResource("StyleBoxFlat_tj6oj")
+max_value = 1.0
+value = 0.5
+show_percentage = false
+
 [node name="PickupArea2D" type="Area2D" parent="." unique_id=213200047]
+visible = false
 position = Vector2(0, -5)
 collision_layer = 16
 collision_mask = 0

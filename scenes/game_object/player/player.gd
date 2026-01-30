@@ -5,6 +5,8 @@ const MAX_SPEED = 100
 const ACCELERATION_SMOOTHING = 30
 
 @onready var damage_interval_timer = $DamageIntervalTimer
+@onready var health_component = $HealthComponent
+@onready var health_bar = $HealthBar
 
 var num_colliding_bodies = 0
 
@@ -13,6 +15,8 @@ func _ready() -> void:
 	$CollisionArea2D.body_entered.connect(on_body_entered)
 	$CollisionArea2D.body_exited.connect(on_body_exited)
 	damage_interval_timer.timeout.connect(on_damage_interval_timer_timeout)
+	health_component.health_changed.connect(on_health_changed)
+	update_health_display()
 
 
 func _process(delta: float) -> void:
@@ -30,12 +34,16 @@ func get_movement_vector():
 	return Vector2(x_movement, y_movement)
 
 
+func update_health_display():
+	health_bar.value = health_component.get_health_percent()
+
+
 func check_deal_damage():
 	if num_colliding_bodies == 0 || !(damage_interval_timer.is_stopped()):
 		return
-	$HealthComponent.damage(10)
+	health_component.damage(10)
 	damage_interval_timer.start()
-	print($HealthComponent.current_health)
+	print(health_component.current_health)
 
 
 func on_body_entered(other_body: Node2D):
@@ -49,3 +57,7 @@ func on_body_exited(other_body: Node2D):
 	
 func on_damage_interval_timer_timeout():
 	check_deal_damage()
+	
+	
+func on_health_changed():
+	update_health_display()
