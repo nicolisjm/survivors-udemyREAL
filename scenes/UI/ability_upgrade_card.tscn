@@ -5,11 +5,26 @@
 [node name="AbilityUpgradeCard" type="PanelContainer" unique_id=1734833457]
 clip_contents = true
 custom_minimum_size = Vector2(120, 150)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -60.0
+offset_top = -75.0
+offset_right = 60.0
+offset_bottom = 75.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
 script = ExtResource("1_xbdcf")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=1955699129]
 custom_minimum_size = Vector2(120, 150)
 layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
 
 [node name="NameLabel" type="Label" parent="VBoxContainer" unique_id=900822759]
 unique_name_in_owner = true
