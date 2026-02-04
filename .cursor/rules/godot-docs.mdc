@@ -1,0 +1,17 @@
+---
+description: Reference Godot Engine documentation for this project
+alwaysApply: true
+---
+
+# Godot Documentation Context
+
+When helping with this Godot project, use the official Godot Engine documentation as your primary reference.
+
+**Documentation URL:** https://docs.godotengine.org/en/stable/
+
+- Prefer Godot 4.x (stable) API and patterns: GDScript, nodes, scenes, signals, CharacterBody2D, Area2D, etc.
+- For scripting: use [GDScript reference](https://docs.godotengine.org/en/stable/tutorials/scripting/gdscript/index.html) and [Core features](https://docs.godotengine.org/en/stable/tutorials/scripting/index.html).
+- For 2D: use [2D](https://docs.godotengine.org/en/stable/tutorials/2d/index.html) and [Physics](https://docs.godotengine.org/en/stable/tutorials/physics/index.html) docs.
+- When unsure about APIs or node behavior, assume the [Godot 4.x stable class reference](https://docs.godotengine.org/en/stable/classes/index.html) and docs are authoritative.
+
+You can fetch or cite specific pages from the docs when needed to give accurate, up-to-date answers.

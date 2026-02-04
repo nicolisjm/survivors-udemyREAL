@@ -4,7 +4,9 @@
 [ext_resource type="Script" uid="uid://cp6p2b6dqsnf3" path="res://scenes/game_object/basic_enemy/basic_enemy.gd" id="1_gxg7h"]
 [ext_resource type="PackedScene" uid="uid://40irphxwdaut" path="res://scenes/component/health_component.tscn" id="2_isd1k"]
 [ext_resource type="PackedScene" uid="uid://cnnwqjweouw8w" path="res://scenes/component/vial_drop_component.tscn" id="3_pcrk2"]
+[ext_resource type="PackedScene" uid="uid://bpb8aq2cd82w0" path="res://scenes/component/death_component.tscn" id="4_bq7hi"]
 [ext_resource type="PackedScene" uid="uid://b4fmb3q018fah" path="res://scenes/component/hurtbox_component.tscn" id="4_elloc"]
+[ext_resource type="PackedScene" uid="uid://d4js22n6nnan7" path="res://scenes/component/velocity_component.tscn" id="7_jkye5"]
 
 [sub_resource type="Animation" id="Animation_elloc"]
 length = 0.001
@@ -113,6 +115,13 @@ autoplay = &"walk"
 
 [node name="VialDropComponent" parent="." unique_id=964327326 node_paths=PackedStringArray("health_component") instance=ExtResource("3_pcrk2")]
 health_component = NodePath("../HealthComponent")
+
+[node name="VelocityComponent" parent="." unique_id=1336253212 instance=ExtResource("7_jkye5")]
+acceleration = 8.0
+
+[node name="DeathComponent" parent="." unique_id=1666601203 node_paths=PackedStringArray("health_component", "sprite") instance=ExtResource("4_bq7hi")]
+health_component = NodePath("../HealthComponent")
+sprite = NodePath("../Visuals/Sprite2D")
 
 [node name="HurtboxComponent" parent="." unique_id=1693282995 node_paths=PackedStringArray("health_component") instance=ExtResource("4_elloc")]
 visible = false
