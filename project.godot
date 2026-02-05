@@ -43,6 +43,11 @@ enemy=""
 entities_layer=""
 foreground_layer=""
 
+[gui]
+
+fonts/dynamic_fonts/use_oversampling=false
+theme/custom="uid://cae3pri8pifdf"
+
 [input]
 
 move_left={
