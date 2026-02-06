@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://40irphxwdaut" path="res://scenes/component/health_component.tscn" id="2_ukqif"]
 [ext_resource type="PackedScene" uid="uid://b4fmb3q018fah" path="res://scenes/component/hurtbox_component.tscn" id="4_865ah"]
 [ext_resource type="PackedScene" uid="uid://cnnwqjweouw8w" path="res://scenes/component/vial_drop_component.tscn" id="4_rquut"]
+[ext_resource type="PackedScene" uid="uid://q6f5q4il5s62" path="res://scenes/component/hit_flash_component.tscn" id="5_sjtyn"]
 
 [sub_resource type="Animation" id="Animation_rquut"]
 length = 0.001
@@ -138,6 +139,10 @@ acceleration = 20.0
 drop_percent = 1.0
 amount = 2.0
 health_component = NodePath("../HealthComponent")
+
+[node name="HitFlashComponent" parent="." unique_id=194326357 node_paths=PackedStringArray("health_component", "sprite") instance=ExtResource("5_sjtyn")]
+health_component = NodePath("../HealthComponent")
+sprite = NodePath("../Visuals/Sprite2D")
 
 [node name="DeathComponent" parent="." unique_id=1666601203 node_paths=PackedStringArray("health_component", "sprite") instance=ExtResource("2_4jk3l")]
 health_component = NodePath("../HealthComponent")
