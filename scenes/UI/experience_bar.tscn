@@ -1,11 +1,19 @@
-[gd_scene load_steps=2 format=3 uid="uid://cvwrwcxyluicr"]
+[gd_scene format=3 uid="uid://cvwrwcxyluicr"]
 
 [ext_resource type="Script" uid="uid://ymlfy1w7m626" path="res://scenes/UI/experience_bar.gd" id="1_c30mw"]
 
-[node name="ExperienceBar" type="CanvasLayer"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_c30mw"]
+bg_color = Color(0.45882353, 0.8901961, 1, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.24705882, 0.14901961, 0.19215687, 0)
+
+[node name="ExperienceBar" type="CanvasLayer" unique_id=215735427]
 script = ExtResource("1_c30mw")
 
-[node name="MarginContainer" type="MarginContainer" parent="."]
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=579891536]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -13,11 +21,12 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
-[node name="ProgressBar" type="ProgressBar" parent="MarginContainer"]
+[node name="ProgressBar" type="ProgressBar" parent="MarginContainer" unique_id=566645316]
 custom_minimum_size = Vector2(0, 8)
 layout_mode = 2
 size_flags_vertical = 8
 mouse_filter = 2
+theme_override_styles/fill = SubResource("StyleBoxFlat_c30mw")
 max_value = 1.0
 value = 0.5
 show_percentage = false

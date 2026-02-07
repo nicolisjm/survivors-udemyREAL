@@ -4,7 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://buwlkjda1y0fd" path="res://scenes/UI/end_screen.tscn" id="2_msres"]
 
 [node name="ArenaTimeManager" type="Node" unique_id=1325596868]
-process_mode = 3
+process_mode = 1
 script = ExtResource("1_h76kk")
 end_screen_scene = ExtResource("2_msres")
 

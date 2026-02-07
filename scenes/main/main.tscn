@@ -23,6 +23,7 @@ arena_time_manager = NodePath("../ArenaTimeManager")
 experience_manager = NodePath("../ExperienceManager")
 
 [node name="ArenaTimeManager" parent="." unique_id=778477385 instance=ExtResource("2_ow5a4")]
+process_mode = 3
 
 [node name="EnemyManager" parent="." unique_id=1077939996 node_paths=PackedStringArray("arena_time_manager") instance=ExtResource("1_6q06x")]
 arena_time_manager = NodePath("../ArenaTimeManager")
