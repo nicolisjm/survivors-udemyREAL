@@ -4,6 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://sel7rxkk35v0" path="res://scenes/game_object/player/player.png" id="1_xg5j1"]
 [ext_resource type="PackedScene" uid="uid://bqdioauh5c0xw" path="res://scenes/ability/sword_ability_controller/sword_ability_controller.tscn" id="2_gqjuk"]
 [ext_resource type="PackedScene" uid="uid://40irphxwdaut" path="res://scenes/component/health_component.tscn" id="2_ss5pk"]
+[ext_resource type="PackedScene" uid="uid://d4js22n6nnan7" path="res://scenes/component/velocity_component.tscn" id="3_tj6oj"]
 
 [sub_resource type="Animation" id="Animation_tj6oj"]
 length = 0.001
@@ -92,6 +93,44 @@ _data = {
 &"walk": SubResource("Animation_ss5pk")
 }
 
+[sub_resource type="Animation" id="Animation_rix40"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("HealthBar:theme_override_styles/fill:bg_color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0.2627451, 0.88235295, 0.7019608, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_pknkg"]
+resource_name = "damage"
+length = 0.2
+step = 0.01
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("HealthBar:theme_override_styles/fill:bg_color")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(2, 1),
+"update": 0,
+"values": [Color(0.9098039, 0.27058825, 0.21568628, 1), Color(0.2627451, 0.88235295, 0.7019608, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_rix40"]
+_data = {
+&"RESET": SubResource("Animation_rix40"),
+&"damage": SubResource("Animation_pknkg")
+}
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tj6oj"]
 bg_color = Color(0.2627451, 0.88235295, 0.7019608, 1)
 border_width_left = 1
@@ -116,6 +155,13 @@ script = ExtResource("1_qm3y6")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=611839163]
 libraries/ = SubResource("AnimationLibrary_tj6oj")
+
+[node name="HealthBarAnimationPlayer" type="AnimationPlayer" parent="." unique_id=1070119486]
+libraries/ = SubResource("AnimationLibrary_rix40")
+
+[node name="VelocityComponent" parent="." unique_id=1336253212 instance=ExtResource("3_tj6oj")]
+max_speed = 90
+acceleration = 50.0
 
 [node name="HealthComponent" parent="." unique_id=1523482959 instance=ExtResource("2_ss5pk")]
 max_health = 100.0

@@ -22,6 +22,8 @@ func tween_collect(percent: float, start_position: Vector2):
 
 func collect():
 	GameEvents.emit_experience_vial_collected(1)
+	$RandomStreamPlayer2DComponent.play_random()
+	await $RandomStreamPlayer2DComponent.finished
 	queue_free()
 
 
