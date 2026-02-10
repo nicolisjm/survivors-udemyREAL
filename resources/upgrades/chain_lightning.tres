@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="Ability" format=3 uid="uid://d3u6ayh0iq5jw"]
+
+[ext_resource type="PackedScene" uid="uid://c3ab540ud0dji" path="res://scenes/ability/chainLightning_ability_controller/chain_lightning_ability_controller.tscn" id="1_ci8q0"]
+[ext_resource type="Script" uid="uid://bpw3kuyytb1cx" path="res://resources/upgrades/ability.gd" id="2_0c5wb"]
+
+[resource]
+script = ExtResource("2_0c5wb")
+ability_controller_scene = ExtResource("1_ci8q0")
+id = "chain_lightning"
+max_quantity = 1
+name = "Chain Lightning"
+description = "New skill:
+Casts a lightning bolt that chains to nearby enemies."

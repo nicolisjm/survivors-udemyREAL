@@ -1,18 +1,29 @@
 extends Node
 
-const MAX_RANGE = 150
+const MAX_RANGE = 100
+const MIN_WAIT_TIME := 0.01
 
 @export var sword_ability: PackedScene
 
 var base_damage = 5
-var additional_damage_percent = 1
 var base_wait_time
+var _quantity: int = 1
 
 func _ready() -> void:
 	base_wait_time = $Timer.wait_time
 	$Timer.timeout.connect(on_timer_timeout)
 	GameEvents.ability_upgrade_added.connect(on_ability_upgrade_added)
-	
+	_apply_attack_speed()
+
+
+func _apply_attack_speed() -> void:
+	var player = get_tree().get_first_node_in_group("player")
+	var mult = player.get("attack_speed_multiplier") if player else 1.0
+	if mult <= 0.0:
+		mult = 1.0
+	$Timer.wait_time = max(base_wait_time / mult, MIN_WAIT_TIME)
+	$Timer.start()
+
 
 func on_timer_timeout():
 	var player = get_tree().get_first_node_in_group("player") as Node2D
@@ -20,44 +31,31 @@ func on_timer_timeout():
 		return
 	var enemies = get_tree().get_nodes_in_group("enemy")
 	enemies = enemies.filter(func(enemy: Node2D):
-		return enemy.global_position.distance_squared_to(player.global_position) <  pow(MAX_RANGE, 2)
+		return enemy.global_position.distance_squared_to(player.global_position) < pow(MAX_RANGE, 2)
 	)
-	
-	if enemies.size() == 0:
+	if enemies.is_empty():
 		return
-		
 	enemies.sort_custom(func(a: Node2D, b: Node2D):
-		var a_distance = a.global_position.distance_squared_to(player.global_position)
-		var b_distance = b.global_position.distance_squared_to(player.global_position)
-		return a_distance < b_distance
+		return a.global_position.distance_squared_to(player.global_position) < b.global_position.distance_squared_to(player.global_position)
 	)
-		
-	var sword_instance = sword_ability.instantiate() as SwordAbility
+
+	var damage_mult = player.damage_multiplier if player.get("damage_multiplier") != null else 1.0
+	var damage = base_damage * damage_mult
 	var foreground_layer = get_tree().get_first_node_in_group("foreground_layer")
-	foreground_layer.add_child(sword_instance)
-	
-	sword_instance.hitbox_component.damage = base_damage * additional_damage_percent
-	
-	sword_instance.global_position = enemies[0].global_position
-	sword_instance.global_position += Vector2.RIGHT.rotated(randf_range(0, TAU)) * 4
-	
-	var enemy_direction = enemies[0].global_position - sword_instance.global_position
-	sword_instance.rotation = enemy_direction.angle()
+	# 1st sword → closest, 2nd → next closest, etc.
+	for i in _quantity:
+		if i >= enemies.size():
+			break
+		var target = enemies[i] as Node2D
+		var sword_instance = sword_ability.instantiate() as SwordAbility
+		foreground_layer.add_child(sword_instance)
+		sword_instance.hitbox_component.damage = damage
+		sword_instance.global_position = target.global_position + Vector2.RIGHT.rotated(randf_range(0, TAU)) * 4
+		sword_instance.rotation = (target.global_position - sword_instance.global_position).angle()
 
 
 func on_ability_upgrade_added(upgrade: AbilityUpgrade, current_upgrades: Dictionary):
-	if upgrade.id == "sword_rate":
-		var quantity = current_upgrades["sword_rate"]["quantity"]
-		var per_upgrade_reduction = 0.1
-		var multiplier = pow(1.0 - per_upgrade_reduction, quantity)
-		var min_wait = 0.01 # hard safety floor
-		$Timer.wait_time = max(base_wait_time * multiplier, min_wait)
-		$Timer.start()
-		print($Timer.wait_time)
-	elif upgrade.id == "sword_damage":
-		additional_damage_percent = 1 + (current_upgrades["sword_damage"]["quantity"] * .20)
-	
-	
-	
-	
-	
+	if upgrade.id == "sword_quantity":
+		_quantity = 1 + current_upgrades["sword_quantity"]["quantity"]
+	elif upgrade.id in ["generic_attack_speed_10", "generic_attack_speed_20", "generic_attack_speed_30"]:
+		_apply_attack_speed()

@@ -1,0 +1,7 @@
+[gd_resource type="Resource" script_class="HitSparkConfig" format=3 uid="uid://dluh8mxgviqwi"]
+
+[ext_resource type="Script" uid="uid://b7sv4hu3dhblj" path="res://resources/effects/hit_spark_config.gd" id="1_script"]
+
+[resource]
+script = ExtResource("1_script")
+color = Color(0.9019608, 0.9490196, 1, 1)

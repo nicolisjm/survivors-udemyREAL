@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="AbilityUpgrade" format=3 uid="uid://bi132cbkhvnx7"]
+
+[ext_resource type="Script" uid="uid://dwgsoek0kp41e" path="res://resources/upgrades/ability_upgrade.gd" id="1_spd20"]
+
+[resource]
+script = ExtResource("1_spd20")
+id = "generic_attack_speed_20"
+max_quantity = 3
+name = "Attack Speed +20%"
+description = "Increases all ability attack speed by 20%"

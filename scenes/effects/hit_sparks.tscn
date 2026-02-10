@@ -1,0 +1,22 @@
+[gd_scene format=3 uid="uid://b7q6s5742iffw"]
+
+[ext_resource type="Script" uid="uid://b7p1llguqf572" path="res://scenes/effects/hit_sparks.gd" id="1_script"]
+
+[node name="HitSparks" type="Node2D" unique_id=117048191]
+script = ExtResource("1_script")
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="." unique_id=1951923748]
+emitting = false
+amount = 10
+lifetime = 0.4
+one_shot = true
+explosiveness = 1.0
+randomness = 1.0
+direction = Vector2(0, -1)
+spread = 180.0
+gravity = Vector2(0, 80)
+initial_velocity_min = 20.0
+initial_velocity_max = 60.0
+scale_amount_min = 2.0
+scale_amount_max = 4.0
+color = Color(0.9, 0.95, 1, 0.9)

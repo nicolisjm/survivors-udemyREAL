@@ -103,6 +103,4 @@ interpolate = false
 process_material = SubResource("ParticleProcessMaterial_iwr6c")
 
 [node name="HitRandomAudioPlayerComponent" parent="." unique_id=2042857901 instance=ExtResource("3_xrqyr")]
-volume_db = -2.0
-max_distance = 300.0
 streams = Array[AudioStream]([ExtResource("4_ihyrx"), ExtResource("5_0i5bu"), ExtResource("6_5eenh"), ExtResource("7_sscbb"), ExtResource("8_eigis")])

@@ -1,0 +1,10 @@
+[gd_scene format=3 uid="uid://c3ab540ud0dji"]
+
+[ext_resource type="Script" uid="uid://bixhpsdur20yg" path="res://scenes/ability/chainLightning_ability_controller/chain_lightning_ability_controller.gd" id="1_ft5xs"]
+
+[node name="ChainLightningAbilityController" type="Node" unique_id=2019363455]
+script = ExtResource("1_ft5xs")
+
+[node name="Timer" type="Timer" parent="." unique_id=445562037]
+wait_time = 2.0
+autostart = true

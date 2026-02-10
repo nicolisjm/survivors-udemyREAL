@@ -1,0 +1,26 @@
+[gd_scene format=3 uid="uid://dqwp7bpv4vlc"]
+
+[ext_resource type="Script" uid="uid://dj8holk6282c8" path="res://scenes/ability/chainLightning_ability/chain_lightning_ability.gd" id="1_f6nq1"]
+
+[sub_resource type="Gradient" id="Gradient_glow"]
+interpolation_mode = 2
+offsets = PackedFloat32Array(0, 0.5, 1)
+colors = PackedColorArray(0.4, 0.7, 1, 0.3, 0.6, 0.95, 1, 0.5, 0.5, 0.8, 1, 0)
+
+[sub_resource type="Gradient" id="Gradient_vpbsp"]
+interpolation_mode = 2
+offsets = PackedFloat32Array(0.3192771, 0.5180723, 0.7409639)
+colors = PackedColorArray(0.47058824, 0.48235294, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1)
+
+[node name="ChainLightningAbility" type="Node2D" unique_id=1257547507]
+script = ExtResource("1_f6nq1")
+
+[node name="GlowLine" type="Line2D" parent="." unique_id=45655385]
+width = 4.0
+default_color = Color(0.6, 0.85, 1, 0.6)
+gradient = SubResource("Gradient_glow")
+
+[node name="Line2D" type="Line2D" parent="." unique_id=989124724]
+width = 3.0
+default_color = Color(0.3667916, 0.89446074, 0.84992194, 1)
+gradient = SubResource("Gradient_vpbsp")
