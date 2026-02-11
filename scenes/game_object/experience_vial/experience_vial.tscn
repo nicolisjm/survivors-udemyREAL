@@ -1,22 +1,37 @@
 [gd_scene format=3 uid="uid://bfptgeuipljq7"]
 
 [ext_resource type="Script" uid="uid://orgyl1r0m8cy" path="res://scenes/game_object/experience_vial/experience_vial.gd" id="1_jmuu1"]
-[ext_resource type="Texture2D" uid="uid://bf56sjhhoogjj" path="res://scenes/game_object/experience_vial/experience_vial.png" id="1_krkhv"]
-[ext_resource type="PackedScene" uid="uid://cyhbqin4pp077" path="res://scenes/component/random_stream_player_2d_component.tscn" id="2_4w5ru"]
-[ext_resource type="AudioStream" uid="uid://urus0kr5ij6a" path="res://assets/audio/impactGeneric_light_000.ogg" id="3_2rrn7"]
-[ext_resource type="AudioStream" uid="uid://c8ymh7brcht86" path="res://assets/audio/impactGeneric_light_001.ogg" id="4_3wn1x"]
-[ext_resource type="AudioStream" uid="uid://mv8f13tjox1r" path="res://assets/audio/impactGeneric_light_002.ogg" id="5_bscgk"]
-[ext_resource type="AudioStream" uid="uid://ckobkityqa00b" path="res://assets/audio/impactGeneric_light_003.ogg" id="6_r5rcv"]
-[ext_resource type="AudioStream" uid="uid://d2b6yabv04mbq" path="res://assets/audio/impactGeneric_light_004.ogg" id="7_lv4lq"]
+[ext_resource type="AudioStream" uid="uid://cxn5lnp8yrbfh" path="res://assets/audio/sfx/universfield-level-up-02-199574.mp3" id="3_0himn"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_jmuu1"]
-radius = 16.0
+radius = 20.0
+
+[sub_resource type="Curve" id="Curve_glow"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_glow"]
+curve = SubResource("Curve_glow")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_glow"]
+lifetime_randomness = 0.5
+particle_flag_disable_z = true
+emission_shape = 1
+emission_sphere_radius = 3.0
+spread = 180.0
+initial_velocity_min = 30.0
+initial_velocity_max = 50.0
+gravity = Vector3(0, 98, 0)
+scale_curve = SubResource("CurveTexture_glow")
+color = Color(1, 1, 1, 0.19607843)
 
 [node name="ExperienceVial" type="Node2D" unique_id=1861385246]
 script = ExtResource("1_jmuu1")
 
-[node name="RandomStreamPlayer2DComponent" parent="." unique_id=2042857901 instance=ExtResource("2_4w5ru")]
-streams = Array[AudioStream]([ExtResource("3_2rrn7"), ExtResource("4_3wn1x"), ExtResource("5_bscgk"), ExtResource("6_r5rcv"), ExtResource("7_lv4lq")])
+[node name="PickupStreamPlayer" type="AudioStreamPlayer2D" parent="." unique_id=1037001708]
+stream = ExtResource("3_0himn")
+volume_db = -8.0
+bus = &"sfx"
 
 [node name="Area2D" type="Area2D" parent="." unique_id=974409118]
 collision_layer = 0
@@ -25,5 +40,13 @@ collision_mask = 16
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=1275047156]
 shape = SubResource("CircleShape2D_jmuu1")
 
-[node name="Sprite2D" type="Sprite2D" parent="." unique_id=793354239]
-texture = ExtResource("1_krkhv")
+[node name="OrbVisual" type="Node2D" parent="." unique_id=498818635]
+
+[node name="InnerOrb" type="Polygon2D" parent="OrbVisual" unique_id=610758844]
+
+[node name="GlowRing" type="Polygon2D" parent="OrbVisual" unique_id=2037790727]
+
+[node name="GlowParticles" type="GPUParticles2D" parent="OrbVisual" unique_id=1108037809]
+amount = 12
+lifetime = 0.2
+process_material = SubResource("ParticleProcessMaterial_glow")

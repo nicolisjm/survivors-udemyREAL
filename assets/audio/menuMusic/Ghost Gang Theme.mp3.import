@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://l3aqwjkhi4j3"
+path="res://.godot/imported/Ghost Gang Theme.mp3-0449ef6385266330ed594fbabb2a4295.mp3str"
+
+[deps]
+
+source_file="res://assets/audio/menuMusic/Ghost Gang Theme.mp3"
+dest_files=["res://.godot/imported/Ghost Gang Theme.mp3-0449ef6385266330ed594fbabb2a4295.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

@@ -2,6 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://buy13ljadjl7f" path="res://scenes/UI/ability_upgrade_card.tscn" id="1_auatr"]
 [ext_resource type="Script" uid="uid://bs7dcbe42bev5" path="res://scenes/UI/upgrade_screen.gd" id="1_l62tb"]
+[ext_resource type="AudioStream" uid="uid://cle7qwiaft7fl" path="res://assets/audio/sfx/floraphonic-playful-casino-slot-machine-bonus-1-183918.mp3" id="3_klice"]
 
 [sub_resource type="Animation" id="Animation_l62tb"]
 length = 0.001
@@ -67,6 +68,13 @@ upgrade_card_scene = ExtResource("1_auatr")
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=859162989]
 libraries/ = SubResource("AnimationLibrary_rqbkw")
 autoplay = &"in"
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=1383582366]
+process_mode = 4
+stream = ExtResource("3_klice")
+pitch_scale = 1.4
+autoplay = true
+bus = &"sfx"
 
 [node name="ColorRect" type="ColorRect" parent="." unique_id=1122766310]
 anchors_preset = 15

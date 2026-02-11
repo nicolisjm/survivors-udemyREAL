@@ -6,11 +6,11 @@
 [ext_resource type="PackedScene" uid="uid://40irphxwdaut" path="res://scenes/component/health_component.tscn" id="2_ss5pk"]
 [ext_resource type="PackedScene" uid="uid://d4js22n6nnan7" path="res://scenes/component/velocity_component.tscn" id="3_tj6oj"]
 [ext_resource type="PackedScene" uid="uid://cyhbqin4pp077" path="res://scenes/component/random_stream_player_2d_component.tscn" id="5_gbew5"]
-[ext_resource type="AudioStream" uid="uid://ul1appa5560w" path="res://assets/audio/impactMining_000.ogg" id="6_oxhc3"]
-[ext_resource type="AudioStream" uid="uid://cig686d3g2jau" path="res://assets/audio/impactMining_001.ogg" id="7_mxgtx"]
-[ext_resource type="AudioStream" uid="uid://0leuhcu2a7v" path="res://assets/audio/impactMining_002.ogg" id="8_l1g56"]
-[ext_resource type="AudioStream" uid="uid://dqb1etnj4857h" path="res://assets/audio/impactMining_003.ogg" id="9_llc7q"]
-[ext_resource type="AudioStream" uid="uid://btnerax05oc6p" path="res://assets/audio/impactMining_004.ogg" id="10_bfkik"]
+[ext_resource type="AudioStream" uid="uid://ul1appa5560w" path="res://assets/audio/sfx/impactMining_000.ogg" id="6_oxhc3"]
+[ext_resource type="AudioStream" uid="uid://cig686d3g2jau" path="res://assets/audio/sfx/impactMining_001.ogg" id="7_mxgtx"]
+[ext_resource type="AudioStream" uid="uid://0leuhcu2a7v" path="res://assets/audio/sfx/impactMining_002.ogg" id="8_l1g56"]
+[ext_resource type="AudioStream" uid="uid://dqb1etnj4857h" path="res://assets/audio/sfx/impactMining_003.ogg" id="9_llc7q"]
+[ext_resource type="AudioStream" uid="uid://btnerax05oc6p" path="res://assets/audio/sfx/impactMining_004.ogg" id="10_bfkik"]
 
 [sub_resource type="Animation" id="Animation_tj6oj"]
 length = 0.001

@@ -3,11 +3,10 @@
 [ext_resource type="Script" uid="uid://ciiuo5yyvicdq" path="res://scenes/component/death_component.gd" id="1_iwr6c"]
 [ext_resource type="Texture2D" uid="uid://dwx2q44xypxku" path="res://scenes/game_object/basic_enemy/basic_enemy.png" id="1_lgj88"]
 [ext_resource type="PackedScene" uid="uid://cyhbqin4pp077" path="res://scenes/component/random_stream_player_2d_component.tscn" id="3_xrqyr"]
-[ext_resource type="AudioStream" uid="uid://dybwgjmn4hiq8" path="res://assets/audio/footstep_carpet_000.ogg" id="4_ihyrx"]
-[ext_resource type="AudioStream" uid="uid://cwk2rjwwsyuaq" path="res://assets/audio/footstep_carpet_001.ogg" id="5_0i5bu"]
-[ext_resource type="AudioStream" uid="uid://3n76hibx7vcy" path="res://assets/audio/footstep_carpet_002.ogg" id="6_5eenh"]
-[ext_resource type="AudioStream" uid="uid://cp1634yifrfmr" path="res://assets/audio/footstep_carpet_003.ogg" id="7_sscbb"]
-[ext_resource type="AudioStream" uid="uid://ulvt8n3qv5q6" path="res://assets/audio/footstep_carpet_004.ogg" id="8_eigis"]
+[ext_resource type="AudioStream" uid="uid://dviwh1e52s4vh" path="res://assets/audio/sfx/u_xjrmmgxfru-flesh-impact-266316.mp3" id="4_nsfay"]
+[ext_resource type="AudioStream" uid="uid://dy2rpdm3o3sr0" path="res://assets/audio/sfx/u_xjrmmgxfru-hit-flesh-01-266311.mp3" id="5_xrqyr"]
+[ext_resource type="AudioStream" uid="uid://c5juby7ubpi2f" path="res://assets/audio/sfx/u_xjrmmgxfru-hit-flesh-02-266309.mp3" id="6_ihyrx"]
+[ext_resource type="AudioStream" uid="uid://dmfwj2tvb2c7l" path="res://assets/audio/sfx/u_xjrmmgxfru-hit-flesh-03-266308.mp3" id="7_0i5bu"]
 
 [sub_resource type="Animation" id="Animation_lgj88"]
 length = 0.001
@@ -103,4 +102,4 @@ interpolate = false
 process_material = SubResource("ParticleProcessMaterial_iwr6c")
 
 [node name="HitRandomAudioPlayerComponent" parent="." unique_id=2042857901 instance=ExtResource("3_xrqyr")]
-streams = Array[AudioStream]([ExtResource("4_ihyrx"), ExtResource("5_0i5bu"), ExtResource("6_5eenh"), ExtResource("7_sscbb"), ExtResource("8_eigis")])
+streams = Array[AudioStream]([ExtResource("4_nsfay"), ExtResource("5_xrqyr"), ExtResource("6_ihyrx"), ExtResource("7_0i5bu")])

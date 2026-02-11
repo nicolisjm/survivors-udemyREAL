@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://dtfubw7qpljtu"
+path="res://.godot/imported/Tell Me You Know.mp3-1d8acb302a4bd1e1e378fa71474f3d11.mp3str"
+
+[deps]
+
+source_file="res://assets/audio/arenaMusic/Tell Me You Know.mp3"
+dest_files=["res://.godot/imported/Tell Me You Know.mp3-1d8acb302a4bd1e1e378fa71474f3d11.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

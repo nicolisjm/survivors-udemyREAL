@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://bqxvial_sound_mgr"]
+
+[ext_resource type="Script" path="res://scenes/autoload/experience_vial_sound_manager.gd" id="1_mgr"]
+
+[node name="ExperienceVialSoundManager" type="Node"]
+script = ExtResource("1_mgr")
