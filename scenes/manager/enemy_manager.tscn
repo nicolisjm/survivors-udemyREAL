@@ -2,12 +2,22 @@
 
 [ext_resource type="Script" uid="uid://dvefc1djmbm27" path="res://scenes/manager/enemy_manager.gd" id="1_jybml"]
 [ext_resource type="PackedScene" uid="uid://bjqj2qhkjcnt" path="res://scenes/game_object/basic_enemy/basic_enemy.tscn" id="2_1w3g6"]
+[ext_resource type="PackedScene" uid="uid://ksokq6ks6gqr" path="res://scenes/game_object/basic_enemy_2/basic_enemy_2.tscn" id="2_b2"]
 [ext_resource type="PackedScene" uid="uid://co08vf0s0maii" path="res://scenes/game_object/wizard_enemy/wizard_enemy.tscn" id="3_bortd"]
+[ext_resource type="PackedScene" uid="uid://b7hbijp84qv6t" path="res://scenes/game_object/bat_enemy/bat_enemy.tscn" id="4_bat"]
+[ext_resource type="PackedScene" uid="uid://b5n3v3y1o4wyp" path="res://scenes/game_object/ghost_enemy/ghost_enemy.tscn" id="5_ghost"]
+[ext_resource type="PackedScene" uid="uid://ky342sbreir0" path="res://scenes/game_object/spider_enemy/spider_enemy.tscn" id="6_spider"]
+[ext_resource type="PackedScene" uid="uid://c3f5m13xjqeua" path="res://scenes/game_object/ogre_enemy/ogre_enemy.tscn" id="7_ogre"]
 
 [node name="EnemyManager" type="Node" unique_id=29955944]
 script = ExtResource("1_jybml")
 basic_enemy_scene = ExtResource("2_1w3g6")
+basic_enemy_2_scene = ExtResource("2_b2")
 wizard_enemy_scene = ExtResource("3_bortd")
+bat_enemy_scene = ExtResource("4_bat")
+ghost_enemy_scene = ExtResource("5_ghost")
+spider_enemy_scene = ExtResource("6_spider")
+ogre_enemy_scene = ExtResource("7_ogre")
 
 [node name="Timer" type="Timer" parent="." unique_id=1670498238]
 one_shot = true

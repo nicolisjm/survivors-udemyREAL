@@ -5,6 +5,6 @@
 [resource]
 script = ExtResource("1_dmg10")
 id = "generic_damage_10"
-max_quantity = 5
+max_quantity = 99
 name = "Damage +10%"
 description = "Increases all ability damage by 10%"

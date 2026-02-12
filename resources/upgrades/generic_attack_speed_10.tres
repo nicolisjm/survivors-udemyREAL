@@ -5,6 +5,6 @@
 [resource]
 script = ExtResource("1_spd10")
 id = "generic_attack_speed_10"
-max_quantity = 5
+max_quantity = 10
 name = "Attack Speed +10%"
 description = "Increases all ability attack speed by 10%"

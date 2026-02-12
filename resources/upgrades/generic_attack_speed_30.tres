@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="AbilityUpgrade" format=3 uid="uid://c7generic_attack_speed_30"]
+[gd_resource type="Resource" script_class="AbilityUpgrade" format=3 uid="uid://1lqplarn3g3h"]
 
 [ext_resource type="Script" uid="uid://dwgsoek0kp41e" path="res://resources/upgrades/ability_upgrade.gd" id="1_spd30"]
 

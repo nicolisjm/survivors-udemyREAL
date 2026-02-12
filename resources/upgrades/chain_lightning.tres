@@ -11,3 +11,5 @@ max_quantity = 1
 name = "Chain Lightning"
 description = "New skill:
 Casts a lightning bolt that chains to nearby enemies."
+ability_id = "chain_lightning"
+level = 1

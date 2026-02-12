@@ -5,5 +5,7 @@
 [resource]
 script = ExtResource("1_bxluk")
 id = "axe_damage"
-name = "Axe Damage"
-description = "Increases axe damage by 20%"
+name = "Axe Damage +2"
+description = "+2 base damage. Stacks with generic damage%."
+ability_id = "axe"
+level = 2

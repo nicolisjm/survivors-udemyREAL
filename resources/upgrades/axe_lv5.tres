@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="AbilityUpgrade" format=3 uid="uid://dbuks4ocbmijf"]
+
+[ext_resource type="Script" uid="uid://dwgsoek0kp41e" path="res://resources/upgrades/ability_upgrade.gd" id="1_script"]
+
+[resource]
+script = ExtResource("1_script")
+id = "axe_lv5"
+name = "Axe Damage +2"
+description = "+2 base damage. Stacks with generic damage%."
+ability_id = "axe"
+level = 5

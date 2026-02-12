@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="AbilityUpgrade" format=3 uid="uid://c4eyxyp264lgx"]
+
+[ext_resource type="Script" uid="uid://dwgsoek0kp41e" path="res://resources/upgrades/ability_upgrade.gd" id="1_script"]
+
+[resource]
+script = ExtResource("1_script")
+id = "sword_lv2"
+name = "Sword Damage +2"
+description = "+2 base damage. Stacks with generic damage%."
+ability_id = "sword"
+level = 2

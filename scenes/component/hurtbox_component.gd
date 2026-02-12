@@ -16,10 +16,15 @@ func _ready() -> void:
 
 ## Call when this hurtbox is hit (by overlap or by code, e.g. chain lightning).
 ## spark_config: optional; use ability-specific .tres for different looks, or null for default sparks.
-func apply_damage(amount: float, spark_config: HitSparkConfig = null) -> void:
+## stun_duration: if > 0, freezes the parent node (e.g. enemy) in place for this many seconds.
+func apply_damage(amount: float, spark_config: HitSparkConfig = null, stun_duration: float = 0.0) -> void:
 	if health_component == null:
 		return
 	health_component.damage(amount)
+	if stun_duration > 0.0:
+		var parent_node = get_parent()
+		if parent_node:
+			parent_node.set_meta("stun_until", Time.get_ticks_msec() / 1000.0 + stun_duration)
 	var foreground = get_tree().get_first_node_in_group("foreground_layer")
 	if foreground:
 		var floating_text = floating_text_scene.instantiate() as Node2D

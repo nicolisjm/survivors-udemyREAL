@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="AbilityUpgrade" format=3 uid="uid://doyr4vuqn7sji"]
+
+[ext_resource type="Script" uid="uid://dwgsoek0kp41e" path="res://resources/upgrades/ability_upgrade.gd" id="1_script"]
+
+[resource]
+script = ExtResource("1_script")
+id = "axe_lv8"
+name = "Much Longer Flight"
+description = "15% longer orbit and 15% increased size"
+ability_id = "axe"
+level = 8

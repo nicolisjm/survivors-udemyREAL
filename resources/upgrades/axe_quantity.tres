@@ -5,6 +5,7 @@
 [resource]
 script = ExtResource("1_script")
 id = "axe_quantity"
-max_quantity = 3
-name = "Extra Axes"
-description = "Orbits an additional axe around you"
+name = "Extra Axe"
+description = "Orbits an additional axe around you."
+ability_id = "axe"
+level = 4

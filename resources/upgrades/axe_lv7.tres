@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="AbilityUpgrade" format=3 uid="uid://b8cedmq2bkqt0"]
+
+[ext_resource type="Script" uid="uid://dwgsoek0kp41e" path="res://resources/upgrades/ability_upgrade.gd" id="1_script"]
+
+[resource]
+script = ExtResource("1_script")
+id = "axe_lv7"
+name = "Larger Axe"
+description = "15% increased size (visual and hitbox)."
+ability_id = "axe"
+level = 7

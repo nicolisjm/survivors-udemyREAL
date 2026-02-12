@@ -20,6 +20,7 @@ func _process(_delta: float) -> void:
 	var next_time_target = timer.wait_time - ((arena_difficulty + 1) * difficulty_interval)
 	if timer.time_left <= next_time_target:
 		arena_difficulty += 1
+		print("[ArenaTimeManager] arena_difficulty now = ", arena_difficulty, " (emitting signal)")
 		arena_difficulty_increased.emit(arena_difficulty)
 
 

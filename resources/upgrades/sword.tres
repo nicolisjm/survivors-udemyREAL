@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="Ability" format=3]
+
+[ext_resource type="PackedScene" uid="uid://bqdioauh5c0xw" path="res://scenes/ability/sword_ability_controller/sword_ability_controller.tscn" id="1_controller"]
+[ext_resource type="Script" uid="uid://bpw3kuyytb1cx" path="res://resources/upgrades/ability.gd" id="2_ability"]
+
+[resource]
+script = ExtResource("2_ability")
+ability_controller_scene = ExtResource("1_controller")
+ability_id = "sword"
+id = "sword"
+level = 1
+max_quantity = 1
+name = "Sword"
+description = "Pre-attached: slashes the nearest enemy."

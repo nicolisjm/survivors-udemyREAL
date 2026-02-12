@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="AbilityUpgrade" format=3 uid="uid://dlc6p4aedhwwl"]
+
+[ext_resource type="Script" uid="uid://dwgsoek0kp41e" path="res://resources/upgrades/ability_upgrade.gd" id="1_script"]
+
+[resource]
+script = ExtResource("1_script")
+id = "chain_lightning_lv8"
+name = "Faster Bolts"
+description = "Base attack rate -0.2s again (faster chain lightning)."
+ability_id = "chain_lightning"
+level = 8

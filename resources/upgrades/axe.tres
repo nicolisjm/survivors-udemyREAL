@@ -11,3 +11,5 @@ max_quantity = 1
 name = "Blessed Axe"
 description = "New skill:
 Periodically sends out a spinning axe."
+ability_id = "axe"
+level = 1
