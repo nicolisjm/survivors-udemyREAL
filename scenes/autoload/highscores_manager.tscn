@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://bhighscores_mgr"]
+
+[ext_resource type="Script" path="res://scenes/autoload/highscores_manager.gd" id="1_script"]
+
+[node name="HighscoresManager" type="Node"]
+script = ExtResource("1_script")

@@ -1,9 +1,0 @@
-[gd_resource type="Resource" script_class="AbilityUpgrade" format=3 uid="uid://bfgpggoyuklpq"]
-
-[ext_resource type="Script" uid="uid://dwgsoek0kp41e" path="res://resources/upgrades/ability_upgrade.gd" id="1_08fvt"]
-
-[resource]
-script = ExtResource("1_08fvt")
-id = "chain_lightning_rate"
-name = "Chain Lightning Speed"
-description = "Increases Chain Lightning attack speed by 10%"

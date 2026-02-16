@@ -5,7 +5,8 @@
 [resource]
 script = ExtResource("1_script")
 id = "sword_lv6"
-name = "Faster Slashes"
-description = "Base attack rate -0.2s again (faster attacks)."
+name = "Sword"
+sub_name = "Rhythm"
+description = "Base attack rate -0.2s"
 ability_id = "sword"
 level = 6

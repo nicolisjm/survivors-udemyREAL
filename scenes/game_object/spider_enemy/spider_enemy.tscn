@@ -113,10 +113,9 @@ radius = 12.0
 [sub_resource type="CircleShape2D" id="CircleShape2D_body"]
 radius = 6.0
 
-[node name="SpiderEnemy" type="CharacterBody2D" unique_id=1348252512 groups=["enemy"]]
+[node name="SpiderEnemy" type="Area2D" unique_id=1348252512 groups=["enemy"]]
 collision_layer = 8
-collision_mask = 9
-motion_mode = 1
+collision_mask = 0
 script = ExtResource("1_script")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=251353919]

@@ -5,7 +5,8 @@
 [resource]
 script = ExtResource("1_script")
 id = "sword_lv2"
-name = "Sword Damage +2"
-description = "+2 base damage. Stacks with generic damage%."
+name = "Sword"
+sub_name = "Heavy Slash"
+description = "+2 base damage"
 ability_id = "sword"
 level = 2

@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="AbilityUpgrade" format=3 uid="uid://c3xcc41t74d4w"]
+
+[ext_resource type="Script" uid="uid://dwgsoek0kp41e" path="res://resources/upgrades/ability_upgrade.gd" id="1_script"]
+
+[resource]
+script = ExtResource("1_script")
+id = "axe_lv3"
+name = "Blessed Axe"
+sub_name = "Bigger Axe"
+description = "15% increased axe size"
+ability_id = "axe"
+level = 3

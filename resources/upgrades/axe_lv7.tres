@@ -5,7 +5,8 @@
 [resource]
 script = ExtResource("1_script")
 id = "axe_lv7"
-name = "Larger Axe"
-description = "15% increased size (visual and hitbox)."
+name = "Blessed Axe"
+sub_name = "Giantic Axe"
+description = "15% increased size"
 ability_id = "axe"
 level = 7

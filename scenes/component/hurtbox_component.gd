@@ -30,9 +30,7 @@ func apply_damage(amount: float, spark_config: HitSparkConfig = null, stun_durat
 		var floating_text = floating_text_scene.instantiate() as Node2D
 		foreground.add_child(floating_text)
 		floating_text.global_position = global_position + (Vector2.UP * 16)
-		var format_string = "%0.1f"
-		if round(amount) == amount:
-			format_string = "%0.0f"
+		var format_string = "%0.0f"
 		floating_text.start(format_string % amount)
 		# Generic hit sparks: configurable per ability via spark_config.
 		var sparks = hit_sparks_scene.instantiate() as Node2D

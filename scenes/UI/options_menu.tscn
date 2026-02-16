@@ -1,10 +1,12 @@
 [gd_scene format=4 uid="uid://dlrffhcf4481b"]
 
 [ext_resource type="Script" uid="uid://bwfhtbd115oy1" path="res://scenes/UI/options_menu.gd" id="1_qgort"]
+[ext_resource type="PackedScene" uid="uid://wgqo2sfosuiu" path="res://scenes/UI/vignette.tscn" id="2_ijsq6"]
 [ext_resource type="TileSet" uid="uid://cc6ovf2ndyenj" path="res://resources/tile_set.tres" id="3_5tpni"]
 [ext_resource type="PackedScene" uid="uid://daoc7rc3himy6" path="res://scenes/UI/sound_button.tscn" id="4_bj8r8"]
 
 [node name="OptionsMenu" type="CanvasLayer" unique_id=422418085]
+layer = 2
 script = ExtResource("1_qgort")
 
 [node name="TileMapLayer" type="TileMapLayer" parent="." unique_id=2129863887]
@@ -38,8 +40,7 @@ theme_override_constants/separation = 24
 
 [node name="Label" type="Label" parent="MarginContainer/PanelContainer/MarginContainer/VBoxContainer" unique_id=2106150732]
 layout_mode = 2
-theme_override_colors/font_shadow_color = Color(0.24705882, 0.14901961, 0.19215687, 1)
-theme_override_colors/font_outline_color = Color(0.24705882, 0.14901961, 0.19215687, 1)
+theme_type_variation = &"BlueOutlineLabel"
 theme_override_constants/shadow_offset_x = 0
 theme_override_constants/shadow_offset_y = 1
 theme_override_constants/outline_size = 8
@@ -56,6 +57,7 @@ layout_mode = 2
 
 [node name="Label" type="Label" parent="MarginContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/SfxOptionContainer" unique_id=1523006987]
 layout_mode = 2
+theme_type_variation = &"BlueOutlineLabel"
 text = "SFX Volume"
 
 [node name="SFXSlider" type="HSlider" parent="MarginContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/SfxOptionContainer" unique_id=739559606]
@@ -69,6 +71,7 @@ layout_mode = 2
 
 [node name="Label" type="Label" parent="MarginContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/MusicOptionContainer" unique_id=1201718367]
 layout_mode = 2
+theme_type_variation = &"BlueOutlineLabel"
 text = "Music Volume"
 
 [node name="MusicSlider" type="HSlider" parent="MarginContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/MusicOptionContainer" unique_id=292086874]
@@ -82,6 +85,7 @@ layout_mode = 2
 
 [node name="Label" type="Label" parent="MarginContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/WindowOptionContainer" unique_id=1563759678]
 layout_mode = 2
+theme_type_variation = &"BlueOutlineLabel"
 text = "Window Mode"
 
 [node name="WindowButton" parent="MarginContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/WindowOptionContainer" unique_id=618049927 instance=ExtResource("4_bj8r8")]
@@ -99,3 +103,6 @@ layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 4
 text = "Back"
+
+[node name="Vignette" parent="." unique_id=1374168513 instance=ExtResource("2_ijsq6")]
+layer = 3

@@ -153,7 +153,7 @@ So you need:
 
 ## Step 8 (optional): Rate and damage upgrades
 
-**Goal:** “Chain Lightning Speed” and “Chain Lightning Damage” (or “Chain Count”) like axe_rate and axe_damage.
+**Goal:** “Chain Lightning Speed” and “Chain Lightning Damage” (or “Chain Count”) like axe_rate and axe_lv2.
 
 **What to do:**
 

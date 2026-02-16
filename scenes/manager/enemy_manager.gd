@@ -77,6 +77,24 @@ func on_timer_timeout():
 			entities_layer.add_child(enemy)
 			var offset = Vector2(randf_range(-GROUP_SPAWN_OFFSET_RADIUS, GROUP_SPAWN_OFFSET_RADIUS), randf_range(-GROUP_SPAWN_OFFSET_RADIUS, GROUP_SPAWN_OFFSET_RADIUS))
 			enemy.global_position = base_pos + offset
+			_apply_post_10_min_scaling(enemy)
+
+
+func _apply_post_10_min_scaling(enemy: Node2D) -> void:
+	if _arena_difficulty <= 120:
+		return
+	var post_10_min_levels := _arena_difficulty - 120
+	var multiplier := 1.0 + post_10_min_levels * 0.01
+
+	var health := enemy.get_node_or_null("HealthComponent") as HealthComponent
+	if health:
+		health.max_health *= multiplier
+		health.current_health = health.max_health
+
+	var velocity := enemy.get_node_or_null("VelocityComponent")
+	if velocity:
+		velocity.max_speed = int(velocity.max_speed * multiplier)
+		velocity.acceleration *= multiplier
 
 
 func on_arena_difficulty_increased(arena_difficulty: int):
@@ -93,8 +111,8 @@ func on_arena_difficulty_increased(arena_difficulty: int):
 		enemy_table.add_item(bat_enemy_scene, 1)
 		print("[EnemyManager] difficulty 12: ADDED bat_enemy to table (weight 1)")
 	elif arena_difficulty == 24:
-		enemy_table.add_item(wizard_enemy_scene, 30)
-		print("[EnemyManager] difficulty 24: ADDED wizard_enemy to table (weight 30)")
+		enemy_table.add_item(wizard_enemy_scene, 25)
+		print("[EnemyManager] difficulty 24: ADDED wizard_enemy to table (weight 25)")
 	elif arena_difficulty == 36:
 		enemy_table.add_item(ghost_enemy_scene, 1)
 		enemy_table.remove_item(basic_enemy_scene)

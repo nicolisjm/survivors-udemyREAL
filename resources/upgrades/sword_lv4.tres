@@ -5,7 +5,8 @@
 [resource]
 script = ExtResource("1_script")
 id = "sword_lv4"
-name = "Extra Sword Target"
-description = "Sword strikes an additional enemy (2 targets)."
+name = "Sword"
+sub_name = "Quick Strikes"
+description = "Slashes an additional enemy"
 ability_id = "sword"
 level = 4

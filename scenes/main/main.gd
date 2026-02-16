@@ -14,12 +14,19 @@ const ARENA_MUSIC_PATHS := [
 	"res://assets/audio/arenaMusic/Witches.mp3",
 ]
 
+var pause_menu_scene = preload("res://scenes/UI/pause_menu.tscn")
 var _arena_playlist: ShufflePlaylistComponent
 
 
 func _ready() -> void:
 	$%Player.health_component.died.connect(on_player_died)
 	_setup_arena_music()
+	
+	
+func _unhandled_input(event: InputEvent):
+	if event.is_action_pressed("pause"):
+		add_child(pause_menu_scene.instantiate())
+		get_tree().root.set_input_as_handled()
 
 
 func _setup_arena_music() -> void:
@@ -39,6 +46,8 @@ func _setup_arena_music() -> void:
 func on_player_died():
 	if _arena_playlist:
 		_arena_playlist.stop_playlist()
+	var time_survived: float = $ArenaTimeManager.get_time_elapsed()
+	var total_exp: float = $ExperienceManager.get_total_experience_collected()
 	var end_screen_instance = end_screen_scene.instantiate()
 	add_child(end_screen_instance)
-	end_screen_instance.set_defeat()
+	end_screen_instance.set_game_over(time_survived, total_exp)

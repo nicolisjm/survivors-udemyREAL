@@ -5,7 +5,8 @@
 [resource]
 script = ExtResource("1_script")
 id = "sword_lv8"
-name = "Swift & Wide"
-description = "Base attack rate -0.2s and an extra target (4 targets, -0.6s cooldown total)."
+name = "Sword"
+sub_name = "Shredder"
+description = "Base attack rate -0.2s and slashes a fourth enemy"
 ability_id = "sword"
 level = 8

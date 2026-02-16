@@ -1,4 +1,4 @@
-extends CharacterBody2D
+extends Area2D
 
 @onready var visuals = $Visuals
 @onready var velocity_component = $VelocityComponent
@@ -23,9 +23,14 @@ func _process(_delta: float) -> void:
 		velocity_component.accelerate_to_player()
 	else:
 		velocity_component.decelerate()
+		# Gentle steer toward player during slide so wizards don't drift into crowds.
+		var player := get_tree().get_first_node_in_group("player") as Node2D
+		if player and is_instance_valid(player):
+			var dir := (player.global_position - global_position).normalized()
+			velocity_component.velocity += dir * 120.0 * _delta
 	velocity_component.move(self)
 	
-	var move_sign = sign(velocity.x)
+	var move_sign = sign(velocity_component.velocity.x)
 	if move_sign != 0:
 		visuals.scale = Vector2(move_sign, 1)
 

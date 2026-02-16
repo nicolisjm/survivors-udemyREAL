@@ -5,7 +5,8 @@
 [resource]
 script = ExtResource("1_script")
 id = "axe_lv8"
-name = "Much Longer Flight"
+name = "Blessed Axe"
+sub_name = "Axe Whisperer"
 description = "15% longer orbit and 15% increased size"
 ability_id = "axe"
 level = 8

@@ -130,9 +130,9 @@ radius = 8.0
 [sub_resource type="CircleShape2D" id="CircleShape2D_865ah"]
 radius = 4.0
 
-[node name="WizardEnemy" type="CharacterBody2D" unique_id=414888463 groups=["enemy"]]
+[node name="WizardEnemy" type="Area2D" unique_id=414888463 groups=["enemy"]]
 collision_layer = 8
-collision_mask = 9
+collision_mask = 0
 script = ExtResource("1_qct4f")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=544844957]
@@ -143,8 +143,9 @@ autoplay = &"walk"
 max_health = 30.0
 
 [node name="VelocityComponent" parent="." unique_id=1336253212 instance=ExtResource("2_qgqx6")]
-max_speed = 60
-acceleration = 20.0
+max_speed = 80
+acceleration = 40.0
+separation_update_interval = 1
 
 [node name="VialDropComponent" parent="." unique_id=40009108 node_paths=PackedStringArray("health_component") instance=ExtResource("4_rquut")]
 drop_percent = 1.0
@@ -169,7 +170,6 @@ texture = ExtResource("1_43j36")
 offset = Vector2(0, -8)
 
 [node name="HurtboxComponent" parent="." unique_id=1361600313 node_paths=PackedStringArray("health_component") instance=ExtResource("4_865ah")]
-visible = false
 health_component = NodePath("../HealthComponent")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HurtboxComponent" unique_id=776529568]
@@ -177,6 +177,5 @@ position = Vector2(0, -7)
 shape = SubResource("CircleShape2D_qgqx6")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1783281787]
-visible = false
 position = Vector2(0, -4)
 shape = SubResource("CircleShape2D_865ah")

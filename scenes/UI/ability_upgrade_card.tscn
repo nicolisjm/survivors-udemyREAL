@@ -264,54 +264,82 @@ max_pitch = 2.2
 [node name="MarginContainer" type="MarginContainer" parent="." unique_id=2056057093]
 layout_mode = 2
 mouse_filter = 2
-theme_override_constants/margin_left = 8
-theme_override_constants/margin_top = 8
-theme_override_constants/margin_right = 8
-theme_override_constants/margin_bottom = 8
+theme_override_constants/margin_left = 6
+theme_override_constants/margin_top = 0
+theme_override_constants/margin_right = 0
+theme_override_constants/margin_bottom = 0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer" unique_id=1955699129]
-custom_minimum_size = Vector2(120, 150)
+custom_minimum_size = Vector2(130, 170)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 mouse_filter = 2
-theme_override_constants/separation = 4
+theme_override_constants/separation = 10
 
-[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VBoxContainer" unique_id=1165898296]
-custom_minimum_size = Vector2(120, 32)
+[node name="HeaderRow" type="HBoxContainer" parent="MarginContainer/VBoxContainer" unique_id=1165898296]
+custom_minimum_size = Vector2(120, 28)
 layout_mode = 2
 mouse_filter = 2
-theme_override_constants/margin_bottom = 8
+theme_override_constants/separation = 4
 
-[node name="PanelContainer" type="PanelContainer" parent="MarginContainer/VBoxContainer/MarginContainer" unique_id=1305698663]
+[node name="IconTextureRect" type="TextureRect" parent="MarginContainer/VBoxContainer/HeaderRow" unique_id=1305698663]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(24, 24)
 layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 4
+mouse_filter = 2
+expand_mode = 1
+stretch_mode = 5
+
+[node name="PanelContainer2" type="PanelContainer" parent="MarginContainer/VBoxContainer/HeaderRow" unique_id=895900882]
+custom_minimum_size = Vector2(80, 0)
+layout_mode = 2
+size_flags_horizontal = 3
 mouse_filter = 2
 theme_type_variation = &"AlternatePanelContainer"
 
-[node name="NameLabel" type="Label" parent="MarginContainer/VBoxContainer/MarginContainer/PanelContainer" unique_id=900822759]
+[node name="NameLabel" type="Label" parent="MarginContainer/VBoxContainer/HeaderRow/PanelContainer2" unique_id=900822759]
 unique_name_in_owner = true
+layout_direction = 2
 layout_mode = 2
-theme_override_colors/font_shadow_color = Color(0.14901961, 0.16862746, 0.26666668, 1)
-theme_override_colors/font_outline_color = Color(0.14901961, 0.16862746, 0.26666668, 1)
-theme_override_constants/shadow_offset_x = 0
-theme_override_constants/shadow_offset_y = 1
-theme_override_constants/outline_size = 6
+theme_type_variation = &"BlueOutlineLabel"
 theme_override_constants/shadow_outline_size = 1
 theme_override_font_sizes/font_size = 16
-text = "Test Name"
+text = "Chain Lightning"
 horizontal_alignment = 1
 vertical_alignment = 2
+
+[node name="LevelLabel" type="Label" parent="MarginContainer/VBoxContainer/HeaderRow" unique_id=1112120859]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 10
+size_flags_vertical = 0
+theme_type_variation = &"BlueOutlineLabel"
+theme_override_colors/font_color = Color(0.65, 0.68, 0.78, 1)
+theme_override_constants/shadow_outline_size = 1
+theme_override_font_sizes/font_size = 16
+text = "[1/9]"
+horizontal_alignment = 2
+vertical_alignment = 2
+
+[node name="SubNameLabel" type="Label" parent="MarginContainer/VBoxContainer" unique_id=1933105071]
+unique_name_in_owner = true
+layout_mode = 2
+theme_type_variation = &"BlueOutlineLabel"
+theme_override_colors/font_color = Color(0.65, 0.68, 0.78, 1)
+theme_override_constants/shadow_outline_size = 1
+theme_override_font_sizes/font_size = 16
+text = "Extra Chain"
 
 [node name="DescriptionLabel" type="Label" parent="MarginContainer/VBoxContainer" unique_id=1933105070]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(120, 0)
 layout_mode = 2
-theme_override_colors/font_shadow_color = Color(0.14901961, 0.16862746, 0.26666668, 1)
-theme_override_colors/font_outline_color = Color(0.14901961, 0.16862746, 0.26666668, 1)
-theme_override_constants/shadow_offset_x = 0
-theme_override_constants/shadow_offset_y = 1
-theme_override_constants/outline_size = 3
+theme_type_variation = &"BlueOutlineLabel"
 theme_override_constants/shadow_outline_size = 1
+theme_override_font_sizes/font_size = 16
 text = "Test Description that is longer"
 autowrap_mode = 2
 

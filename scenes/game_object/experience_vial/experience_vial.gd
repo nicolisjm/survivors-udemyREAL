@@ -1,6 +1,9 @@
 extends Node2D
 
 ## Minecraft-style experience orbs: random color variation, simple circle + soft glow.
+## experience_value is the amount of XP this orb grants when collected (can be > 1 after merging).
+
+var experience_value: float = 1.0
 
 const ORB_COLORS := [
 	Color("4ade80"),   # green
@@ -14,6 +17,12 @@ const ORB_COLORS := [
 const INNER_RADIUS := 3.0
 const GLOW_RADIUS := 4.0
 const CIRCLE_POINTS := 32
+## Base scale for value 1; higher values scale up (e.g. 5 value = noticeably larger).
+const BASE_VISUAL_SCALE := 1.0
+const SCALE_PER_VALUE := 0.12
+## Cap size so offscreen mega-merges don't look absurd.
+const MAX_ORB_SCALE := 2.5
+const BASE_COLLISION_RADIUS := 20.0
 ## If collect() took longer than this (e.g. game was paused for level-up), skip the sound to avoid a burst when unpausing.
 const MAX_COLLECT_DURATION_BEFORE_SKIP_SOUND := 0.6
 
@@ -25,8 +34,21 @@ const MAX_COLLECT_DURATION_BEFORE_SKIP_SOUND := 0.6
 
 
 func _ready() -> void:
+	add_to_group("experience_vial")
 	_setup_orb_appearance()
+	update_visual_scale()
 	$Area2D.area_entered.connect(on_area_entered)
+
+
+func update_visual_scale() -> void:
+	var scale_factor := BASE_VISUAL_SCALE + (experience_value - 1.0) * SCALE_PER_VALUE
+	scale_factor = clampf(scale_factor, 1.0, MAX_ORB_SCALE)
+	orb_visual.scale = Vector2(scale_factor, scale_factor)
+	# Scale collision to match visual so pickup feels correct
+	if collision_shape_2d.shape is CircleShape2D:
+		var circle := (collision_shape_2d.shape as CircleShape2D).duplicate()
+		circle.radius = BASE_COLLISION_RADIUS * scale_factor
+		collision_shape_2d.shape = circle
 
 
 func _setup_orb_appearance() -> void:
@@ -81,7 +103,7 @@ func tween_collect(percent: float, start_position: Vector2):
 
 
 func collect():
-	GameEvents.emit_experience_vial_collected(1)
+	GameEvents.emit_experience_vial_collected(experience_value)
 	var collect_start_time := Time.get_ticks_msec() / 1000.0
 	var params: Dictionary = ExperienceVialSoundManager.get_pickup_sound_params()
 	if params.delay > 0.0:

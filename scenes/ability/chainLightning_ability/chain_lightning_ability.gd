@@ -3,8 +3,8 @@ extends Node2D
 ## Number of segments per bolt segment (more = smoother but more jagged detail).
 const ZIGZAG_SEGMENTS = 16
 ## How far the lightning can jitter sideways (pixels).
-const ZIGZAG_JITTER = 2.0
-## How long the bolt stays visible, flickering (seconds).
+const ZIGZAG_JITTER = 2.5
+## How long the bolt stays visible, flickdering (seconds).
 const BOLT_DURATION = 0.20
 
 var _chain_positions: Array[Vector2] = []

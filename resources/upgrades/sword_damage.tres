@@ -1,9 +1,0 @@
-[gd_resource type="Resource" script_class="AbilityUpgrade" format=3 uid="uid://dbwom7girq2bk"]
-
-[ext_resource type="Script" uid="uid://dwgsoek0kp41e" path="res://resources/upgrades/ability_upgrade.gd" id="1_04we8"]
-
-[resource]
-script = ExtResource("1_04we8")
-id = "sword_damage"
-name = "Sword Damage"
-description = "Increases sword damage by 20%"

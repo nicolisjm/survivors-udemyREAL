@@ -115,11 +115,7 @@ theme_override_constants/separation = 16
 [node name="TitleLabel" type="Label" parent="MarginContainer/PanelContainer/MarginContainer/VBoxContainer" unique_id=2105067872]
 unique_name_in_owner = true
 layout_mode = 2
-theme_override_colors/font_shadow_color = Color(0.14901961, 0.16862746, 0.26666668, 1)
-theme_override_colors/font_outline_color = Color(0.14901961, 0.16862746, 0.26666668, 1)
-theme_override_constants/shadow_offset_x = 0
-theme_override_constants/shadow_offset_y = 1
-theme_override_constants/outline_size = 8
+theme_type_variation = &"BlueOutlineLabel"
 theme_override_font_sizes/font_size = 32
 text = "Victory!"
 horizontal_alignment = 1
@@ -129,14 +125,70 @@ vertical_alignment = 1
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 4
-theme_override_colors/font_shadow_color = Color(0.14901961, 0.16862746, 0.26666668, 1)
-theme_override_colors/font_outline_color = Color(0.14901961, 0.16862746, 0.26666668, 1)
-theme_override_constants/shadow_offset_x = 0
-theme_override_constants/shadow_offset_y = 1
-theme_override_constants/outline_size = 4
+theme_type_variation = &"BlueOutlineLabel"
 text = "You won!"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="StatsLabel" type="Label" parent="MarginContainer/PanelContainer/MarginContainer/VBoxContainer" unique_id=1560568248]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 4
+theme_type_variation = &"BlueOutlineLabel"
+text = "Time survived: 00:00 | Experience: 0"
+horizontal_alignment = 1
+
+[node name="NewHighscoreLabel" type="Label" parent="MarginContainer/PanelContainer/MarginContainer/VBoxContainer" unique_id=1560568249]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+theme_type_variation = &"BlueOutlineLabel"
+theme_override_colors/font_color = Color(1, 0.85, 0.2, 1)
+text = "New Highscore!"
+horizontal_alignment = 1
+
+[node name="InitialsEntryPanel" type="VBoxContainer" parent="MarginContainer/PanelContainer/MarginContainer/VBoxContainer" unique_id=1560568250]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="InitialsTitleLabel" type="Label" parent="MarginContainer/PanelContainer/MarginContainer/VBoxContainer/InitialsEntryPanel" unique_id=1560568251]
+layout_mode = 2
+theme_type_variation = &"BlueOutlineLabel"
+theme_override_font_sizes/font_size = 16
+text = "New Highscore! Enter initials"
+horizontal_alignment = 1
+
+[node name="SlotsHBox" type="HBoxContainer" parent="MarginContainer/PanelContainer/MarginContainer/VBoxContainer/InitialsEntryPanel" unique_id=1560568252]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="Slot0Button" parent="MarginContainer/PanelContainer/MarginContainer/VBoxContainer/InitialsEntryPanel/SlotsHBox" unique_id=1560568253 instance=ExtResource("2_2xf1k")]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(40, 32)
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "A"
+
+[node name="Slot1Button" parent="MarginContainer/PanelContainer/MarginContainer/VBoxContainer/InitialsEntryPanel/SlotsHBox" unique_id=1560568254 instance=ExtResource("2_2xf1k")]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(40, 32)
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "A"
+
+[node name="Slot2Button" parent="MarginContainer/PanelContainer/MarginContainer/VBoxContainer/InitialsEntryPanel/SlotsHBox" unique_id=1560568255 instance=ExtResource("2_2xf1k")]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(40, 32)
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "A"
+
+[node name="InitialsConfirmButton" parent="MarginContainer/PanelContainer/MarginContainer/VBoxContainer/InitialsEntryPanel/SlotsHBox" unique_id=1560568259 instance=ExtResource("2_2xf1k")]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Confirm"
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/PanelContainer/MarginContainer/VBoxContainer" unique_id=411759477]
 layout_mode = 2
@@ -149,4 +201,4 @@ text = "Restart"
 [node name="QuitButton" parent="MarginContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer" unique_id=679636416 instance=ExtResource("2_2xf1k")]
 unique_name_in_owner = true
 layout_mode = 2
-text = "Quit"
+text = "Main Menu"

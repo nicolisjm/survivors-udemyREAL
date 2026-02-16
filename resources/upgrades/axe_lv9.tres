@@ -5,7 +5,8 @@
 [resource]
 script = ExtResource("1_script")
 id = "axe_lv9"
-name = "Two More Axes"
-description = "2 extra axes (4 total)."
+name = "Blessed Axe"
+sub_name = "Axe Guardians"
+description = "2 extra axes orbit around you"
 ability_id = "axe"
 level = 9

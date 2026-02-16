@@ -20,8 +20,10 @@ var attack_speed_multiplier: float = 1.0
 func _ready() -> void:
 	base_speed = velocity_component.max_speed
 	
-	$CollisionArea2D.body_entered.connect(on_body_entered)
-	$CollisionArea2D.body_exited.connect(on_body_exited)
+	$CollisionArea2D.body_entered.connect(_on_collision_entered)
+	$CollisionArea2D.body_exited.connect(_on_collision_exited)
+	$CollisionArea2D.area_entered.connect(_on_collision_entered)
+	$CollisionArea2D.area_exited.connect(_on_collision_exited)
 	damage_interval_timer.timeout.connect(on_damage_interval_timer_timeout)
 	health_component.health_changed.connect(on_health_changed)
 	GameEvents.ability_upgrade_added.connect(on_ability_upgrade_added)
@@ -45,6 +47,10 @@ func _process(delta: float) -> void:
 
 
 func get_movement_vector():
+	if Input.is_action_pressed("left_click"):
+		var dir = (get_global_mouse_position() - global_position).normalized()
+		if dir.length_squared() > 0.0001:
+			return dir
 	var x_movement = Input.get_action_strength("move_right") - Input.get_action_strength("move_left")
 	var y_movement = Input.get_action_strength("move_down") - Input.get_action_strength("move_up")
 	return Vector2(x_movement, y_movement)
@@ -59,15 +65,14 @@ func check_deal_damage():
 		return
 	health_component.damage(10)
 	damage_interval_timer.start()
-	print(health_component.current_health)
 
 
-func on_body_entered(other_body: Node2D):
+func _on_collision_entered(_body_or_area: Node):
 	num_colliding_bodies += 1
 	check_deal_damage()
 
 
-func on_body_exited(other_body: Node2D):
+func _on_collision_exited(_body_or_area: Node):
 	num_colliding_bodies -= 1
 	
 	

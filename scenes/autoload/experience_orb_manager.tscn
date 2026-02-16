@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://ck846rgc77ky0"]
+
+[ext_resource type="Script" uid="uid://dend2bv7uvte2" path="res://scenes/autoload/experience_orb_manager.gd" id="1_orbmgr"]
+
+[node name="ExperienceOrbManager" type="Node" unique_id=1037811463]
+script = ExtResource("1_orbmgr")

@@ -2,14 +2,16 @@
 
 [ext_resource type="PackedScene" uid="uid://c3ab540ud0dji" path="res://scenes/ability/chainLightning_ability_controller/chain_lightning_ability_controller.tscn" id="1_ci8q0"]
 [ext_resource type="Script" uid="uid://bpw3kuyytb1cx" path="res://resources/upgrades/ability.gd" id="2_0c5wb"]
+[ext_resource type="Texture2D" uid="uid://bumm1jbbkdy8d" path="res://assets/sprite/chain_lightning_icon.png" id="2_188by"]
 
 [resource]
 script = ExtResource("2_0c5wb")
 ability_controller_scene = ExtResource("1_ci8q0")
+icon = ExtResource("2_188by")
 id = "chain_lightning"
 max_quantity = 1
 name = "Chain Lightning"
-description = "New skill:
-Casts a lightning bolt that chains to nearby enemies."
+sub_name = "New skill:"
+description = "Casts a lightning bolt that chains to nearby enemies."
 ability_id = "chain_lightning"
 level = 1

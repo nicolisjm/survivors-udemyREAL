@@ -1,4 +1,5 @@
 extends Node
+class_name UpgradeManager
 
 @export var experience_manager: Node
 @export var upgrade_screen_scene: PackedScene
@@ -10,9 +11,9 @@ var upgrade_pool: WeightedTable = WeightedTable.new()
 var ability_levels: Dictionary = {}
 var ability_overflow: Dictionary = {}
 
-var path_axe: AbilityUpgradePath = preload("res://resources/upgrades/axe_upgrade_path.tres") as AbilityUpgradePath
-var path_sword: AbilityUpgradePath = preload("res://resources/upgrades/sword_upgrade_path.tres") as AbilityUpgradePath
-var path_chain_lightning: AbilityUpgradePath = preload("res://resources/upgrades/chain_lightning_upgrade_path.tres") as AbilityUpgradePath
+var path_axe: AbilityUpgradePath = preload("res://resources/upgrades/axe_path.tres") as AbilityUpgradePath
+var path_sword: AbilityUpgradePath = preload("res://resources/upgrades/sword_path.tres") as AbilityUpgradePath
+var path_chain_lightning: AbilityUpgradePath = preload("res://resources/upgrades/chain_lightning_path.tres") as AbilityUpgradePath
 var _ability_paths: Array[AbilityUpgradePath] = []
 
 var upgrade_move_speed = preload("res://resources/upgrades/move_speed.tres")
@@ -61,6 +62,32 @@ func get_ability_level(ability_id: String) -> int:
 
 func get_overflow(ability_id: String) -> int:
 	return ability_overflow.get(ability_id, 0)
+
+
+## Returns { "current": int, "max": int } for card level display [current/max].
+func get_display_level_info(upgrade: AbilityUpgrade) -> Dictionary:
+	var path: AbilityUpgradePath = _get_path_for_ability(upgrade.ability_id)
+	if path != null:
+		if path.has_prestige() and path.prestige_upgrade == upgrade:
+			return {
+				"current": ability_overflow.get(upgrade.ability_id, 0),
+				"max": path.prestige_max_level
+			}
+		else:
+			return {
+				"current": ability_levels.get(upgrade.ability_id, 0),
+				"max": AbilityUpgradePath.MAX_LEVEL
+			}
+	# Generic / move_speed: quantity-based
+	var quantity: int = 0
+	if current_upgrades.has(upgrade.id):
+		quantity = current_upgrades[upgrade.id]["quantity"]
+	var max_qty: int = upgrade.max_quantity if upgrade.max_quantity > 0 else 99
+	return { "current": quantity, "max": max_qty }
+
+
+func get_path_for_ability(ability_id: String) -> AbilityUpgradePath:
+	return _get_path_for_ability(ability_id)
 
 
 func _rebuild_pool() -> void:
