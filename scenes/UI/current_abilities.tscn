@@ -1,0 +1,32 @@
+[gd_scene format=3 uid="uid://bjdee2vks8s0m"]
+
+[ext_resource type="Script" uid="uid://currp4nikfbyv" path="res://scenes/UI/current_abilities.gd" id="1_script"]
+
+[node name="CurrentAbilities" type="CanvasLayer" unique_id=1642628342]
+script = ExtResource("1_script")
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=1662422141]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_bottom = 16
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer" unique_id=571784309]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 8
+
+[node name="PanelContainer" type="PanelContainer" parent="MarginContainer/HBoxContainer" unique_id=660322474]
+custom_minimum_size = Vector2(40, 48)
+layout_mode = 2
+
+[node name="PanelContainer2" type="PanelContainer" parent="MarginContainer/HBoxContainer" unique_id=705709349]
+custom_minimum_size = Vector2(40, 48)
+layout_mode = 2
+
+[node name="PanelContainer3" type="PanelContainer" parent="MarginContainer/HBoxContainer" unique_id=870894840]
+custom_minimum_size = Vector2(40, 48)
+layout_mode = 2

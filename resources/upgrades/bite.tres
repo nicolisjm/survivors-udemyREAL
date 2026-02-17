@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="Ability" format=3 uid="uid://6423ej071y0e"]
+
+[ext_resource type="PackedScene" uid="uid://bsv58wm0jj87s" path="res://scenes/ability/bite_ability_controller/bite_ability_controller.tscn" id="1_controller"]
+[ext_resource type="Script" uid="uid://bpw3kuyytb1cx" path="res://resources/upgrades/ability.gd" id="2_ability"]
+[ext_resource type="Texture2D" uid="uid://b2jnis1vaxsuv" path="res://scenes/ability/bite_ability/bite3.png" id="3_icon"]
+
+[resource]
+script = ExtResource("2_ability")
+ability_controller_scene = ExtResource("1_controller")
+icon = ExtResource("3_icon")
+id = "bite"
+max_quantity = 1
+name = "Bite"
+sub_name = "New skill:"
+description = "All enemies very close to player."
+ability_id = "bite"
+level = 1

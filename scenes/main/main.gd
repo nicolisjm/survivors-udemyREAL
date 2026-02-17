@@ -43,7 +43,7 @@ func _setup_arena_music() -> void:
 	_arena_playlist.start_playlist()
 
 
-func on_player_died():
+func on_player_died(_killer_source: Variant = null) -> void:
 	if _arena_playlist:
 		_arena_playlist.stop_playlist()
 	var time_survived: float = $ArenaTimeManager.get_time_elapsed()

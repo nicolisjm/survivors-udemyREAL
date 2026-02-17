@@ -12,12 +12,15 @@
 [ext_resource type="PackedScene" uid="uid://b4qcoxttdoh4j" path="res://scenes/manager/experience_manager.tscn" id="4_yyfjg"]
 [ext_resource type="PackedScene" uid="uid://curqy0wwqoiry" path="res://scenes/manager/upgrade_manager.tscn" id="6_b1x3f"]
 [ext_resource type="PackedScene" uid="uid://wgqo2sfosuiu" path="res://scenes/UI/vignette.tscn" id="12_blune"]
+[ext_resource type="PackedScene" uid="uid://bjdee2vks8s0m" path="res://scenes/UI/current_abilities.tscn" id="13_abilities"]
 
 [node name="Main" type="Node" unique_id=1584566805]
 script = ExtResource("1_a8run")
 end_screen_scene = ExtResource("2_ouso4")
 
 [node name="Vignette" parent="." unique_id=1374168513 instance=ExtResource("12_blune")]
+
+[node name="CurrentAbilities" parent="." instance=ExtResource("13_abilities")]
 
 [node name="ArenaTimeUI" parent="." unique_id=1339497021 node_paths=PackedStringArray("arena_time_manager") instance=ExtResource("1_ow5a4")]
 arena_time_manager = NodePath("../ArenaTimeManager")

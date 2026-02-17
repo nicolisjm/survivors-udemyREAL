@@ -1,0 +1,12 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scenes/ability/shadow_grab_ability_controller/shadow_grab_ability_controller.gd" id="1_script"]
+[ext_resource type="PackedScene" path="res://scenes/ability/shadow_grab_ability/shadow_grab_ability.tscn" id="2_visual"]
+
+[node name="ShadowGrabAbilityController" type="Node"]
+script = ExtResource("1_script")
+shadow_grab_ability_scene = ExtResource("2_visual")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 1.0
+autostart = true

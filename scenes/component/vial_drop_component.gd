@@ -11,7 +11,7 @@ func _ready() -> void:
 	(health_component as HealthComponent).died.connect(on_died)
 
 
-func on_died():
+func on_died(_killer_source: Variant = null) -> void:
 	if randf() > drop_percent:
 		return
 	

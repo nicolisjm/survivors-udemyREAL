@@ -1,0 +1,11 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scenes/ability/shadow_grab_ability/shadow_grab_ability.gd" id="1_script"]
+[ext_resource type="Texture2D" uid="uid://cd2obi7dehuqv" path="res://scenes/ability/sword_ability/sword.png" id="2_placeholder"]
+
+[node name="ShadowGrabAbility" type="Node2D"]
+script = ExtResource("1_script")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_placeholder")
+scale = Vector2(0.3, 0.3)

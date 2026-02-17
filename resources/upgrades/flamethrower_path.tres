@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="AbilityUpgradePath" format=3]
+
+[ext_resource type="Script" path="res://resources/upgrades/ability_upgrade_path.gd" id="1_path"]
+[ext_resource type="Resource" path="res://resources/upgrades/flamethrower.tres" id="2_base"]
+[ext_resource type="Resource" path="res://resources/upgrades/flamethrower_lv2.tres" id="3_lv2"]
+[ext_resource type="Resource" path="res://resources/upgrades/flamethrower_lv3.tres" id="4_lv3"]
+[ext_resource type="Resource" path="res://resources/upgrades/flamethrower_lv4.tres" id="5_lv4"]
+[ext_resource type="Resource" path="res://resources/upgrades/flamethrower_lv5.tres" id="6_lv5"]
+[ext_resource type="Resource" path="res://resources/upgrades/flamethrower_lv6.tres" id="7_lv6"]
+[ext_resource type="Resource" path="res://resources/upgrades/flamethrower_lv7.tres" id="8_lv7"]
+[ext_resource type="Resource" path="res://resources/upgrades/flamethrower_lv8.tres" id="9_lv8"]
+[ext_resource type="Resource" path="res://resources/upgrades/flamethrower_lv9.tres" id="10_lv9"]
+
+[resource]
+script = ExtResource("1_path")
+ability_id = "flamethrower"
+upgrades = Array[Resource]([ExtResource("2_base"), ExtResource("3_lv2"), ExtResource("4_lv3"), ExtResource("5_lv4"), ExtResource("6_lv5"), ExtResource("7_lv6"), ExtResource("8_lv7"), ExtResource("9_lv8"), ExtResource("10_lv9")])

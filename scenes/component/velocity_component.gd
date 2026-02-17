@@ -5,7 +5,7 @@ extends Node
 ## When using move_node2d (Area2D enemies), push away from nearby entities to prevent overlap.
 ## Lower values allow more bunching (~40% sprite overlap).
 @export var separation_radius: float = 40
-@export var separation_strength: float = 160
+@export var separation_strength: float = 120
 ## Skip separation when farther from player (saves CPU for off-screen enemies).
 @export var separation_max_player_dist: float = 280.0
 ## Update AI direction every N frames (1=every frame). Reduces CPU with many enemies.

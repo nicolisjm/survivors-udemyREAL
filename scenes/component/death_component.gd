@@ -8,7 +8,7 @@ func _ready() -> void:
 	health_component.died.connect(on_died)
 	
 	
-func on_died():
+func on_died(_killer_source: Variant = null) -> void:
 	if owner == null || not owner is Node2D:
 		return
 	

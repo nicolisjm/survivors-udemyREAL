@@ -17,10 +17,11 @@ func _ready() -> void:
 ## Call when this hurtbox is hit (by overlap or by code, e.g. chain lightning).
 ## spark_config: optional; use ability-specific .tres for different looks, or null for default sparks.
 ## stun_duration: if > 0, freezes the parent node (e.g. enemy) in place for this many seconds.
-func apply_damage(amount: float, spark_config: HitSparkConfig = null, stun_duration: float = 0.0) -> void:
+## source: optional; if the damage kills the target, passed through to health_component.died(killer_source) for kill attribution.
+func apply_damage(amount: float, spark_config: HitSparkConfig = null, stun_duration: float = 0.0, source: Variant = null) -> void:
 	if health_component == null:
 		return
-	health_component.damage(amount)
+	health_component.damage(amount, source)
 	if stun_duration > 0.0:
 		var parent_node = get_parent()
 		if parent_node:
