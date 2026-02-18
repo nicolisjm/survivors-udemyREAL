@@ -13,6 +13,7 @@ const _default_icon: Texture2D = preload("res://scenes/game_object/player/player
 
 var disabled = false
 
+
 func _ready() -> void:
 	gui_input.connect(on_gui_input)
 	mouse_entered.connect(on_mouse_entered)

@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://vd58wsqx3vs8"]
 
 [ext_resource type="Script" uid="uid://qwjqxuetrr3a" path="res://scenes/UI/pause_menu.gd" id="1_bl585"]
+[ext_resource type="PackedScene" uid="uid://buwlkjda1y0fd" path="res://scenes/UI/end_screen.tscn" id="2_mko1u"]
 [ext_resource type="PackedScene" uid="uid://daoc7rc3himy6" path="res://scenes/UI/sound_button.tscn" id="4_3pfkw"]
 
 [sub_resource type="Animation" id="Animation_bl585"]
@@ -44,6 +45,7 @@ _data = {
 [node name="PauseMenu" type="CanvasLayer" unique_id=422418085]
 process_mode = 3
 script = ExtResource("1_bl585")
+end_screen_scene = ExtResource("2_mko1u")
 
 [node name="ColorRect" type="ColorRect" parent="." unique_id=1889877054]
 anchors_preset = 15
@@ -108,7 +110,7 @@ text = "Options"
 [node name="QuitButton" parent="MarginContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer" unique_id=1200199526 instance=ExtResource("4_3pfkw")]
 unique_name_in_owner = true
 layout_mode = 2
-text = "Quit to Menu"
+text = "Die"
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1348666231]
 libraries/ = SubResource("AnimationLibrary_feath")

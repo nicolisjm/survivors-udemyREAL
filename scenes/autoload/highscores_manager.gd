@@ -1,22 +1,17 @@
 extends Node
 
 const SAVE_PATH := "user://highscores.dat"
-const MAX_ENTRIES := 10
+const MAX_ENTRIES := 5
 ## Set to true to always show initials entry (for testing). Set to false for release.
 # const FORCE_NEW_HIGHSCORE_FOR_TESTING := true
 
 ## Arcade-style placeholder entries to encourage players to beat them.
 const PLACEHOLDER_ENTRIES: Array[Dictionary] = [
-	{"initials": "AAA", "time_survived": 900.0, "exp_collected": 5000},
-	{"initials": "BBB", "time_survived": 720.0, "exp_collected": 4000},
-	{"initials": "CCC", "time_survived": 600.0, "exp_collected": 3500},
-	{"initials": "DDD", "time_survived": 540.0, "exp_collected": 3000},
-	{"initials": "EEE", "time_survived": 480.0, "exp_collected": 2500},
-	{"initials": "FFF", "time_survived": 420.0, "exp_collected": 2000},
-	{"initials": "GGG", "time_survived": 360.0, "exp_collected": 1500},
-	{"initials": "HHH", "time_survived": 300.0, "exp_collected": 1200},
-	{"initials": "III", "time_survived": 240.0, "exp_collected": 900},
-	{"initials": "JJJ", "time_survived": 180.0, "exp_collected": 600},
+	{"initials": "AAA", "time_survived": 900.0, "exp_collected": 5000, "ability_names": []},
+	{"initials": "BBB", "time_survived": 720.0, "exp_collected": 4000, "ability_names": []},
+	{"initials": "CCC", "time_survived": 600.0, "exp_collected": 3500, "ability_names": []},
+	{"initials": "DDD", "time_survived": 540.0, "exp_collected": 3000, "ability_names": []},
+	{"initials": "EEE", "time_survived": 480.0, "exp_collected": 2500, "ability_names": []},
 ]
 
 var _entries: Array = []
@@ -35,7 +30,11 @@ func load_highscores() -> Array:
 	var data = file.get_var()
 	file.close()
 	if data is Array:
-		return data
+		var result: Array = data.duplicate()
+		if result.size() > MAX_ENTRIES:
+			result.resize(MAX_ENTRIES)
+			save_highscores(result)
+		return result
 	return _placeholders_to_array()
 
 
@@ -64,9 +63,14 @@ func would_be_highscore(time_survived: float) -> bool:
 	return time_survived > entries[entries.size() - 1]["time_survived"]
 
 
-func submit_score(time_survived: float, exp_collected: float, initials: String = "---") -> bool:
+func submit_score(time_survived: float, exp_collected: float, initials: String = "---", ability_names: Array = []) -> bool:
 	var entries: Array = get_highscores()
-	var new_entry := {"initials": initials.to_upper().substr(0, 3), "time_survived": time_survived, "exp_collected": int(exp_collected)}
+	var new_entry := {
+		"initials": initials.to_upper().substr(0, 3),
+		"time_survived": time_survived,
+		"exp_collected": int(exp_collected),
+		"ability_names": ability_names.duplicate()
+	}
 	var inserted := false
 	for i in entries.size():
 		if time_survived > entries[i]["time_survived"]:

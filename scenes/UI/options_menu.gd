@@ -8,8 +8,32 @@ signal back_pressed
 @onready var back_button: Button = $%BackButton
 
 
+const ARENA_SIZE := Vector2(640, 360)
+
+
 func _ready() -> void:
+	_apply_portrait_layout()
 	back_button.pressed.connect(on_back_pressed)
+
+
+func _apply_portrait_layout() -> void:
+	var vp_size := ViewportHelper.get_viewport_size()
+	var tilemap: Node2D = get_node_or_null("TileMapLayer")
+	var margin_container: MarginContainer = $MarginContainer
+
+	if ViewportHelper.is_portrait():
+		if tilemap != null:
+			var offset_x := -(ARENA_SIZE.x - vp_size.x) / 2.0
+			var offset_y := (vp_size.y - ARENA_SIZE.y) / 2.0
+			tilemap.position = Vector2(offset_x, offset_y)
+		var arena_margin := int((vp_size.y - ARENA_SIZE.y) / 2.0)
+		margin_container.add_theme_constant_override("margin_top", arena_margin)
+		margin_container.add_theme_constant_override("margin_bottom", arena_margin)
+	else:
+		if tilemap != null:
+			tilemap.position = Vector2.ZERO
+		margin_container.remove_theme_constant_override("margin_top")
+		margin_container.remove_theme_constant_override("margin_bottom")
 	window_button.pressed.connect(on_window_button_pressed)
 	sfx_slider.value_changed.connect(on_audio_slider_changed.bind("sfx"))
 	music_slider.value_changed.connect(on_audio_slider_changed.bind("music"))

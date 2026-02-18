@@ -9,6 +9,9 @@ var floating_text_scene = preload("res://scenes/UI/floating_text.tscn")
 var hit_sparks_scene = preload("res://scenes/effects/hit_sparks.tscn")
 var default_spark_config = preload("res://resources/effects/default_hit_spark_config.tres") as HitSparkConfig
 
+const HIT_SOUND_PITCH_MIN := 0.8
+const HIT_SOUND_PITCH_MAX := 1.2
+
 
 func _ready() -> void:
 	area_entered.connect(on_area_entered)
@@ -18,7 +21,9 @@ func _ready() -> void:
 ## spark_config: optional; use ability-specific .tres for different looks, or null for default sparks.
 ## stun_duration: if > 0, freezes the parent node (e.g. enemy) in place for this many seconds.
 ## source: optional; if the damage kills the target, passed through to health_component.died(killer_source) for kill attribution.
-func apply_damage(amount: float, spark_config: HitSparkConfig = null, stun_duration: float = 0.0, source: Variant = null) -> void:
+## is_crit: if true, floating text shows damage in gold with "!" (e.g. 10!); use for crits from Bite or other abilities.
+## hit_sound: optional; ability-specific sound (e.g. bite chomp, chain zap). Played at hit position, use hit_sound_volume_db for level.
+func apply_damage(amount: float, spark_config: HitSparkConfig = null, stun_duration: float = 0.0, source: Variant = null, is_crit: bool = false, hit_sound: AudioStream = null, hit_sound_volume_db: float = -12.0) -> void:
 	if health_component == null:
 		return
 	health_component.damage(amount, source)
@@ -32,12 +37,22 @@ func apply_damage(amount: float, spark_config: HitSparkConfig = null, stun_durat
 		foreground.add_child(floating_text)
 		floating_text.global_position = global_position + (Vector2.UP * 16)
 		var format_string = "%0.0f"
-		floating_text.start(format_string % amount)
+		floating_text.start(format_string % amount, is_crit)
 		# Generic hit sparks: configurable per ability via spark_config.
 		var sparks = hit_sparks_scene.instantiate() as Node2D
 		sparks.global_position = global_position
 		sparks.set_spark_config(spark_config if spark_config else default_spark_config)
 		foreground.add_child(sparks)
+		# Optional ability-specific hit sound (pitch variation 0.8–1.2).
+		if hit_sound != null:
+			var sound_player := AudioStreamPlayer2D.new()
+			sound_player.stream = hit_sound
+			sound_player.volume_db = hit_sound_volume_db
+			sound_player.pitch_scale = randf_range(HIT_SOUND_PITCH_MIN, HIT_SOUND_PITCH_MAX)
+			foreground.add_child(sound_player)
+			sound_player.global_position = global_position
+			sound_player.finished.connect(sound_player.queue_free)
+			sound_player.play()
 	hit.emit()
 
 

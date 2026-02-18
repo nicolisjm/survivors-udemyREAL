@@ -2,9 +2,14 @@ extends Camera2D
 
 var target_position = Vector2.ZERO
 
-# Called when the node enters the scene tree for the first time.
+## Zoom in slightly on mobile/portrait for better visibility
+const MOBILE_ZOOM := 1.15
+
+
 func _ready() -> void:
 	make_current()
+	if ViewportHelper.is_portrait():
+		zoom = Vector2(MOBILE_ZOOM, MOBILE_ZOOM)
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

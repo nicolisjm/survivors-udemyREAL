@@ -2,7 +2,9 @@ extends Node
 
 @export var bite_ability_scene: PackedScene
 
-var base_damage: int = 2
+var _bite_hit_sound: AudioStream = preload("res://assets/audio/sfx/freesound_community-carrotnom-92106.mp3") as AudioStream
+
+var base_damage: int = 3
 var base_wait_time: float
 var _damage_flat_bonus: int = 0
 var _rate_reduction: float = 0.0
@@ -19,8 +21,8 @@ const DAMAGE_FLAT_PER_UPGRADE := 2
 const BITE_TWICE_DELAY := 0.1
 ## All enemies within this range of the player are hit (direct damage).
 const BITE_RANGE: float = 48.0
-## Damage multiplier when single-target condition is met (stacks multiplicatively with player damage_mult).
-const SINGLE_TARGET_MULT: float = 1.5
+## Single-target = crit: double damage (stacks multiplicatively with player damage_mult).
+const SINGLE_TARGET_CRIT_MULT: float = 2.0
 
 ## Tracks how many times each enemy has been hit by Bite (for repeat-hit bonus). Cleared when enemy invalid.
 var _bite_hit_count: Dictionary = {}
@@ -124,11 +126,12 @@ func _on_bite_impact(enemy, is_single_target: bool) -> void:
 		var mult = player.get("damage_multiplier")
 		if mult != null and mult > 0.0:
 			damage_mult = mult
-	var single_mult: float = SINGLE_TARGET_MULT if is_single_target else 1.0
-	var damage: float = (base_damage + _damage_flat_bonus + count * _repeat_hit_bonus) * damage_mult * single_mult
+	var is_crit: bool = is_single_target
+	var crit_mult: float = SINGLE_TARGET_CRIT_MULT if is_single_target else 1.0
+	var damage: float = (base_damage + _damage_flat_bonus + count * _repeat_hit_bonus) * damage_mult * crit_mult
 	var hurtbox = enemy.get_node_or_null("HurtboxComponent") as HurtboxComponent
 	if hurtbox:
-		hurtbox.apply_damage(damage)
+		hurtbox.apply_damage(damage, null, 0.0, null, is_crit, _bite_hit_sound, -30.0)
 	_bite_hit_count[enemy] = count + 1
 
 
@@ -149,11 +152,3 @@ func _on_ability_upgrade_added(upgrade: AbilityUpgrade, _current: Dictionary) ->
 	elif upgrade.id in ["generic_damage_10", "generic_damage_20", "generic_damage_30"]:
 		# Bite reads player.damage_multiplier at impact time, so no refresh needed.
 		pass
-	_print_bite_stats()
-
-
-func _print_bite_stats() -> void:
-	var total_base: int = base_damage + _damage_flat_bonus
-	var wait: float = $Timer.wait_time
-	var attacks_per_sec: float = 1.0 / wait if wait > 0.0 else 0.0
-	print("[Bite] base damage: %d (base %d + flat %d) | cooldown: %.2fs | attacks/sec: %.2f" % [total_base, base_damage, _damage_flat_bonus, wait, attacks_per_sec])

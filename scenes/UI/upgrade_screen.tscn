@@ -3,6 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://buy13ljadjl7f" path="res://scenes/UI/ability_upgrade_card.tscn" id="1_auatr"]
 [ext_resource type="Script" uid="uid://bs7dcbe42bev5" path="res://scenes/UI/upgrade_screen.gd" id="1_l62tb"]
 [ext_resource type="AudioStream" uid="uid://cle7qwiaft7fl" path="res://assets/audio/sfx/floraphonic-playful-casino-slot-machine-bonus-1-183918.mp3" id="3_klice"]
+[ext_resource type="PackedScene" uid="uid://cxy68hidvs0ov" path="res://scenes/UI/ability_upgrade_card_mobile.tscn" id="3_rqbkw"]
 
 [sub_resource type="Animation" id="Animation_l62tb"]
 length = 0.001
@@ -64,6 +65,7 @@ _data = {
 process_mode = 3
 script = ExtResource("1_l62tb")
 upgrade_card_scene = ExtResource("1_auatr")
+upgrade_card_scene_mobile = ExtResource("3_rqbkw")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=859162989]
 libraries/ = SubResource("AnimationLibrary_rqbkw")
@@ -93,6 +95,12 @@ grow_vertical = 2
 
 [node name="CardContainer" type="HBoxContainer" parent="MarginContainer" unique_id=1425378358]
 unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/separation = 16
+
+[node name="CardContainerVBox" type="VBoxContainer" parent="MarginContainer" unique_id=1425378359]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4

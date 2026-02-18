@@ -21,8 +21,8 @@ var _arena_playlist: ShufflePlaylistComponent
 func _ready() -> void:
 	$%Player.health_component.died.connect(on_player_died)
 	_setup_arena_music()
-	
-	
+
+
 func _unhandled_input(event: InputEvent):
 	if event.is_action_pressed("pause"):
 		add_child(pause_menu_scene.instantiate())
@@ -48,6 +48,14 @@ func on_player_died(_killer_source: Variant = null) -> void:
 		_arena_playlist.stop_playlist()
 	var time_survived: float = $ArenaTimeManager.get_time_elapsed()
 	var total_exp: float = $ExperienceManager.get_total_experience_collected()
+	var ability_names: Array = []
+	var upgrade_manager: UpgradeManager = get_node_or_null("UpgradeManager") as UpgradeManager
+	if upgrade_manager != null:
+		for item in upgrade_manager.get_acquired_main_abilities():
+			var aid: String = item.get("ability_id", "")
+			if aid != "":
+				ability_names.append(StartingAbilityRegistry.get_ability_display_name(aid))
+				StartingAbilityRegistry.unlock_ability(aid)
 	var end_screen_instance = end_screen_scene.instantiate()
 	add_child(end_screen_instance)
-	end_screen_instance.set_game_over(time_survived, total_exp)
+	end_screen_instance.set_game_over(time_survived, total_exp, ability_names)

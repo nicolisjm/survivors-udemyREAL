@@ -3,6 +3,12 @@ extends CanvasLayer
 @export var arena_time_manager: Node
 @onready var label = %Label
 
+
+func _ready() -> void:
+	if ViewportHelper.is_portrait():
+		label.add_theme_font_size_override("font_size", 32)
+
+
 func _process(delta: float) -> void:
 	if arena_time_manager == null:
 		return

@@ -1,0 +1,29 @@
+[gd_scene format=3 uid="uid://c7xqbitepoly"]
+
+[ext_resource type="Script" uid="uid://b1jbvoca6gdms" path="res://scenes/ability/bite_ability/bite_ability_polygon.gd" id="1_script"]
+
+[node name="BiteAbilityPolygon" type="Node2D" unique_id=1510335907]
+script = ExtResource("1_script")
+
+[node name="UpperTeeth" type="Polygon2D" parent="." unique_id=1912045046]
+texture_filter = 1
+color = Color(0.95, 0.95, 0.9, 1)
+polygon = PackedVector2Array(-7, -5, -4, -2, -2, -5, 0, -2, 2, -5, 4, -2, 7, -5)
+
+[node name="UpperOutline" type="Line2D" parent="." unique_id=1778247398]
+width = 2.0
+default_color = Color(0.15, 0.12, 0.1, 1)
+joint_mode = 2
+begin_cap_mode = 2
+end_cap_mode = 2
+
+[node name="LowerTeeth" type="Polygon2D" parent="." unique_id=219821464]
+color = Color(0.95, 0.95, 0.9, 1)
+polygon = PackedVector2Array(7, 5, 4, 2, 2, 5, 0, 2, -2, 5, -4, 2, -7, 5)
+
+[node name="LowerOutline" type="Line2D" parent="." unique_id=1124340687]
+width = 2.0
+default_color = Color(0.15, 0.12, 0.1, 1)
+joint_mode = 2
+begin_cap_mode = 2
+end_cap_mode = 2

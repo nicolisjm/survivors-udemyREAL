@@ -7,6 +7,7 @@ extends Node
 
 const DEFAULT_VISUAL_SCENE = preload("res://scenes/ability/chainLightning_ability/chainLightning_ability.tscn")
 const DEFAULT_SPARK_CONFIG = preload("res://resources/effects/chain_lightning_spark_config.tres") as HitSparkConfig
+var _chain_hit_sound: AudioStream = preload("res://assets/audio/sfx/freesound_community-electric_zap_001-6374.mp3") as AudioStream
 const MIN_WAIT_TIME := 0.01
 const STUN_DURATION_LEVEL_9: float = 0.2
 
@@ -130,7 +131,7 @@ func on_timer_timeout() -> void:
 			already_hit_this_cast.append(enemy)
 			var hurtbox = enemy.get_node_or_null("HurtboxComponent") as HurtboxComponent
 			if hurtbox:
-				hurtbox.apply_damage(damage_amount, spark_cfg, _stun_duration)
+				hurtbox.apply_damage(damage_amount, spark_cfg, _stun_duration, null, false, _chain_hit_sound, -34.0)
 		var chain_visual = scene_to_use.instantiate() as Node2D
 		foreground.add_child(chain_visual)
 		chain_visual.global_position = Vector2.ZERO

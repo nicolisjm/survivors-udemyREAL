@@ -8,6 +8,7 @@ const LETTERS := "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 
 var _pending_time_survived: float = 0.0
 var _pending_exp: float = 0.0
+var _pending_ability_names: Array = []
 var _slot_letter_indices: Array[int] = [0, 0, 0]
 
 
@@ -26,10 +27,11 @@ func _ready() -> void:
 	$%InitialsConfirmButton.pressed.connect(_on_initials_confirm)
 
 
-func set_game_over(time_survived_seconds: float, exp_collected: float) -> void:
+func set_game_over(time_survived_seconds: float, exp_collected: float, ability_names: Array = []) -> void:
 	$%TitleLabel.text = "Defeat"
 	$%DescriptionLabel.text = "You Lost!"
 	$%StatsLabel.text = "Time survived: %s\nExperience collected: %d" % [_format_seconds(time_survived_seconds), int(exp_collected)]
+	_pending_ability_names = ability_names.duplicate()
 	play_jingle(true)
 	if HighscoresManager.would_be_highscore(time_survived_seconds):
 		_pending_time_survived = time_survived_seconds
@@ -61,7 +63,7 @@ func _on_initials_confirm() -> void:
 	var initials: String = ""
 	for i in 3:
 		initials += LETTERS[_slot_letter_indices[i]]
-	HighscoresManager.submit_score(_pending_time_survived, _pending_exp, initials)
+	HighscoresManager.submit_score(_pending_time_survived, _pending_exp, initials, _pending_ability_names)
 	initials_panel.visible = false
 	$%NewHighscoreLabel.visible = true
 

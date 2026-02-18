@@ -1,0 +1,100 @@
+[gd_scene format=3 uid="uid://cefow58y8qh5b"]
+
+[ext_resource type="Script" uid="uid://cqbw40nly2cka" path="res://scenes/UI/ability_selector_screen.gd" id="1_script"]
+[ext_resource type="PackedScene" uid="uid://daoc7rc3himy6" path="res://scenes/UI/sound_button.tscn" id="2_button"]
+
+[node name="AbilitySelectorScreen" type="CanvasLayer" unique_id=378186594]
+layer = 10
+script = ExtResource("1_script")
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=489600976]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
+
+[node name="CenterContainer" type="CenterContainer" parent="MarginContainer" unique_id=264547083]
+layout_mode = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="MarginContainer/CenterContainer" unique_id=2032444227]
+custom_minimum_size = Vector2(300, 300)
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/CenterContainer/PanelContainer" unique_id=1683037663]
+layout_mode = 2
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 8
+
+[node name="MainVBox" type="VBoxContainer" parent="MarginContainer/CenterContainer/PanelContainer/MarginContainer" unique_id=1500338556]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="MainHBox" type="HBoxContainer" parent="MarginContainer/CenterContainer/PanelContainer/MarginContainer/MainVBox" unique_id=1931624289]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="LeftColumn" type="VBoxContainer" parent="MarginContainer/CenterContainer/PanelContainer/MarginContainer/MainVBox/MainHBox" unique_id=1156534052]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="TitleLabel" type="Label" parent="MarginContainer/CenterContainer/PanelContainer/MarginContainer/MainVBox/MainHBox/LeftColumn" unique_id=811919489]
+layout_mode = 2
+theme_type_variation = &"BlueOutlineLabel"
+theme_override_constants/shadow_offset_y = 1
+theme_override_font_sizes/font_size = 16
+text = "Select Starting Skill"
+horizontal_alignment = 1
+
+[node name="GridContainer" type="GridContainer" parent="MarginContainer/CenterContainer/PanelContainer/MarginContainer/MainVBox/MainHBox/LeftColumn" unique_id=1858241828]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_constants/h_separation = 4
+theme_override_constants/v_separation = 4
+columns = 4
+
+[node name="PreviewPanel" type="PanelContainer" parent="MarginContainer/CenterContainer/PanelContainer/MarginContainer/MainVBox/MainHBox" unique_id=1507850126]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+
+[node name="PreviewContent" type="VBoxContainer" parent="MarginContainer/CenterContainer/PanelContainer/MarginContainer/MainVBox/MainHBox/PreviewPanel" unique_id=1507168071]
+custom_minimum_size = Vector2(90, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+theme_override_constants/separation = 4
+
+[node name="ButtonRow" type="HBoxContainer" parent="MarginContainer/CenterContainer/PanelContainer/MarginContainer/MainVBox" unique_id=634496222]
+layout_mode = 2
+size_flags_vertical = 8
+theme_override_constants/separation = 12
+alignment = 1
+
+[node name="BackButton" parent="MarginContainer/CenterContainer/PanelContainer/MarginContainer/MainVBox/ButtonRow" unique_id=1949923599 instance=ExtResource("2_button")]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(60, 20)
+layout_mode = 2
+text = "Back"
+
+[node name="SelectedLabel" type="Label" parent="MarginContainer/CenterContainer/PanelContainer/MarginContainer/MainVBox/ButtonRow" unique_id=126794396]
+layout_mode = 2
+size_flags_horizontal = 6
+theme_type_variation = &"BlueOutlineLabel"
+theme_override_font_sizes/font_size = 16
+text = "Selected: Sword"
+horizontal_alignment = 1
+
+[node name="StartButton" parent="MarginContainer/CenterContainer/PanelContainer/MarginContainer/MainVBox/ButtonRow" unique_id=755040803 instance=ExtResource("2_button")]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(69, 28)
+layout_mode = 2
+text = "Start"

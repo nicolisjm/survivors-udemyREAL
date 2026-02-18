@@ -6,14 +6,25 @@ signal back_pressed
 @onready var back_button: Button = $%BackButton
 
 const COLUMN_SEPARATION := 8
-const COLUMN_MIN_WIDTH_NAME := 48
-const COLUMN_MIN_WIDTH_TIME := 48
-const COLUMN_MIN_WIDTH_POINTS := 48
 const ENTRY_FONT_SIZE := 16
+const ARENA_SIZE := Vector2(640, 360)
 
 
 func _ready() -> void:
+	_apply_portrait_layout()
 	back_button.text = "Back"
+
+
+func _apply_portrait_layout() -> void:
+	var margin_container: MarginContainer = $MarginContainer
+	var vp_size := ViewportHelper.get_viewport_size()
+	if ViewportHelper.is_portrait():
+		var arena_margin := int((vp_size.y - ARENA_SIZE.y) / 2.0)
+		margin_container.add_theme_constant_override("margin_top", arena_margin)
+		margin_container.add_theme_constant_override("margin_bottom", arena_margin)
+	else:
+		margin_container.remove_theme_constant_override("margin_top")
+		margin_container.remove_theme_constant_override("margin_bottom")
 	back_button.pressed.connect(on_back_pressed)
 	_populate_highscores()
 
@@ -22,43 +33,45 @@ func _populate_highscores() -> void:
 	for child in entries_container.get_children():
 		child.queue_free()
 
-	_add_header_row()
+	var grid := GridContainer.new()
+	grid.columns = 4
+	grid.add_theme_constant_override("h_separation", COLUMN_SEPARATION)
+	grid.add_theme_constant_override("v_separation", 4)
+	entries_container.add_child(grid)
+
+	_add_grid_header(grid)
 	var entries: Array = HighscoresManager.get_highscores()
-	for i in entries.size():
-		_add_entry_row(entries[i])
+	for entry in entries:
+		_add_grid_entry_row(grid, entry)
 
 
-func _add_header_row() -> void:
-	var row := HBoxContainer.new()
-	row.add_theme_constant_override("separation", COLUMN_SEPARATION)
-	row.add_child(_make_column_label("NAME", COLUMN_MIN_WIDTH_NAME, HORIZONTAL_ALIGNMENT_LEFT, true))
-	row.add_child(_make_column_label("TIME", COLUMN_MIN_WIDTH_TIME, HORIZONTAL_ALIGNMENT_CENTER, false))
-	row.add_child(_make_column_label("POINTS", COLUMN_MIN_WIDTH_POINTS, HORIZONTAL_ALIGNMENT_RIGHT, true))
-	entries_container.add_child(row)
+func _add_grid_header(grid: GridContainer) -> void:
+	grid.add_child(_make_column_label("NAME", HORIZONTAL_ALIGNMENT_LEFT))
+	grid.add_child(_make_column_label("TIME", HORIZONTAL_ALIGNMENT_CENTER))
+	grid.add_child(_make_column_label("POINTS", HORIZONTAL_ALIGNMENT_RIGHT))
+	grid.add_child(_make_column_label("ABILITIES", HORIZONTAL_ALIGNMENT_LEFT))
 
 
-func _add_entry_row(entry: Dictionary) -> void:
+func _add_grid_entry_row(grid: GridContainer, entry: Dictionary) -> void:
 	var initials: String = entry.get("initials", "---")
 	var time_survived: float = entry.get("time_survived", 0.0)
 	var exp_collected: int = entry.get("exp_collected", 0)
+	var ability_names: Array = entry.get("ability_names", [])
 	var time_str := _format_seconds(time_survived)
-	var row := HBoxContainer.new()
-	row.add_theme_constant_override("separation", COLUMN_SEPARATION)
-	row.add_child(_make_column_label(initials, COLUMN_MIN_WIDTH_NAME, HORIZONTAL_ALIGNMENT_LEFT, true))
-	row.add_child(_make_column_label(time_str, COLUMN_MIN_WIDTH_TIME, HORIZONTAL_ALIGNMENT_CENTER, false))
-	row.add_child(_make_column_label(str(exp_collected), COLUMN_MIN_WIDTH_POINTS, HORIZONTAL_ALIGNMENT_RIGHT, true))
-	entries_container.add_child(row)
+	var abilities_str: String = ", ".join(ability_names) if ability_names.size() > 0 else "—"
+	grid.add_child(_make_column_label(initials, HORIZONTAL_ALIGNMENT_LEFT))
+	grid.add_child(_make_column_label(time_str, HORIZONTAL_ALIGNMENT_CENTER))
+	grid.add_child(_make_column_label(str(exp_collected), HORIZONTAL_ALIGNMENT_RIGHT))
+	grid.add_child(_make_column_label(abilities_str, HORIZONTAL_ALIGNMENT_LEFT))
 
 
-func _make_column_label(text: String, min_width: int, alignment: HorizontalAlignment, expand: bool) -> Label:
+func _make_column_label(text: String, alignment: HorizontalAlignment) -> Label:
 	var label := Label.new()
 	label.text = text
 	label.theme_type_variation = &"BlueOutlineLabel"
 	label.add_theme_font_size_override("font_size", ENTRY_FONT_SIZE)
-	label.custom_minimum_size.x = min_width
 	label.horizontal_alignment = alignment
-	if expand:
-		label.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	label.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	return label
 
 

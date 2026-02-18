@@ -66,7 +66,6 @@ func _ready() -> void:
 	add_to_group("upgrade_manager")
 	ability_levels["axe"] = 0
 	ability_levels["chain_lightning"] = 0
-	ability_levels["sword"] = 1  # pre-attached
 	ability_levels["ball_lightning"] = 0
 	ability_levels["meteor"] = 0
 	ability_levels["flamethrower"] = 0
@@ -85,6 +84,8 @@ func _ready() -> void:
 	ability_levels["bite"] = 0
 	ability_levels["smite"] = 0
 	ability_levels["shadow_grab"] = 0
+	var start_id := StartingAbilityRegistry.selected_starting_ability_id
+	ability_levels[start_id] = 1  # pre-attached starting ability (must be after all = 0 so it is not overwritten)
 
 	# Only include functional abilities in the upgrade pool (placeholders excluded)
 	_ability_paths = [
@@ -93,9 +94,10 @@ func _ready() -> void:
 		path_chain_lightning,
 		path_bite,
 	]
-	# Initialize display order: any ability already at level >= 1 (e.g. starting weapon) is first.
+	# Initialize display order: starting ability first, then others as acquired.
+	_acquired_ability_order.append(start_id)
 	for path in _ability_paths:
-		if ability_levels.get(path.ability_id, 0) >= 1:
+		if path.ability_id != start_id and ability_levels.get(path.ability_id, 0) >= 1:
 			_acquired_ability_order.append(path.ability_id)
 	_rebuild_pool()
 
@@ -105,6 +107,34 @@ func _ready() -> void:
 	]
 
 	experience_manager.level_up.connect(on_level_up)
+
+	call_deferred("_apply_starting_ability_controller")
+
+
+func _apply_starting_ability_controller() -> void:
+	var start_id: String = StartingAbilityRegistry.selected_starting_ability_id
+	var path: AbilityUpgradePath = _get_path_for_ability(start_id)
+	if path == null or path.upgrades.size() == 0:
+		return
+	var ability: Ability = path.upgrades[0] as Ability
+	if ability == null or ability.ability_controller_scene == null:
+		return
+	var player: Node = get_tree().get_first_node_in_group("player")
+	if player == null:
+		return
+	var abilities_node: Node = player.get_node_or_null("Abilities")
+	if abilities_node == null:
+		return
+	for child in abilities_node.get_children():
+		abilities_node.remove_child(child)
+		child.queue_free()
+	var controller: Node = ability.ability_controller_scene.instantiate()
+	controller.set_meta("ability_id", ability.ability_id)
+	abilities_node.add_child(controller)
+	if controller.has_method("_apply_stats_from_level"):
+		controller.call("_apply_stats_from_level")
+	if controller.has_method("_apply_attack_speed"):
+		controller.call("_apply_attack_speed")
 
 
 func get_ability_level(ability_id: String) -> int:
@@ -207,6 +237,7 @@ func _apply_path_upgrade(upgrade: AbilityUpgrade) -> void:
 	ability_levels[upgrade.ability_id] = upgrade.level
 	if upgrade.level == 1 and upgrade.ability_id not in _acquired_ability_order:
 		_acquired_ability_order.append(upgrade.ability_id)
+		StartingAbilityRegistry.unlock_ability(upgrade.ability_id)
 	upgrade_pool.remove_item(upgrade)
 
 	var path: AbilityUpgradePath = _get_path_for_ability(upgrade.ability_id)

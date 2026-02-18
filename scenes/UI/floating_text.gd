@@ -1,12 +1,21 @@
 extends Node2D
+## Displays a damage number (or other text) that floats up and fades.
+## is_crit: if true, text is shown in gold with "!" appended (e.g. "10" -> "10!"); reusable for any ability crit.
+
+const CRIT_COLOR := Color(1.0, 0.80, 0.2, 1.0)
 
 
 func _ready() -> void:
 	pass
-	
-	
-func start(text: String):
-	$Label.text = text
+
+
+func start(text: String, is_crit: bool = false) -> void:
+	if is_crit:
+		$Label.text = text + " !"
+		$Label.add_theme_color_override("font_color", CRIT_COLOR)
+	else:
+		$Label.text = text
+		$Label.remove_theme_color_override("font_color")
 	scale = Vector2.ZERO
 	
 	

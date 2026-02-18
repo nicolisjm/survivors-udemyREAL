@@ -33,6 +33,8 @@ HighscoresManager="*res://scenes/autoload/highscores_manager.tscn"
 ExperienceOrbManager="*res://scenes/autoload/experience_orb_manager.tscn"
 PerformanceDebug="*res://scenes/autoload/performance_debug.tscn"
 EnemyCollisionLOD="*res://scenes/autoload/enemy_collision_lod.tscn"
+StartingAbilityRegistry="*res://scenes/autoload/starting_ability_registry.gd"
+ViewportHelper="*res://scenes/autoload/viewport_helper.gd"
 
 [debug]
 
@@ -45,10 +47,11 @@ window/size/viewport_height=360
 window/size/window_width_override=1920
 window/size/window_height_override=1080
 window/stretch/mode="viewport"
+window/handheld/orientation=1
 window/size/viewport_width.android=360
 window/size/viewport_height.android=640
 display/window/handheld/orientation=1
-display/window/handheld/orientation.android=0
+display/window/handheld/orientation.android=1
 
 [global_group]
 

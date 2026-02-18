@@ -20,7 +20,7 @@ end_screen_scene = ExtResource("2_ouso4")
 
 [node name="Vignette" parent="." unique_id=1374168513 instance=ExtResource("12_blune")]
 
-[node name="CurrentAbilities" parent="." instance=ExtResource("13_abilities")]
+[node name="CurrentAbilities" parent="." unique_id=324102788 instance=ExtResource("13_abilities")]
 
 [node name="ArenaTimeUI" parent="." unique_id=1339497021 node_paths=PackedStringArray("arena_time_manager") instance=ExtResource("1_ow5a4")]
 arena_time_manager = NodePath("../ArenaTimeManager")

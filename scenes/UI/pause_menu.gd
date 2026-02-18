@@ -1,6 +1,7 @@
 extends CanvasLayer
 
 @onready var panel_container: PanelContainer = %PanelContainer
+@export var end_screen_scene: PackedScene
 
 var options_menu_scene = preload("res://scenes/UI/options_menu.tscn")
 var is_closing
@@ -57,10 +58,15 @@ func on_options_pressed():
 	
 	
 func on_quit_pressed():
-	ScreenTransition.transition()
-	await ScreenTransition.transitioned_halfway
+	if is_closing:
+		return
+	is_closing = true
+	var player: Node = get_tree().get_first_node_in_group("player")
+	var health: HealthComponent = player.get_node_or_null("HealthComponent") as HealthComponent if player else null
+	if health != null:
+		health.damage(9999, null)
 	get_tree().paused = false
-	get_tree().change_scene_to_file("res://scenes/UI/main_menu.tscn")
+	queue_free()
 	
 	
 func on_options_back_pressed(options_menu: Node):
