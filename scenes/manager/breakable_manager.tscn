@@ -1,0 +1,17 @@
+[gd_scene format=3 uid="uid://btrwg4bddjkiu"]
+
+[ext_resource type="Script" uid="uid://cw16f803qqjb0" path="res://scenes/manager/breakable_manager.gd" id="1_script"]
+[ext_resource type="PackedScene" uid="uid://cbarrel01" path="res://scenes/game_object/breakable/barrel.tscn" id="2_barrel"]
+[ext_resource type="PackedScene" uid="uid://ccrate01" path="res://scenes/game_object/breakable/crate.tscn" id="3_crate"]
+[ext_resource type="PackedScene" uid="uid://ccratetower01" path="res://scenes/game_object/breakable/crate_tower.tscn" id="4_tower"]
+
+[node name="BreakableManager" type="Node" unique_id=1588686366]
+script = ExtResource("1_script")
+barrel_scene = ExtResource("2_barrel")
+crate_scene = ExtResource("3_crate")
+crate_tower_scene = ExtResource("4_tower")
+
+[node name="Timer" type="Timer" parent="." unique_id=730165806]
+wait_time = 14.0
+one_shot = true
+autostart = true

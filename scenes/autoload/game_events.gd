@@ -3,6 +3,8 @@ extends Node
 signal experience_vial_collected(number: float)
 signal ability_upgrade_added(upgrade: AbilityUpgrade, current_upgrades: Dictionary)
 signal player_damaged
+signal player_healed
+signal black_hole_activated
 
 
 func emit_experience_vial_collected(number: float):
@@ -15,3 +17,11 @@ func emit_ability_upgrade_added(upgrade: AbilityUpgrade, current_upgrades: Dicti
 
 func emit_player_damaged():
 	player_damaged.emit()
+
+
+func emit_player_healed():
+	player_healed.emit()
+
+
+func emit_black_hole_activated():
+	black_hole_activated.emit()

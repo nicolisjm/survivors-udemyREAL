@@ -23,6 +23,17 @@ var base_spawn_time = 0
 var enemy_table = WeightedTable.new()
 var _arena_difficulty := 0
 
+# Elite spawn: pre-10min ~5 total, 2min cooldown with variance; post-10min more frequent
+var _last_elite_spawn_difficulty := -999
+var _elite_count_pre_10 := 0
+const ELITE_UNLOCK_DIFFICULTY := 24  # minute 2
+const ELITE_COOLDOWN_BASE := 24  # 2 min in difficulty units (5s each)
+const ELITE_COOLDOWN_VARIANCE := 8
+const MAX_ELITES_PRE_10 := 5
+const ELITE_CHANCE_POST_10 := 0.012  # Post-10min: elites are rarer (~1.2% per spawn tick)
+const ELITE_DROP_SCENE := preload("res://scenes/component/elite_drop_component.tscn")
+const ELITE_OUTLINE_SHADER := preload("res://scenes/component/elite_outline.gdshader")
+
 func _ready() -> void:
 	if basic_enemy_scene != null:
 		enemy_table.add_item(basic_enemy_scene, 20)
@@ -73,11 +84,94 @@ func on_timer_timeout():
 			group_size = randi_range(3, 6)
 		var base_pos = get_spawn_position()
 		for j in group_size:
-			var enemy = enemy_scene.instantiate() as Node2D
+			# Before 10 min, elites may only spawn on the highest-health enemy type in the pool
+			var will_be_elite := _try_make_elite(null)
+			var scene_to_spawn: PackedScene = enemy_scene
+			if will_be_elite and _arena_difficulty <= 120:
+				scene_to_spawn = _get_highest_health_enemy_scene()
+				if scene_to_spawn == null:
+					scene_to_spawn = enemy_scene
+			var enemy = scene_to_spawn.instantiate() as Node2D
 			entities_layer.add_child(enemy)
 			var offset = Vector2(randf_range(-GROUP_SPAWN_OFFSET_RADIUS, GROUP_SPAWN_OFFSET_RADIUS), randf_range(-GROUP_SPAWN_OFFSET_RADIUS, GROUP_SPAWN_OFFSET_RADIUS))
 			enemy.global_position = base_pos + offset
-			_apply_post_10_min_scaling(enemy)
+			if will_be_elite:
+				_apply_elite(enemy)
+				var hc = enemy.get_node_or_null("HealthComponent") as HealthComponent
+				print("[Elite] Spawned elite %s (health %.0f) at diff %d, pre-10 count %d" % [enemy.name, hc.max_health if hc else 0, _arena_difficulty, _elite_count_pre_10])
+			else:
+				_apply_post_10_min_scaling(enemy)
+
+
+func _get_highest_health_enemy_scene() -> PackedScene:
+	var best_scene: PackedScene = null
+	var best_health: float = -1.0
+	for entry in enemy_table.items:
+		var scene: PackedScene = entry["item"] as PackedScene
+		if scene == null:
+			continue
+		var temp = scene.instantiate() as Node2D
+		add_child(temp)
+		var hc = temp.get_node_or_null("HealthComponent") as HealthComponent
+		var health: float = hc.max_health if hc else 0.0
+		temp.queue_free()
+		if health > best_health:
+			best_health = health
+			best_scene = scene
+	return best_scene
+
+
+func _try_make_elite(_enemy: Node2D) -> bool:
+	if _arena_difficulty < ELITE_UNLOCK_DIFFICULTY:
+		return false
+	if _arena_difficulty <= 120:
+		if _elite_count_pre_10 >= MAX_ELITES_PRE_10:
+			return false
+		var cooldown = ELITE_COOLDOWN_BASE + randf_range(-ELITE_COOLDOWN_VARIANCE * 0.5, ELITE_COOLDOWN_VARIANCE * 0.5)
+		if _arena_difficulty < _last_elite_spawn_difficulty + cooldown:
+			return false
+		return true
+	else:
+		return randf() < ELITE_CHANCE_POST_10
+
+
+func _apply_elite(enemy: Node2D) -> void:
+	_last_elite_spawn_difficulty = _arena_difficulty
+	if _arena_difficulty <= 120:
+		_elite_count_pre_10 += 1
+
+	var health := enemy.get_node_or_null("HealthComponent") as HealthComponent
+	if health:
+		var base_health = health.max_health
+		health.max_health = (base_health + 1.0) * 10.0
+		health.current_health = health.max_health
+
+	# Replace VialDropComponent with EliteDropComponent
+	var vial_drop = enemy.get_node_or_null("VialDropComponent")
+	var base_amount := 1.0
+	if vial_drop and "amount" in vial_drop:
+		base_amount = vial_drop.amount
+	if vial_drop:
+		vial_drop.queue_free()
+
+	var elite_drop = ELITE_DROP_SCENE.instantiate() as Node
+	elite_drop.health_component = health
+	elite_drop.arena_time_manager = arena_time_manager
+	elite_drop.base_vial_amount = base_amount
+	enemy.add_child(elite_drop)
+
+	# 50% increased scale for elites
+	enemy.scale *= 1.5
+
+	# Bright red outline on visuals (apply to all Sprite2D under Visuals)
+	var visuals = enemy.get_node_or_null("Visuals")
+	if visuals:
+		var mat = ShaderMaterial.new()
+		mat.shader = ELITE_OUTLINE_SHADER
+		mat.set_shader_parameter("outline_color", Color(1.0, 0.0, 0.0, 1.0))
+		for child in visuals.get_children():
+			if child is Sprite2D:
+				child.material = mat
 
 
 func _apply_post_10_min_scaling(enemy: Node2D) -> void:

@@ -11,10 +11,10 @@ const _default_icon: Texture2D = preload("res://scenes/game_object/player/player
 @onready var sub_name_label: Label = %SubNameLabel
 @onready var icon_texture_rect: TextureRect = %IconTextureRect
 
-var disabled = false
+var disabled = true
 
 
-func _ready() -> void:
+func _ready():
 	gui_input.connect(on_gui_input)
 	mouse_entered.connect(on_mouse_entered)
 	mouse_exited.connect(on_mouse_exited)
@@ -24,6 +24,8 @@ func play_in(delay: float = 0):
 	modulate = Color.TRANSPARENT
 	await get_tree().create_timer(delay).timeout
 	$AnimationPlayer.play("in")
+	await $AnimationPlayer.animation_finished
+	disabled = false
 	
 	
 func play_discard():
@@ -75,6 +77,8 @@ func set_ability_upgrade(upgrade: AbilityUpgrade, upgrade_manager: UpgradeManage
 	
 	
 func select_card():
+	if disabled:
+		return
 	disabled = true
 	$AnimationPlayer.play("selected")
 	

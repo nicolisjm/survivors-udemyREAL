@@ -1,0 +1,36 @@
+[gd_scene load_steps=8 format=3 uid="uid://cbarrel01"]
+
+[ext_resource type="Texture2D" uid="uid://8qjox6ikp6dl" path="res://assets/sprite/barrel.png" id="1_tex"]
+[ext_resource type="PackedScene" uid="uid://40irphxwdaut" path="res://scenes/component/health_component.tscn" id="2_health"]
+[ext_resource type="PackedScene" uid="uid://b4fmb3q018fah" path="res://scenes/component/hurtbox_component.tscn" id="3_hurtbox"]
+[ext_resource type="PackedScene" uid="uid://bpb8aq2cd82w0" path="res://scenes/component/death_component.tscn" id="4_death"]
+[ext_resource type="PackedScene" path="res://scenes/component/item_drop_component.tscn" id="5_item"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_1"]
+radius = 20.0
+
+[node name="Barrel" type="Node2D" groups=["breakable", "enemy"]]
+script = null
+
+[node name="Visuals" type="Node2D" parent="."]
+
+[node name="Sprite2D" type="Sprite2D" parent="Visuals"]
+texture = ExtResource("1_tex")
+
+[node name="HealthComponent" parent="." instance=ExtResource("2_health")]
+max_health = 5.0
+
+[node name="HurtboxComponent" parent="." instance=ExtResource("3_hurtbox")]
+visible = false
+health_component = NodePath("../HealthComponent")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtboxComponent"]
+position = Vector2(0, -4)
+shape = SubResource("CircleShape2D_1")
+
+[node name="DeathComponent" parent="." instance=ExtResource("4_death")]
+health_component = NodePath("../HealthComponent")
+sprite = NodePath("../Visuals/Sprite2D")
+
+[node name="ItemDropComponent" parent="." instance=ExtResource("5_item")]
+health_component = NodePath("../HealthComponent")

@@ -1,0 +1,22 @@
+[gd_scene format=3 uid="uid://cpleghftxflto"]
+
+[ext_resource type="Script" uid="uid://30ull34gs34p" path="res://scenes/game_object/item/health_vial.gd" id="1_health"]
+[ext_resource type="Texture2D" uid="uid://dja3tyx7s4lob" path="res://assets/sprite/health_vial.png" id="2_tex"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_1"]
+radius = 16.0
+
+[node name="HealthVial" type="Node2D" unique_id=1564809878]
+script = ExtResource("1_health")
+
+[node name="Area2D" type="Area2D" parent="." unique_id=1380612100]
+collision_layer = 0
+collision_mask = 16
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=242586319]
+shape = SubResource("CircleShape2D_1")
+
+[node name="Visual" type="Node2D" parent="." unique_id=16287694]
+
+[node name="Sprite2D" type="Sprite2D" parent="Visual" unique_id=670594378]
+texture = ExtResource("2_tex")

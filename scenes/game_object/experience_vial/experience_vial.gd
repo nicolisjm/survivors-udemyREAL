@@ -38,6 +38,12 @@ func _ready() -> void:
 	_setup_orb_appearance()
 	update_visual_scale()
 	$Area2D.area_entered.connect(on_area_entered)
+	GameEvents.black_hole_activated.connect(_on_black_hole_activated)
+
+
+func _exit_tree() -> void:
+	if GameEvents.black_hole_activated.is_connected(_on_black_hole_activated):
+		GameEvents.black_hole_activated.disconnect(_on_black_hole_activated)
 
 
 func update_visual_scale() -> void:
@@ -122,6 +128,21 @@ func collect():
 
 func disable_collision():
 	collision_shape_2d.disabled = true
+
+
+func _on_black_hole_activated() -> void:
+	if not is_inside_tree() or collision_shape_2d.disabled:
+		return
+	print("[XPOrb] Black hole sucking orb (value %.1f) at %s" % [experience_value, global_position])
+	Callable(disable_collision).call_deferred()
+	if glow_particles:
+		glow_particles.emitting = false
+		glow_particles.visible = false
+	var start_pos = global_position
+	var tween = create_tween()
+	tween.tween_method(tween_collect.bind(start_pos), 0.0, 1.0, 0.6)\
+		.set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_QUAD)
+	tween.tween_callback(collect)
 
 
 func on_area_entered(other_area: Area2D):

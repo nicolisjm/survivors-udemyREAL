@@ -13,6 +13,7 @@
 [ext_resource type="PackedScene" uid="uid://curqy0wwqoiry" path="res://scenes/manager/upgrade_manager.tscn" id="6_b1x3f"]
 [ext_resource type="PackedScene" uid="uid://wgqo2sfosuiu" path="res://scenes/UI/vignette.tscn" id="12_blune"]
 [ext_resource type="PackedScene" uid="uid://bjdee2vks8s0m" path="res://scenes/UI/current_abilities.tscn" id="13_abilities"]
+[ext_resource type="PackedScene" uid="uid://btrwg4bddjkiu" path="res://scenes/manager/breakable_manager.tscn" id="14_breakable"]
 
 [node name="Main" type="Node" unique_id=1584566805]
 script = ExtResource("1_a8run")
@@ -32,6 +33,8 @@ experience_manager = NodePath("../ExperienceManager")
 
 [node name="EnemyManager" parent="." unique_id=1077939996 node_paths=PackedStringArray("arena_time_manager") instance=ExtResource("1_6q06x")]
 arena_time_manager = NodePath("../ArenaTimeManager")
+
+[node name="BreakableManager" parent="." unique_id=1077939997 instance=ExtResource("14_breakable")]
 
 [node name="ExperienceManager" parent="." unique_id=1864568668 instance=ExtResource("4_yyfjg")]
 

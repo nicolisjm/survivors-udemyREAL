@@ -49,6 +49,9 @@ var upgrade_generic_attack_speed_30 = preload("res://resources/upgrades/generic_
 ## Upgrades in the same selection group cannot appear together in one pick (e.g. only one "generic damage" per selection).
 var _selection_groups: Array[Array] = []
 
+## When chest and level-up trigger together, show one screen then the other.
+var _pending_level_up := false
+
 ## Max number of main/active abilities (unlocks) the player can have. Unlock options for other abilities are removed from the pool once this is reached.
 const MAX_MAIN_ABILITIES: int = 3
 
@@ -337,8 +340,28 @@ func on_upgrade_selected(upgrade: AbilityUpgrade):
 
 
 func on_level_up(current_level: int):
+	_show_upgrade_screen()
+
+
+func show_free_upgrade_selection() -> void:
+	## Chest: free upgrade without level-up or XP change.
+	_show_upgrade_screen()
+
+
+func _show_upgrade_screen() -> void:
+	for child in get_children():
+		if child is CanvasLayer:
+			_pending_level_up = true
+			return
 	var upgrade_screen_instance = upgrade_screen_scene.instantiate()
 	add_child(upgrade_screen_instance)
+	upgrade_screen_instance.screen_closed.connect(_on_upgrade_screen_closed)
 	var chosen_upgrades = pick_upgrades()
 	upgrade_screen_instance.set_ability_upgrades(chosen_upgrades as Array[AbilityUpgrade])
 	upgrade_screen_instance.upgrade_selected.connect(on_upgrade_selected)
+
+
+func _on_upgrade_screen_closed() -> void:
+	if _pending_level_up:
+		_pending_level_up = false
+		_show_upgrade_screen()

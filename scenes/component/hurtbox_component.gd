@@ -24,9 +24,12 @@ func _ready() -> void:
 ## is_crit: if true, floating text shows damage in gold with "!" (e.g. 10!); use for crits from Bite or other abilities.
 ## hit_sound: optional; ability-specific sound (e.g. bite chomp, chain zap). Played at hit position, use hit_sound_volume_db for level.
 func apply_damage(amount: float, spark_config: HitSparkConfig = null, stun_duration: float = 0.0, source: Variant = null, is_crit: bool = false, hit_sound: AudioStream = null, hit_sound_volume_db: float = -12.0) -> void:
-	if health_component == null:
+	var hc = health_component
+	if hc == null:
+		hc = get_parent().get_node_or_null("HealthComponent") as HealthComponent
+	if hc == null:
 		return
-	health_component.damage(amount, source)
+	hc.damage(amount, source)
 	if stun_duration > 0.0:
 		var parent_node = get_parent()
 		if parent_node:

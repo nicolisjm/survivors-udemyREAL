@@ -20,6 +20,12 @@ func _process(_delta: float) -> void:
 		if not is_instance_valid(node):
 			continue
 		var enemy := node as Node2D
+		# Breakables must always have monitorable=true so HitboxComponent can detect them
+		if enemy.is_in_group("breakable"):
+			var hurtbox: Area2D = enemy.get_node_or_null("HurtboxComponent") as Area2D
+			if hurtbox:
+				hurtbox.monitorable = true
+			continue
 		var dist_sq: float = enemy.global_position.distance_squared_to(player_pos)
 		var in_range: bool = dist_sq <= LOD_DISTANCE_SQ
 		if enemy is Area2D:

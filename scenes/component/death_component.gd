@@ -4,8 +4,10 @@ extends Node2D
 @export var sprite: Sprite2D
 
 func _ready() -> void:
-	$GPUParticles2D.texture = sprite.texture
-	health_component.died.connect(on_died)
+	if sprite and sprite.texture:
+		$GPUParticles2D.texture = sprite.texture
+	if health_component is HealthComponent:
+		(health_component as HealthComponent).died.connect(on_died)
 	
 	
 func on_died(_killer_source: Variant = null) -> void:

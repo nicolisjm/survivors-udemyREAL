@@ -80,11 +80,18 @@ func on_damage_interval_timer_timeout():
 	check_deal_damage()
 	
 	
-func on_health_changed():
-	GameEvents.emit_player_damaged()
+func on_health_changed(old_health: float, new_health: float) -> void:
 	update_health_display()
-	$HealthBarAnimationPlayer.play("damage")
-	$HitRandomStreamPlayer.play_random()
+	if new_health > old_health:
+		# Healing: vignette heal animation, health bar heal color flash, health pickup sound
+		GameEvents.emit_player_healed()
+		$HealthBarAnimationPlayer.play("heal")
+		$HealStreamPlayer.play()
+	else:
+		# Damage: vignette hit, health bar damage flash, damage sound
+		GameEvents.emit_player_damaged()
+		$HealthBarAnimationPlayer.play("damage")
+		$HitRandomStreamPlayer.play_random()
 	
 
 func on_ability_upgrade_added(ability_upgrade: AbilityUpgrade, current_upgrades: Dictionary):

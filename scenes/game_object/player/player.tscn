@@ -11,6 +11,7 @@
 [ext_resource type="AudioStream" uid="uid://0leuhcu2a7v" path="res://assets/audio/sfx/impactMining_002.ogg" id="8_l1g56"]
 [ext_resource type="AudioStream" uid="uid://dqb1etnj4857h" path="res://assets/audio/sfx/impactMining_003.ogg" id="9_llc7q"]
 [ext_resource type="AudioStream" uid="uid://btnerax05oc6p" path="res://assets/audio/sfx/impactMining_004.ogg" id="10_bfkik"]
+[ext_resource type="AudioStream" uid="uid://cmoxs2wfgrccu" path="res://assets/audio/sfx/freesound_community-health-pickup-6860.mp3" id="11_heal"]
 
 [sub_resource type="Animation" id="Animation_tj6oj"]
 length = 0.001
@@ -131,10 +132,28 @@ tracks/0/keys = {
 "values": [Color(0.9098039, 0.27058825, 0.21568628, 1), Color(0.2627451, 0.88235295, 0.7019608, 1)]
 }
 
+[sub_resource type="Animation" id="Animation_heal"]
+resource_name = "heal"
+length = 0.2
+step = 0.01
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("HealthBar:theme_override_styles/fill:bg_color")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(2, 1),
+"update": 0,
+"values": [Color(0.2, 1, 0.55, 1), Color(0.2627451, 0.88235295, 0.7019608, 1)]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_rix40"]
 _data = {
 &"RESET": SubResource("Animation_rix40"),
-&"damage": SubResource("Animation_pknkg")
+&"damage": SubResource("Animation_pknkg"),
+&"heal": SubResource("Animation_heal")
 }
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tj6oj"]
@@ -178,6 +197,10 @@ max_health = 100.0
 
 [node name="HitRandomStreamPlayer" parent="." unique_id=2042857901 instance=ExtResource("5_gbew5")]
 streams = Array[AudioStream]([ExtResource("6_oxhc3"), ExtResource("7_mxgtx"), ExtResource("8_l1g56"), ExtResource("9_llc7q"), ExtResource("10_bfkik")])
+
+[node name="HealStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=-447677173]
+stream = ExtResource("11_heal")
+bus = &"sfx"
 
 [node name="DamageIntervalTimer" type="Timer" parent="." unique_id=758254074]
 wait_time = 0.5

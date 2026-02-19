@@ -1,0 +1,61 @@
+[gd_scene format=3 uid="uid://c2chest01"]
+
+[ext_resource type="Script" uid="uid://b5gpheak75uho" path="res://scenes/game_object/item/chest.gd" id="1_script"]
+[ext_resource type="Texture2D" uid="uid://bv4w64pesys38" path="res://assets/sprite/chest.png" id="2_tex"]
+[ext_resource type="AudioStream" uid="uid://bq8w8rthpcbla" path="res://assets/audio/sfx/freesound_community-coin-2-47744.mp3" id="3_coin"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1"]
+size = Vector2(24, 20)
+
+[sub_resource type="Gradient" id="Gradient_gold"]
+interpolation_mode = 2
+offsets = PackedFloat32Array(0, 0.5, 1)
+colors = PackedColorArray(1, 0.85, 0.2, 1, 1, 0.7, 0.1, 0.6, 1, 0.6, 0, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture_gold"]
+gradient = SubResource("Gradient_gold")
+
+[sub_resource type="Curve" id="Curve_gold"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.6, 0.8), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_gold"]
+curve = SubResource("Curve_gold")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_gold"]
+particle_flag_disable_z = true
+emission_shape = 1
+emission_sphere_radius = 6.0
+direction = Vector3(0, -1, 0)
+spread = 180.0
+initial_velocity_min = 20.0
+initial_velocity_max = 50.0
+gravity = Vector3(0, -30, 0)
+scale_min = 0.5
+scale_max = 1.2
+scale_curve = SubResource("CurveTexture_gold")
+color_ramp = SubResource("GradientTexture_gold")
+
+[node name="Chest" type="Node2D" unique_id=175967164]
+process_mode = 3
+script = ExtResource("1_script")
+
+[node name="PickupSound" type="AudioStreamPlayer" parent="." unique_id=-1447572284]
+process_mode = 3
+stream = ExtResource("3_coin")
+bus = &"sfx"
+
+[node name="Area2D" type="Area2D" parent="." unique_id=1884625293]
+collision_layer = 0
+collision_mask = 16
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=83656927]
+scale = Vector2(0.64, 0.703)
+shape = SubResource("RectangleShape2D_1")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=920831445]
+texture = ExtResource("2_tex")
+
+[node name="GoldParticles" type="GPUParticles2D" parent="." unique_id=1107445810]
+lifetime = 0.8
+process_material = SubResource("ParticleProcessMaterial_gold")

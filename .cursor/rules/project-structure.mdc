@@ -1,0 +1,52 @@
+---
+description: Project structure and architecture for survivors-udemy game
+alwaysApply: true
+---
+
+# Survivors-Udemy Project Structure
+
+## Folder Layout
+
+| Folder | Purpose |
+|--------|---------|
+| `scenes/game_object/` | Player, enemies (basic_enemy, bat_enemy, ghost_enemy, wizard_enemy, spider_enemy, ogre_enemy), experience_vial |
+| `scenes/ability/` | Per-ability: `*_ability/` (visual/projectile), `*_ability_controller/` (logic) |
+| `scenes/component/` | Reusable components: HurtboxComponent, VelocityComponent, HealthComponent, DeathComponent, HitboxComponent, VialDropComponent |
+| `scenes/manager/` | UpgradeManager, EnemyManager, ArenaTimeManager, ExperienceManager |
+| `scenes/UI/` | Main menu, ability selector, upgrade screen, end screen, pause menu, highscores |
+| `scenes/autoload/` | GameEvents, StartingAbilityRegistry, HighscoresManager, ScreenTransition, etc. |
+| `resources/upgrades/` | Ability resource `.tres` files: `*_path.tres`, `*.tres`, `*_lv2.tres` … `*_lv9.tres` |
+
+## Game Flow
+
+```
+Main Menu (main_menu.tscn) [run scene]
+  Play → Ability Selector → Start → Main (main.tscn)
+  Player dies → End Screen → Restart or Main Menu
+```
+
+## Key Systems
+
+- **UpgradeManager** (`scenes/manager/upgrade_manager.gd`): Upgrade pool, ability levels, applies starting ability controller into player `Abilities` node
+- **StartingAbilityRegistry** (autoload): Unlocked abilities, selected starting ability, `get_selectable_ability_paths()` (excludes smite)
+- **GameEvents** (autoload): `experience_vial_collected`, `ability_upgrade_added`, `player_damaged`
+- **HighscoresManager** (autoload): Top 5 scores, `user://highscores.dat`
+
+## Ability Architecture
+
+- **Resources**: `AbilityUpgradePath` → `Ability` (level 1) + `AbilityUpgrade` (lv2–9)
+- **Scenes**: `Ability.ability_controller_scene` → controller under player `Abilities` node
+- **Controller pattern**: `_apply_stats_from_level()`, `_apply_attack_speed()`, listen to `GameEvents.ability_upgrade_added` for live updates
+
+## Enemy Structure
+
+- **Base**: `Area2D` in group `"enemy"`
+- **Components**: HurtboxComponent, VelocityComponent, HealthComponent, DeathComponent, VialDropComponent, HitFlashComponent
+- **Pattern**: `velocity_component.accelerate_to_player()` + `move()` in `_process`; Hurtbox receives damage from HitboxComponent
+
+## Naming Conventions
+
+- Scenes/scripts: `snake_case.tscn`, `snake_case.gd`
+- Ability folders: `*_ability/`, `*_ability_controller/`
+- Resources: `ability_id.tres`, `ability_id_path.tres`
+- Unique nodes: `%NodeName` for `$%NodeName` access

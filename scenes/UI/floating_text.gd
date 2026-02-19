@@ -9,8 +9,11 @@ func _ready() -> void:
 	pass
 
 
-func start(text: String, is_crit: bool = false) -> void:
-	if is_crit:
+func start(text: String, is_crit: bool = false, custom_color: Variant = null) -> void:
+	if custom_color != null:
+		$Label.text = text
+		$Label.add_theme_color_override("font_color", custom_color)
+	elif is_crit:
 		$Label.text = text + " !"
 		$Label.add_theme_color_override("font_color", CRIT_COLOR)
 	else:
