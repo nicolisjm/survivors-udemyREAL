@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="AbilityUpgrade" format=3 uid="uid://cgeneric_damage_prestige"]
+
+[ext_resource type="Script" uid="uid://dwgsoek0kp41e" path="res://resources/upgrades/ability_upgrade.gd" id="1_dmgp"]
+
+[resource]
+script = ExtResource("1_dmgp")
+id = "generic_damage_prestige"
+max_quantity = 99
+name = "Damage"
+sub_name = "Diminishing"
+description = "Increases all ability damage by 5% (unlocks after maxing Damage)"

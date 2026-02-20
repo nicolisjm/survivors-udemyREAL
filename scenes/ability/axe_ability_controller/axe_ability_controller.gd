@@ -7,7 +7,7 @@ var base_wait_time: float
 var _quantity: int = 1
 var _damage_flat_bonus: int = 0
 var _size_mult: float = 1.0
-var _duration_mult: float = 1.0
+var _duration_mult: float = 1
 
 const MIN_WAIT_TIME := 0.01
 
@@ -54,7 +54,7 @@ func _apply_stats_from_level() -> void:
 	if level >= 8:
 		_size_mult *= 1.15   # combo: +30% size
 
-	_duration_mult = 1.0
+	_duration_mult = 1
 	if level >= 6:
 		_duration_mult = 1.1   # 10% longer orbit
 	if level >= 8:
@@ -95,26 +95,33 @@ func on_timer_timeout() -> void:
 	var damage_mult: float = 1.0
 	if player.get("damage_multiplier") != null:
 		damage_mult = player.damage_multiplier
+	var flat_bonus: int = player.get("damage_flat_bonus") if player.get("damage_flat_bonus") != null else 0
+	var size_mult: float = player.get("size_multiplier") if player.get("size_multiplier") != null else 1.0
+	var duration_mult: float = player.get("duration_multiplier") if player.get("duration_multiplier") != null else 1.0
 	var overflow_bonus: float = get_meta("_axe_overflow_bonus", 1.0)
-	var damage: float = (base_damage + _damage_flat_bonus) * damage_mult * overflow_bonus
+	var damage: float = (base_damage + _damage_flat_bonus + flat_bonus) * damage_mult * overflow_bonus
 
 	for i in _quantity:
 		var axe_instance = axe_ability_scene.instantiate() as Node2D
 		axe_instance.initial_angle = i * TAU / _quantity
 		axe_instance.orbit_direction = 1.0 if i % 2 == 0 else -1.0
 		if "duration_mult" in axe_instance:
-			axe_instance.duration_mult = _duration_mult
+			axe_instance.duration_mult = _duration_mult * duration_mult
+		if "radius_mult" in axe_instance:
+			axe_instance.radius_mult = size_mult
 		foreground.add_child(axe_instance)
 		axe_instance.global_position = player.global_position
 		axe_instance.hitbox_component.damage = damage
-		axe_instance.scale = Vector2.ONE * _size_mult
+		axe_instance.scale = Vector2.ONE * _size_mult * size_mult
 
 
 func on_ability_upgrade_added(upgrade: AbilityUpgrade, current_upgrades: Dictionary) -> void:
 	if upgrade.ability_id == "axe":
 		_apply_stats_from_level()
 		_apply_attack_speed()
-	elif upgrade.id in ["generic_attack_speed_10", "generic_attack_speed_20", "generic_attack_speed_30"]:
+	elif upgrade.id in ["generic_attack_speed", "generic_attack_speed_prestige"]:
 		_apply_attack_speed()
-	elif upgrade.id in ["generic_damage_10", "generic_damage_20", "generic_damage_30"]:
+	elif upgrade.id in ["generic_damage", "generic_damage_prestige"]:
 		pass  # damage_mult is read from player each attack
+	elif upgrade.id in ["generic_size", "generic_size_prestige", "generic_duration", "generic_duration_prestige"]:
+		pass  # size/duration read from player at spawn time

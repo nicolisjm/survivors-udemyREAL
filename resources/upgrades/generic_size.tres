@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="AbilityUpgrade" format=3 uid="uid://yroednytuusq"]
+
+[ext_resource type="Script" uid="uid://dwgsoek0kp41e" path="res://resources/upgrades/ability_upgrade.gd" id="1_size"]
+
+[resource]
+script = ExtResource("1_size")
+id = "generic_size"
+max_quantity = 3
+name = "Size"
+description = "Increases ability size, AOE, or range by 10%"

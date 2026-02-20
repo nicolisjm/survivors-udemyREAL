@@ -96,7 +96,9 @@ func _do_bite_attack() -> void:
 	if foreground == null:
 		return
 
-	var range_sq: float = BITE_RANGE * BITE_RANGE
+	var size_mult: float = player.get("size_multiplier") if player.get("size_multiplier") != null else 1.0
+	var effective_range: float = BITE_RANGE * size_mult
+	var range_sq: float = effective_range * effective_range
 	var enemies = get_tree().get_nodes_in_group("enemy")
 	enemies = enemies.filter(func(enemy: Node2D):
 		return enemy.global_position.distance_squared_to(player.global_position) <= range_sq
@@ -109,7 +111,8 @@ func _do_bite_attack() -> void:
 	var is_single_target: bool = enemy_count <= _single_target_max_enemies
 
 	for enemy in enemies:
-		var visual = bite_ability_scene.instantiate()
+		var visual = bite_ability_scene.instantiate() as Node2D
+		visual.scale = Vector2.ONE * size_mult
 		visual.impact.connect(_on_bite_impact.bind(enemy, is_single_target))
 		foreground.add_child(visual)
 		visual.global_position = ((enemy as Node2D).global_position).round()
@@ -122,13 +125,17 @@ func _on_bite_impact(enemy, is_single_target: bool) -> void:
 	var count: int = _bite_hit_count.get(enemy, 0)
 	var player = get_tree().get_first_node_in_group("player")
 	var damage_mult: float = 1.0
+	var flat_bonus: int = 0
 	if player:
 		var mult = player.get("damage_multiplier")
 		if mult != null and mult > 0.0:
 			damage_mult = mult
+		var fb = player.get("damage_flat_bonus")
+		if fb != null:
+			flat_bonus = int(fb)
 	var is_crit: bool = is_single_target
 	var crit_mult: float = SINGLE_TARGET_CRIT_MULT if is_single_target else 1.0
-	var damage: float = (base_damage + _damage_flat_bonus + count * _repeat_hit_bonus) * damage_mult * crit_mult
+	var damage: float = (base_damage + _damage_flat_bonus + flat_bonus + count * _repeat_hit_bonus) * damage_mult * crit_mult
 	var hurtbox = enemy.get_node_or_null("HurtboxComponent") as HurtboxComponent
 	if hurtbox:
 		hurtbox.apply_damage(damage, null, 0.0, null, is_crit, _bite_hit_sound, -30.0)
@@ -147,8 +154,10 @@ func _on_ability_upgrade_added(upgrade: AbilityUpgrade, _current: Dictionary) ->
 	if upgrade.ability_id == "bite":
 		_apply_stats_from_level()
 		_apply_attack_speed()
-	elif upgrade.id in ["generic_attack_speed_10", "generic_attack_speed_20", "generic_attack_speed_30"]:
+	elif upgrade.id in ["generic_attack_speed", "generic_attack_speed_prestige"]:
 		_apply_attack_speed()
-	elif upgrade.id in ["generic_damage_10", "generic_damage_20", "generic_damage_30"]:
+	elif upgrade.id in ["generic_damage", "generic_damage_prestige"]:
 		# Bite reads player.damage_multiplier at impact time, so no refresh needed.
 		pass
+	elif upgrade.id in ["generic_size", "generic_size_prestige"]:
+		pass  # size read from player at spawn time

@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://ky342sbreir0"]
 
-[ext_resource type="Script" path="res://scenes/game_object/spider_enemy/spider_enemy.gd" id="1_script"]
+[ext_resource type="Script" uid="uid://bfd0yi3autyb5" path="res://scenes/game_object/spider_enemy/spider_enemy.gd" id="1_script"]
 [ext_resource type="Texture2D" uid="uid://cobe5vtgdhuq3" path="res://scenes/game_object/spider_enemy/spider_enemy.png" id="1_tex"]
 [ext_resource type="PackedScene" uid="uid://40irphxwdaut" path="res://scenes/component/health_component.tscn" id="2_health"]
 [ext_resource type="PackedScene" uid="uid://cnnwqjweouw8w" path="res://scenes/component/vial_drop_component.tscn" id="3_vial"]
@@ -123,16 +123,16 @@ libraries/ = SubResource("AnimationLibrary_main")
 autoplay = &"walk"
 
 [node name="HealthComponent" parent="." unique_id=1615863940 instance=ExtResource("2_health")]
-max_health = 50.0
+max_health = 80.0
 
 [node name="VialDropComponent" parent="." unique_id=1886663193 node_paths=PackedStringArray("health_component") instance=ExtResource("3_vial")]
 drop_percent = 1.0
-amount = 2.0
+amount = 8.0
 health_component = NodePath("../HealthComponent")
 
 [node name="VelocityComponent" parent="." unique_id=2070373884 instance=ExtResource("7_vel")]
 max_speed = 60
-acceleration = 16.0
+acceleration = 40.0
 
 [node name="HitFlashComponent" parent="." unique_id=1281987715 node_paths=PackedStringArray("health_component", "sprite") instance=ExtResource("5_flash")]
 health_component = NodePath("../HealthComponent")

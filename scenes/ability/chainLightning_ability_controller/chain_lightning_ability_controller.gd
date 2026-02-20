@@ -1,7 +1,7 @@
 extends Node
 
 @export var chain_lightning_ability_scene: PackedScene
-@export var max_chain_count: int = 3
+@export var max_chain_count: int = 5
 ## Sparks shown at each chain hit. Assign a HitSparkConfig .tres for chain-lightning look, or leave empty for default.
 @export var hit_spark_config: HitSparkConfig
 
@@ -9,14 +9,14 @@ const DEFAULT_VISUAL_SCENE = preload("res://scenes/ability/chainLightning_abilit
 const DEFAULT_SPARK_CONFIG = preload("res://resources/effects/chain_lightning_spark_config.tres") as HitSparkConfig
 var _chain_hit_sound: AudioStream = preload("res://assets/audio/sfx/freesound_community-electric_zap_001-6374.mp3") as AudioStream
 const MIN_WAIT_TIME := 0.01
-const STUN_DURATION_LEVEL_9: float = 0.2
+const STUN_DURATION_LEVEL_9: float = 0.5
 
 ## Max distance from player to consider enemies for bolts, and from each enemy to the next chain target. Lower = shorter chains.
-@export var chain_range: float = 120.0
+@export var chain_range: float = 140
 
-var base_damage: int = 6
+var base_damage: int = 4
 var base_wait_time: float
-var _effective_chain_count: int = 3
+var _effective_chain_count: int = 5
 var _quantity: int = 1
 var _damage_flat_bonus: int = 0
 var _rate_reduction: float = 0.0
@@ -92,7 +92,11 @@ func on_timer_timeout() -> void:
 	if foreground == null:
 		return
 
-	var range_sq: float = chain_range * chain_range
+	var size_mult: float = player.get("size_multiplier") if player.get("size_multiplier") != null else 1.0
+	var duration_mult: float = player.get("duration_multiplier") if player.get("duration_multiplier") != null else 1.0
+	var effective_range: float = chain_range * size_mult
+	var effective_stun: float = _stun_duration * duration_mult
+	var range_sq: float = effective_range * effective_range
 	var all_enemies = get_tree().get_nodes_in_group("enemy")
 	all_enemies = all_enemies.filter(func(enemy: Node2D):
 		return enemy.global_position.distance_squared_to(player.global_position) < range_sq
@@ -104,7 +108,8 @@ func on_timer_timeout() -> void:
 	)
 
 	var damage_mult: float = player.damage_multiplier if player.get("damage_multiplier") != null else 1.0
-	var damage_amount: float = (base_damage + _damage_flat_bonus) * damage_mult
+	var flat_bonus: int = player.get("damage_flat_bonus") if player.get("damage_flat_bonus") != null else 0
+	var damage_amount: float = (base_damage + _damage_flat_bonus + flat_bonus) * damage_mult
 	var spark_cfg: HitSparkConfig = hit_spark_config if hit_spark_config else DEFAULT_SPARK_CONFIG
 	var scene_to_use = chain_lightning_ability_scene if chain_lightning_ability_scene else DEFAULT_VISUAL_SCENE
 
@@ -122,7 +127,7 @@ func on_timer_timeout() -> void:
 			break
 		if first_target == null:
 			break
-		var result = _build_one_chain(player, first_target, already_hit_this_cast)
+		var result = _build_one_chain(player, first_target, already_hit_this_cast, effective_range)
 		var chain_positions: Array = result["positions"]
 		var chain_enemies: Array = result["enemies"]
 		if chain_positions.size() <= 1:
@@ -131,7 +136,7 @@ func on_timer_timeout() -> void:
 			already_hit_this_cast.append(enemy)
 			var hurtbox = enemy.get_node_or_null("HurtboxComponent") as HurtboxComponent
 			if hurtbox:
-				hurtbox.apply_damage(damage_amount, spark_cfg, _stun_duration, null, false, _chain_hit_sound, -34.0)
+				hurtbox.apply_damage(damage_amount, spark_cfg, effective_stun, null, false, _chain_hit_sound, -34.0)
 		var chain_visual = scene_to_use.instantiate() as Node2D
 		foreground.add_child(chain_visual)
 		chain_visual.global_position = Vector2.ZERO
@@ -139,11 +144,12 @@ func on_timer_timeout() -> void:
 			chain_visual.set_chain_positions(chain_positions)
 
 
-func _build_one_chain(player: Node2D, first_target: Node2D, exclude_enemies: Array[Node2D]) -> Dictionary:
+func _build_one_chain(player: Node2D, first_target: Node2D, exclude_enemies: Array[Node2D], effective_chain_range: float = -1.0) -> Dictionary:
+	var use_range: float = effective_chain_range if effective_chain_range > 0 else chain_range
 	var chain_positions: Array[Vector2] = [player.global_position, first_target.global_position]
 	var chain_enemies: Array[Node2D] = [first_target]
 	var search_center = first_target.global_position
-	var range_sq: float = chain_range * chain_range
+	var range_sq: float = use_range * use_range
 
 	for _i in _effective_chain_count - 1:
 		var enemies = get_tree().get_nodes_in_group("enemy")
@@ -170,7 +176,9 @@ func on_ability_upgrade_added(upgrade: AbilityUpgrade, current_upgrades: Diction
 	if upgrade.ability_id == "chain_lightning":
 		_apply_stats_from_level()
 		_apply_attack_speed()
-	elif upgrade.id in ["generic_attack_speed_10", "generic_attack_speed_20", "generic_attack_speed_30"]:
+	elif upgrade.id in ["generic_attack_speed", "generic_attack_speed_prestige"]:
 		_apply_attack_speed()
-	elif upgrade.id in ["generic_damage_10", "generic_damage_20", "generic_damage_30"]:
+	elif upgrade.id in ["generic_damage", "generic_damage_prestige"]:
 		pass
+	elif upgrade.id in ["generic_size", "generic_size_prestige", "generic_duration", "generic_duration_prestige"]:
+		pass  # size/duration read from player at spawn time

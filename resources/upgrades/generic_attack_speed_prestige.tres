@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="AbilityUpgrade" format=3 uid="uid://cgeneric_attack_speed_prestige"]
+
+[ext_resource type="Script" uid="uid://dwgsoek0kp41e" path="res://resources/upgrades/ability_upgrade.gd" id="1_aspdp"]
+
+[resource]
+script = ExtResource("1_aspdp")
+id = "generic_attack_speed_prestige"
+max_quantity = 99
+name = "Attack Speed"
+sub_name = "Diminishing"
+description = "Increases all ability attack speed by 3% (unlocks after maxing Attack Speed)"

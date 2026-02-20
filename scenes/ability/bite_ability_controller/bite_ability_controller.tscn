@@ -8,5 +8,5 @@ script = ExtResource("1_script")
 bite_ability_scene = ExtResource("2_visual")
 
 [node name="Timer" type="Timer" parent="." unique_id=1645472874]
-wait_time = 0.6
+wait_time = 0.9
 autostart = true

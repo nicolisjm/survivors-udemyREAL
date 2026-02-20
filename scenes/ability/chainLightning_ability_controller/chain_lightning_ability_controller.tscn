@@ -4,6 +4,7 @@
 
 [node name="ChainLightningAbilityController" type="Node" unique_id=2019363455]
 script = ExtResource("1_ft5xs")
+max_chain_count = 5
 
 [node name="Timer" type="Timer" parent="." unique_id=445562037]
 wait_time = 2.4

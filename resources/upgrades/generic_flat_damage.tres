@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="AbilityUpgrade" format=3 uid="uid://cgeneric_flat_damage"]
+
+[ext_resource type="Script" uid="uid://dwgsoek0kp41e" path="res://resources/upgrades/ability_upgrade.gd" id="1_fdmg"]
+
+[resource]
+script = ExtResource("1_fdmg")
+id = "generic_flat_damage"
+max_quantity = 3
+name = "Base Damage"
+sub_name = ""
+description = "Adds +1 base damage to all abilities"

@@ -111,15 +111,15 @@ libraries/ = SubResource("AnimationLibrary_main")
 autoplay = &"walk"
 
 [node name="HealthComponent" parent="." unique_id=720655674 instance=ExtResource("2_health")]
-max_health = 5.0
 
 [node name="VialDropComponent" parent="." unique_id=497066925 node_paths=PackedStringArray("health_component") instance=ExtResource("3_vial")]
 drop_percent = 1.0
+amount = 2.0
 health_component = NodePath("../HealthComponent")
 
 [node name="VelocityComponent" parent="." unique_id=546290399 instance=ExtResource("7_vel")]
-max_speed = 120
-acceleration = 0.5
+max_speed = 110
+acceleration = 1.0
 
 [node name="HitFlashComponent" parent="." unique_id=226550449 node_paths=PackedStringArray("health_component", "sprite") instance=ExtResource("5_flash")]
 health_component = NodePath("../HealthComponent")

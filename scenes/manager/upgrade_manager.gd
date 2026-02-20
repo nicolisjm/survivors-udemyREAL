@@ -38,13 +38,16 @@ var _ability_paths: Array[AbilityUpgradePath] = []
 
 var upgrade_move_speed = preload("res://resources/upgrades/move_speed.tres")
 
-# Generic damage/attack speed: 3 rarities each (10% common, 20% uncommon, 30% rare)
-var upgrade_generic_damage_10 = preload("res://resources/upgrades/generic_damage_10.tres")
-var upgrade_generic_damage_20 = preload("res://resources/upgrades/generic_damage_20.tres")
-var upgrade_generic_damage_30 = preload("res://resources/upgrades/generic_damage_30.tres")
-var upgrade_generic_attack_speed_10 = preload("res://resources/upgrades/generic_attack_speed_10.tres")
-var upgrade_generic_attack_speed_20 = preload("res://resources/upgrades/generic_attack_speed_20.tres")
-var upgrade_generic_attack_speed_30 = preload("res://resources/upgrades/generic_attack_speed_30.tres")
+# Generic upgrades: main (max 5) + prestige (max 99) for damage, attack speed, size, duration
+var upgrade_generic_damage = preload("res://resources/upgrades/generic_damage.tres")
+var upgrade_generic_damage_prestige = preload("res://resources/upgrades/generic_damage_prestige.tres")
+var upgrade_generic_attack_speed = preload("res://resources/upgrades/generic_attack_speed.tres")
+var upgrade_generic_attack_speed_prestige = preload("res://resources/upgrades/generic_attack_speed_prestige.tres")
+var upgrade_generic_size = preload("res://resources/upgrades/generic_size.tres")
+var upgrade_generic_size_prestige = preload("res://resources/upgrades/generic_size_prestige.tres")
+var upgrade_generic_duration = preload("res://resources/upgrades/generic_duration.tres")
+var upgrade_generic_duration_prestige = preload("res://resources/upgrades/generic_duration_prestige.tres")
+var upgrade_generic_flat_damage = preload("res://resources/upgrades/generic_flat_damage.tres")
 
 ## Upgrades in the same selection group cannot appear together in one pick (e.g. only one "generic damage" per selection).
 var _selection_groups: Array[Array] = []
@@ -59,10 +62,17 @@ const MAX_MAIN_ABILITIES: int = 3
 @export var path_weight: int = 10
 ## Weight for move_speed.
 @export var move_speed_weight: int = 5
-## Weights for generic upgrades: [damage_10%, damage_20%, damage_30%].
-@export var generic_damage_weights: Vector3i = Vector3i(10, 3, 1)
-## Weights for generic attack speed: [10%, 20%, 30%].
-@export var generic_attack_speed_weights: Vector3i = Vector3i(10, 3, 1)
+## Weights for generic main upgrades (max 5 each).
+@export var generic_damage_weight: int = 10
+@export var generic_attack_speed_weight: int = 10
+@export var generic_size_weight: int = 10
+@export var generic_duration_weight: int = 10
+## Weights for generic prestige upgrades (unlock after main maxed).
+@export var generic_damage_prestige_weight: int = 5
+@export var generic_attack_speed_prestige_weight: int = 5
+@export var generic_size_prestige_weight: int = 5
+@export var generic_duration_prestige_weight: int = 5
+@export var generic_flat_damage_weight: int = 10
 
 
 func _ready() -> void:
@@ -96,6 +106,7 @@ func _ready() -> void:
 		path_sword,
 		path_chain_lightning,
 		path_bite,
+		path_ball_lightning,
 	]
 	# Initialize display order: starting ability first, then others as acquired.
 	_acquired_ability_order.append(start_id)
@@ -105,8 +116,10 @@ func _ready() -> void:
 	_rebuild_pool()
 
 	_selection_groups = [
-		[upgrade_generic_damage_10, upgrade_generic_damage_20, upgrade_generic_damage_30],
-		[upgrade_generic_attack_speed_10, upgrade_generic_attack_speed_20, upgrade_generic_attack_speed_30]
+		[upgrade_generic_damage, upgrade_generic_damage_prestige],
+		[upgrade_generic_attack_speed, upgrade_generic_attack_speed_prestige],
+		[upgrade_generic_size, upgrade_generic_size_prestige],
+		[upgrade_generic_duration, upgrade_generic_duration_prestige]
 	]
 
 	experience_manager.level_up.connect(on_level_up)
@@ -221,12 +234,43 @@ func _rebuild_pool() -> void:
 				upgrade_pool.add_item(unlock, path_weight)
 
 	upgrade_pool.add_item(upgrade_move_speed, move_speed_weight)
-	upgrade_pool.add_item(upgrade_generic_damage_10, generic_damage_weights.x)
-	upgrade_pool.add_item(upgrade_generic_damage_20, generic_damage_weights.y)
-	upgrade_pool.add_item(upgrade_generic_damage_30, generic_damage_weights.z)
-	upgrade_pool.add_item(upgrade_generic_attack_speed_10, generic_attack_speed_weights.x)
-	upgrade_pool.add_item(upgrade_generic_attack_speed_20, generic_attack_speed_weights.y)
-	upgrade_pool.add_item(upgrade_generic_attack_speed_30, generic_attack_speed_weights.z)
+
+	# Generic damage: main (5 max) or prestige (99 max) when main is maxed
+	var dmg_qty: int = current_upgrades.get("generic_damage", {}).get("quantity", 0) if current_upgrades.get("generic_damage") is Dictionary else 0
+	var dmg_prestige_qty: int = current_upgrades.get("generic_damage_prestige", {}).get("quantity", 0) if current_upgrades.get("generic_damage_prestige") is Dictionary else 0
+	if dmg_qty < 5:
+		upgrade_pool.add_item(upgrade_generic_damage, generic_damage_weight)
+	elif dmg_prestige_qty < 99:
+		upgrade_pool.add_item(upgrade_generic_damage_prestige, generic_damage_prestige_weight)
+
+	# Generic attack speed
+	var aspd_qty: int = current_upgrades.get("generic_attack_speed", {}).get("quantity", 0) if current_upgrades.get("generic_attack_speed") is Dictionary else 0
+	var aspd_prestige_qty: int = current_upgrades.get("generic_attack_speed_prestige", {}).get("quantity", 0) if current_upgrades.get("generic_attack_speed_prestige") is Dictionary else 0
+	if aspd_qty < 5:
+		upgrade_pool.add_item(upgrade_generic_attack_speed, generic_attack_speed_weight)
+	elif aspd_prestige_qty < 99:
+		upgrade_pool.add_item(upgrade_generic_attack_speed_prestige, generic_attack_speed_prestige_weight)
+
+	# Generic size (max 3 main, then prestige)
+	var size_qty: int = current_upgrades.get("generic_size", {}).get("quantity", 0) if current_upgrades.get("generic_size") is Dictionary else 0
+	var size_prestige_qty: int = current_upgrades.get("generic_size_prestige", {}).get("quantity", 0) if current_upgrades.get("generic_size_prestige") is Dictionary else 0
+	if size_qty < 3:
+		upgrade_pool.add_item(upgrade_generic_size, generic_size_weight)
+	elif size_prestige_qty < 99:
+		upgrade_pool.add_item(upgrade_generic_size_prestige, generic_size_prestige_weight)
+
+	# Generic duration (max 3 main, then prestige)
+	var dur_qty: int = current_upgrades.get("generic_duration", {}).get("quantity", 0) if current_upgrades.get("generic_duration") is Dictionary else 0
+	var dur_prestige_qty: int = current_upgrades.get("generic_duration_prestige", {}).get("quantity", 0) if current_upgrades.get("generic_duration_prestige") is Dictionary else 0
+	if dur_qty < 3:
+		upgrade_pool.add_item(upgrade_generic_duration, generic_duration_weight)
+	elif dur_prestige_qty < 99:
+		upgrade_pool.add_item(upgrade_generic_duration_prestige, generic_duration_prestige_weight)
+
+	# Generic flat damage (max 3, no prestige)
+	var flat_dmg_qty: int = current_upgrades.get("generic_flat_damage", {}).get("quantity", 0) if current_upgrades.get("generic_flat_damage") is Dictionary else 0
+	if flat_dmg_qty < 3:
+		upgrade_pool.add_item(upgrade_generic_flat_damage, generic_flat_damage_weight)
 
 
 func _get_path_for_ability(ability_id: String) -> AbilityUpgradePath:
@@ -305,6 +349,15 @@ func apply_upgrade(upgrade: AbilityUpgrade) -> void:
 		var current_quantity = current_upgrades[upgrade.id]["quantity"]
 		if current_quantity >= upgrade.max_quantity:
 			upgrade_pool.remove_item(upgrade)
+			# When main hits max, add prestige to pool
+			if upgrade.id == "generic_damage":
+				upgrade_pool.add_item(upgrade_generic_damage_prestige, generic_damage_prestige_weight)
+			elif upgrade.id == "generic_attack_speed":
+				upgrade_pool.add_item(upgrade_generic_attack_speed_prestige, generic_attack_speed_prestige_weight)
+			elif upgrade.id == "generic_size":
+				upgrade_pool.add_item(upgrade_generic_size_prestige, generic_size_prestige_weight)
+			elif upgrade.id == "generic_duration":
+				upgrade_pool.add_item(upgrade_generic_duration_prestige, generic_duration_prestige_weight)
 
 	GameEvents.emit_ability_upgrade_added(upgrade, current_upgrades)
 

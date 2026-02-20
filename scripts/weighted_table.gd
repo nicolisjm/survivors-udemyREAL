@@ -19,7 +19,17 @@ func remove_item(item_to_remove):
 	weight_sum = 0
 	for item in items:
 		weight_sum += item["weight"]
-	
+
+
+## Replaces all items with the given entries. Each entry: {"item": ..., "weight": int}
+func replace_all(entries: Array) -> void:
+	items.clear()
+	weight_sum = 0
+	for entry in entries:
+		var w: int = entry["weight"]
+		items.append({"item": entry["item"], "weight": w})
+		weight_sum += w
+
 
 func pick_item(exclude: Array = []):
 	var adjusted_items: Array[Dictionary] = items

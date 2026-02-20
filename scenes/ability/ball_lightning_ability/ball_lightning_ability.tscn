@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://c3uiny4awsbv2" path="res://scenes/ability/ball_lightning_ability/ball_lightning_ability.gd" id="1_script"]
 [ext_resource type="Shader" uid="uid://bf6kc5txly30j" path="res://scenes/ability/ball_lightning_ability/ball_lightning_ball.gdshader" id="2_shader"]
 [ext_resource type="PackedScene" uid="uid://dly1mra0vau0s" path="res://scenes/component/hitbox_component.tscn" id="3_hitbox"]
+[ext_resource type="Script" uid="uid://b7sv4hu3dhblj" path="res://resources/effects/hit_spark_config.gd" id="4_spark"]
 
 [sub_resource type="Gradient" id="Gradient_nw7un"]
 interpolation_mode = 2
@@ -39,13 +40,22 @@ script = ExtResource("1_script")
 texture_filter = 1
 material = SubResource("ShaderMaterial_ball")
 offset_left = -8.0
-offset_top = -8.0
+offset_top = -16.0
 offset_right = 8.0
-offset_bottom = 8.0
+pivot_offset = Vector2(8, 8)
+size_flags_horizontal = 4
+size_flags_vertical = 4
 color = Color(0, 0, 0, 0)
 
 [node name="HitboxComponent" parent="." unique_id=1757191736 instance=ExtResource("3_hitbox")]
-visible = false
+scale = Vector2(1.1, 1.1)
+collision_layer = 32
+collision_mask = 32
+hit_spark_config = ExtResource("4_spark")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent" unique_id=1823615303]
+position = Vector2(0, -7.272727)
 shape = SubResource("CircleShape2D_1")
+
+[node name="TickTimer" type="Timer" parent="." unique_id=1894178959]
+wait_time = 0.2

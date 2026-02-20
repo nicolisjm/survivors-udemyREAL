@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="AbilityUpgrade" format=3 uid="uid://yfali1h7oe1m"]
+
+[ext_resource type="Script" uid="uid://dwgsoek0kp41e" path="res://resources/upgrades/ability_upgrade.gd" id="1_dur"]
+
+[resource]
+script = ExtResource("1_dur")
+id = "generic_duration"
+max_quantity = 3
+name = "Duration"
+description = "Increases ability duration and debuffs by 10%"

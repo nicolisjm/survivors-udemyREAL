@@ -4,9 +4,13 @@ const SPAWN_RADIUS = 380
 const GROUP_SPAWN_OFFSET_RADIUS := 24.0  # max pixels from center when spawning a group
 
 ## Seconds removed from spawn interval per difficulty level (e.g. 0.02 = 0.02s faster per level).
-const SPAWN_TIME_OFF_PER_DIFFICULTY := 0.01
+const SPAWN_TIME_OFF_PER_DIFFICULTY := 0.0066666666666667
 ## Maximum seconds to remove from base spawn time (so spawn never goes below base - this).
-const MAX_SPAWN_TIME_OFF := 0.7
+const MAX_SPAWN_TIME_OFF := 0.8
+
+## Tier unlock difficulties (1 per 5s): T1=0, T2=24, T3=48, T4=72, T5=96 (0, 2, 4, 6, 8 min)
+const TIER_DIFFICULTIES := [0, 24, 48, 72, 96]
+const WEIGHT_BASE := 200  # scale 2 for integer weights (100 -> 200)
 
 @export var basic_enemy_scene: PackedScene
 @export var basic_enemy_2_scene: PackedScene
@@ -22,26 +26,100 @@ const MAX_SPAWN_TIME_OFF := 0.7
 var base_spawn_time = 0
 var enemy_table = WeightedTable.new()
 var _arena_difficulty := 0
+var _current_tier := 1
+var _prev_tier := 0  # for debug: only log when tier changes
 
-# Elite spawn: pre-10min ~5 total, 2min cooldown with variance; post-10min more frequent
-var _last_elite_spawn_difficulty := -999
+## Enemy config: scene, tier, is_flying, unlock_diff
+var _enemy_configs: Array = []
+
+# Elite spawn: pre-10min fixed at 1, 3, 5, 7, 9 min; post-10min at most once per minute
 var _elite_count_pre_10 := 0
-const ELITE_UNLOCK_DIFFICULTY := 24  # minute 2
-const ELITE_COOLDOWN_BASE := 24  # 2 min in difficulty units (5s each)
-const ELITE_COOLDOWN_VARIANCE := 8
-const MAX_ELITES_PRE_10 := 5
-const ELITE_CHANCE_POST_10 := 0.012  # Post-10min: elites are rarer (~1.2% per spawn tick)
+var _last_post_10_elite_difficulty := 108  # so first post-10 elite eligible at 120
+const ELITE_DIFFICULTIES := [12, 36, 60, 84, 108]  # 1, 3, 5, 7, 9 min (between tier unlocks)
+const ELITE_POST_10_COOLDOWN := 12  # difficulty units = 1 min (1 per 5s)
+const ELITE_CHANCE_POST_10 := 0.012  # Post-10min: roll when off cooldown
 const ELITE_DROP_SCENE := preload("res://scenes/component/elite_drop_component.tscn")
 const ELITE_OUTLINE_SHADER := preload("res://scenes/component/elite_outline.gdshader")
 
+func _build_enemy_configs() -> void:
+	_enemy_configs.clear()
+	if basic_enemy_scene:
+		_enemy_configs.append({"scene": basic_enemy_scene, "tier": 1, "is_flying": false, "unlock_diff": 0})
+	if basic_enemy_2_scene:
+		_enemy_configs.append({"scene": basic_enemy_2_scene, "tier": 2, "is_flying": false, "unlock_diff": 24})
+	if bat_enemy_scene:
+		_enemy_configs.append({"scene": bat_enemy_scene, "tier": 2, "is_flying": true, "unlock_diff": 24})
+	if wizard_enemy_scene:
+		_enemy_configs.append({"scene": wizard_enemy_scene, "tier": 3, "is_flying": false, "unlock_diff": 48})
+	if spider_enemy_scene:
+		_enemy_configs.append({"scene": spider_enemy_scene, "tier": 4, "is_flying": false, "unlock_diff": 72})
+	if ghost_enemy_scene:
+		_enemy_configs.append({"scene": ghost_enemy_scene, "tier": 4, "is_flying": true, "unlock_diff": 72})
+	if ogre_enemy_scene:
+		_enemy_configs.append({"scene": ogre_enemy_scene, "tier": 5, "is_flying": false, "unlock_diff": 96})
+
+
+func _get_current_tier() -> int:
+	for i in range(TIER_DIFFICULTIES.size() - 1, -1, -1):
+		if _arena_difficulty >= TIER_DIFFICULTIES[i]:
+			return i + 1
+	return 1
+
+
+func _get_config_for_scene(scene: PackedScene) -> Dictionary:
+	for cfg in _enemy_configs:
+		if cfg["scene"] == scene:
+			return cfg
+	return {}
+
+
+func _get_group_size_for_enemy(scene: PackedScene) -> int:
+	var cfg := _get_config_for_scene(scene)
+	if cfg.is_empty():
+		return 1
+	var effective_tier: int = cfg["tier"] - 1 if cfg["is_flying"] else cfg["tier"]
+	var delta := _current_tier - effective_tier
+	return maxi(1, 1 + 2 * delta)
+
+
+func _scene_short_name(scene: PackedScene) -> String:
+	if scene == null:
+		return "null"
+	return scene.resource_path.get_file().get_basename()
+
+
+func _rebuild_spawn_weights() -> void:
+	_current_tier = _get_current_tier()
+	var entries: Array = []
+	for cfg in _enemy_configs:
+		if _arena_difficulty < cfg["unlock_diff"]:
+			continue
+		var tier_delta: int = _current_tier - int(cfg["tier"])
+		var weight_float := WEIGHT_BASE * pow(0.5, float(tier_delta))
+		if cfg["is_flying"]:
+			weight_float *= 0.5
+		var weight := maxi(1, int(weight_float))
+		entries.append({"item": cfg["scene"], "weight": weight})
+	enemy_table.replace_all(entries)
+	# Debug: log when tier changes
+	if _current_tier != _prev_tier:
+		_prev_tier = _current_tier
+		var min_per_tier := [0, 2, 4, 6, 8]
+		var min_str := str(min_per_tier[_current_tier - 1]) if _current_tier <= min_per_tier.size() else "?"
+		print("[EnemyManager] Tier %d (unlocked at %s min) | difficulty %d" % [_current_tier, min_str, _arena_difficulty])
+		var parts: Array[String] = []
+		for e in entries:
+			parts.append("%s=%d" % [_scene_short_name(e["item"]), e["weight"]])
+		print("[EnemyManager] Weights: %s" % [", ".join(parts)])
+
+
 func _ready() -> void:
-	if basic_enemy_scene != null:
-		enemy_table.add_item(basic_enemy_scene, 20)
-	
+	_build_enemy_configs()
 	base_spawn_time = timer.wait_time
 	timer.timeout.connect(on_timer_timeout)
 	arena_time_manager.arena_difficulty_increased.connect(on_arena_difficulty_increased)
-	
+	_rebuild_spawn_weights()
+
 
 func get_spawn_position():
 	var player = get_tree().get_first_node_in_group("player") as Node2D
@@ -72,16 +150,14 @@ func on_timer_timeout():
 	if player == null:
 		return
 
-	# Every 12 difficulty (e.g. every minute at 5s interval): +1 spawn per tick (1 at 0, 2 at 12, 3 at 24, ...)
-	var spawn_count: int = 1 + int(_arena_difficulty / 24)
+	# One spawn pick per tick; group size and tier mix handle difficulty
+	var spawn_count: int = 1
 	var entities_layer = get_tree().get_first_node_in_group("entities_layer")
 	for _i in spawn_count:
 		var enemy_scene = enemy_table.pick_item()
 		if enemy_scene == null:
 			continue
-		var group_size: int = 1
-		if enemy_scene == bat_enemy_scene or enemy_scene == ghost_enemy_scene:
-			group_size = randi_range(3, 6)
+		var group_size: int = _get_group_size_for_enemy(enemy_scene)
 		var base_pos = get_spawn_position()
 		for j in group_size:
 			# Before 10 min, elites may only spawn on the highest-health enemy type in the pool
@@ -98,7 +174,10 @@ func on_timer_timeout():
 			if will_be_elite:
 				_apply_elite(enemy)
 				var hc = enemy.get_node_or_null("HealthComponent") as HealthComponent
-				print("[Elite] Spawned elite %s (health %.0f) at diff %d, pre-10 count %d" % [enemy.name, hc.max_health if hc else 0, _arena_difficulty, _elite_count_pre_10])
+				var elite_min := 0.0
+				if _elite_count_pre_10 <= ELITE_DIFFICULTIES.size():
+					elite_min = ELITE_DIFFICULTIES[_elite_count_pre_10 - 1] / 12.0  # diff 12 = 1 min
+				print("[EnemyManager] ELITE spawned: %s (HP %.0f) at diff %d (elite #%d, ~%.1f min)" % [enemy.name, hc.max_health if hc else 0, _arena_difficulty, _elite_count_pre_10, elite_min])
 			else:
 				_apply_post_10_min_scaling(enemy)
 
@@ -122,23 +201,21 @@ func _get_highest_health_enemy_scene() -> PackedScene:
 
 
 func _try_make_elite(_enemy: Node2D) -> bool:
-	if _arena_difficulty < ELITE_UNLOCK_DIFFICULTY:
-		return false
 	if _arena_difficulty <= 120:
-		if _elite_count_pre_10 >= MAX_ELITES_PRE_10:
+		if _elite_count_pre_10 >= ELITE_DIFFICULTIES.size():
 			return false
-		var cooldown = ELITE_COOLDOWN_BASE + randf_range(-ELITE_COOLDOWN_VARIANCE * 0.5, ELITE_COOLDOWN_VARIANCE * 0.5)
-		if _arena_difficulty < _last_elite_spawn_difficulty + cooldown:
-			return false
-		return true
+		return _arena_difficulty >= ELITE_DIFFICULTIES[_elite_count_pre_10]
 	else:
+		if _arena_difficulty < _last_post_10_elite_difficulty + ELITE_POST_10_COOLDOWN:
+			return false
 		return randf() < ELITE_CHANCE_POST_10
 
 
 func _apply_elite(enemy: Node2D) -> void:
-	_last_elite_spawn_difficulty = _arena_difficulty
 	if _arena_difficulty <= 120:
 		_elite_count_pre_10 += 1
+	else:
+		_last_post_10_elite_difficulty = _arena_difficulty
 
 	var health := enemy.get_node_or_null("HealthComponent") as HealthComponent
 	if health:
@@ -193,29 +270,7 @@ func _apply_post_10_min_scaling(enemy: Node2D) -> void:
 
 func on_arena_difficulty_increased(arena_difficulty: int):
 	_arena_difficulty = arena_difficulty
-	print("[EnemyManager] on_arena_difficulty_increased received: ", arena_difficulty, " (_arena_difficulty = ", _arena_difficulty, ")")
 	var time_off = SPAWN_TIME_OFF_PER_DIFFICULTY * arena_difficulty
 	time_off = min(time_off, MAX_SPAWN_TIME_OFF)
 	timer.wait_time = max(base_spawn_time - time_off, 0.05)
-
-	if arena_difficulty == 6:
-		enemy_table.add_item(basic_enemy_2_scene, 20)
-		print("[EnemyManager] difficulty 6: ADDED basic_enemy_2 to table (weight 20). basic_enemy_2_scene is null? ", basic_enemy_2_scene == null)
-	elif arena_difficulty == 12:
-		enemy_table.add_item(bat_enemy_scene, 1)
-		print("[EnemyManager] difficulty 12: ADDED bat_enemy to table (weight 1)")
-	elif arena_difficulty == 24:
-		enemy_table.add_item(wizard_enemy_scene, 25)
-		print("[EnemyManager] difficulty 24: ADDED wizard_enemy to table (weight 25)")
-	elif arena_difficulty == 36:
-		enemy_table.add_item(ghost_enemy_scene, 1)
-		enemy_table.remove_item(basic_enemy_scene)
-		enemy_table.remove_item(basic_enemy_2_scene)
-		enemy_table.remove_item(bat_enemy_scene)
-		print("[EnemyManager] difficulty 36: ADDED ghost_enemy, REMOVED basic, basic_2, bat")
-	elif arena_difficulty == 48:
-		enemy_table.add_item(spider_enemy_scene, 10)
-		print("[EnemyManager] difficulty 48: ADDED spider_enemy to table (weight 10)")
-	elif arena_difficulty == 60:
-		enemy_table.add_item(ogre_enemy_scene, 2)
-		print("[EnemyManager] difficulty 60: ADDED ogre_enemy to table (weight 2)")
+	_rebuild_spawn_weights()

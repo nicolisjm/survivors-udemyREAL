@@ -140,7 +140,7 @@ libraries/ = SubResource("AnimationLibrary_74qiw")
 autoplay = &"walk"
 
 [node name="HealthComponent" parent="." unique_id=2006676336 instance=ExtResource("2_ukqif")]
-max_health = 30.0
+max_health = 40.0
 
 [node name="VelocityComponent" parent="." unique_id=1336253212 instance=ExtResource("2_qgqx6")]
 max_speed = 80
@@ -148,6 +148,7 @@ acceleration = 40.0
 separation_update_interval = 1
 
 [node name="VialDropComponent" parent="." unique_id=40009108 node_paths=PackedStringArray("health_component") instance=ExtResource("4_rquut")]
+amount = 4.0
 drop_percent = 1.0
 health_component = NodePath("../HealthComponent")
 
@@ -170,6 +171,7 @@ texture = ExtResource("1_43j36")
 offset = Vector2(0, -8)
 
 [node name="HurtboxComponent" parent="." unique_id=1361600313 node_paths=PackedStringArray("health_component") instance=ExtResource("4_865ah")]
+visible = false
 health_component = NodePath("../HealthComponent")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HurtboxComponent" unique_id=776529568]
@@ -177,5 +179,6 @@ position = Vector2(0, -7)
 shape = SubResource("CircleShape2D_qgqx6")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1783281787]
+visible = false
 position = Vector2(0, -4)
 shape = SubResource("CircleShape2D_865ah")

@@ -88,13 +88,16 @@ func _do_sword_attack() -> void:
 	)
 
 	var damage_mult: float = player.damage_multiplier if player.get("damage_multiplier") != null else 1.0
-	var damage: float = (base_damage + _damage_flat_bonus) * damage_mult
+	var flat_bonus: int = player.get("damage_flat_bonus") if player.get("damage_flat_bonus") != null else 0
+	var size_mult: float = player.get("size_multiplier") if player.get("size_multiplier") != null else 1.0
+	var damage: float = (base_damage + _damage_flat_bonus + flat_bonus) * damage_mult
 	var foreground_layer = get_tree().get_first_node_in_group("foreground_layer")
 	for i in _quantity:
 		if i >= enemies.size():
 			break
 		var target = enemies[i] as Node2D
 		var sword_instance = sword_ability.instantiate() as SwordAbility
+		sword_instance.scale = Vector2.ONE * size_mult
 		foreground_layer.add_child(sword_instance)
 		sword_instance.hitbox_component.damage = damage
 		sword_instance.global_position = target.global_position + Vector2.RIGHT.rotated(randf_range(0, TAU)) * 4
@@ -115,7 +118,9 @@ func on_ability_upgrade_added(upgrade: AbilityUpgrade, current_upgrades: Diction
 	if upgrade.ability_id == "sword":
 		_apply_stats_from_level()
 		_apply_attack_speed()
-	elif upgrade.id in ["generic_attack_speed_10", "generic_attack_speed_20", "generic_attack_speed_30"]:
+	elif upgrade.id in ["generic_attack_speed", "generic_attack_speed_prestige"]:
 		_apply_attack_speed()
-	elif upgrade.id in ["generic_damage_10", "generic_damage_20", "generic_damage_30"]:
+	elif upgrade.id in ["generic_damage", "generic_damage_prestige"]:
 		pass  # damage_mult is read from player each attack
+	elif upgrade.id in ["generic_size", "generic_size_prestige"]:
+		pass  # size read from player at spawn time
