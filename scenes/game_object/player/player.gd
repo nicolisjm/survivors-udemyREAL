@@ -56,13 +56,17 @@ func _process(delta: float) -> void:
 
 
 func get_movement_vector():
+	# Prefer joystick/keyboard over mouse so virtual joystick works when emulating touch
+	var x_movement = Input.get_action_strength("move_right") - Input.get_action_strength("move_left")
+	var y_movement = Input.get_action_strength("move_down") - Input.get_action_strength("move_up")
+	var key_or_joystick = Vector2(x_movement, y_movement)
+	if key_or_joystick.length_squared() > 0.0001:
+		return key_or_joystick
 	if Input.is_action_pressed("left_click"):
 		var dir = (get_global_mouse_position() - global_position).normalized()
 		if dir.length_squared() > 0.0001:
 			return dir
-	var x_movement = Input.get_action_strength("move_right") - Input.get_action_strength("move_left")
-	var y_movement = Input.get_action_strength("move_down") - Input.get_action_strength("move_up")
-	return Vector2(x_movement, y_movement)
+	return Vector2.ZERO
 
 
 func update_health_display():

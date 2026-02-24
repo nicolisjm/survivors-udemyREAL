@@ -1,6 +1,6 @@
-[gd_scene format=3 uid="uid://bhighscores_mgr"]
+[gd_scene format=3 uid="uid://dc6msp60qsanq"]
 
-[ext_resource type="Script" path="res://scenes/autoload/highscores_manager.gd" id="1_script"]
+[ext_resource type="Script" uid="uid://usagn87vi3ks" path="res://scenes/autoload/highscores_manager.gd" id="1_script"]
 
-[node name="HighscoresManager" type="Node"]
+[node name="HighscoresManager" type="Node" unique_id=894266057]
 script = ExtResource("1_script")

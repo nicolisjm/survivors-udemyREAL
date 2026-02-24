@@ -1,0 +1,24 @@
+[gd_scene format=3 uid="uid://c80nj30iq3wwv"]
+
+[ext_resource type="Script" uid="uid://c4yl7bmp0acf" path="res://scenes/UI/gameplay_joystick.gd" id="1_script"]
+[ext_resource type="PackedScene" uid="uid://dmr0fcamx7t56" path="res://addons/virtual_joystick/virtual_joystick_scene.tscn" id="2_joystick"]
+
+[node name="GameplayJoystick" type="CanvasLayer" unique_id=1373604863]
+layer = 10
+script = ExtResource("1_script")
+
+[node name="Virtual Joystick" parent="." unique_id=879523680 instance=ExtResource("2_joystick")]
+texture_filter = 1
+anchors_preset = 15
+anchor_top = 0.0
+anchor_right = 1.0
+offset_top = 0.0
+offset_right = 0.0
+offset_bottom = 0.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(180, 320)
+deadzone_size = 2.0
+clampzone_size = 8.0
+joystick_mode = 1
+visibility_mode = 2

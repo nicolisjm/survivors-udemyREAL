@@ -6,7 +6,7 @@
 script = ExtResource("1_script")
 id = "bite_lv7"
 name = "Bite"
-sub_name = "Repeat hits"
-description = "Repeat hits on the same enemy gain +3 damage each (total +3 per repeat)."
+sub_name = "Rabies"
+description = "Repeat hits +1 damage"
 ability_id = "bite"
 level = 7

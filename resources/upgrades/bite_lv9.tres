@@ -6,7 +6,7 @@
 script = ExtResource("1_script")
 id = "bite_lv9"
 name = "Bite"
-sub_name = "Bite twice"
-description = "Bite attacks twice per cycle (like Sword's double swipe)."
+sub_name = "Ravished"
+description = "Bites twice per bite"
 ability_id = "bite"
 level = 9

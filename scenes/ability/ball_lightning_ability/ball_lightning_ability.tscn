@@ -30,8 +30,66 @@ shader_parameter/noise_tex = SubResource("NoiseTexture2D_jok2e")
 shader_parameter/speed = 0.10000000475
 shader_parameter/noise_scale = 0.5
 
+[sub_resource type="Gradient" id="Gradient_a3y5c"]
+interpolation_mode = 2
+offsets = PackedFloat32Array(0.44357976, 0.54474705, 0.6303502)
+colors = PackedColorArray(0, 0, 1, 1, 1, 1, 1, 1, 0, 0.84313726, 1, 1)
+metadata/_snap_count = 8
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_jok2e"]
+noise_type = 4
+fractal_type = 2
+fractal_octaves = 10
+fractal_lacunarity = 3.0
+fractal_gain = 1.0
+fractal_weighted_strength = 0.1
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_236st"]
+noise = SubResource("FastNoiseLite_jok2e")
+color_ramp = SubResource("Gradient_a3y5c")
+seamless = true
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_kguxa"]
+shader = ExtResource("2_shader")
+shader_parameter/noise_tex = SubResource("NoiseTexture2D_236st")
+shader_parameter/speed = 15.0
+shader_parameter/noise_scale = 4.0
+
+[sub_resource type="Curve" id="Curve_a3y5c"]
+_limits = [-1.0, 1.0, 0.0, 1.0]
+_data = [Vector2(0, -1), 0.0, 2.8, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_jok2e"]
+curve = SubResource("Curve_a3y5c")
+
+[sub_resource type="Curve" id="Curve_jok2e"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.49785405, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 1.4, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_236st"]
+curve = SubResource("Curve_jok2e")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_h3kha"]
+lifetime_randomness = 0.3
+particle_flag_disable_z = true
+direction = Vector3(0, 0, 0)
+orbit_velocity_min = 9.49949e-08
+orbit_velocity_max = 9.49949e-08
+radial_velocity_min = 14.999977
+radial_velocity_max = 24.999977
+gravity = Vector3(0, 0, 0)
+radial_accel_min = 19.999998
+radial_accel_max = 39.999996
+radial_accel_curve = SubResource("CurveTexture_jok2e")
+damping_min = 46.863003
+damping_max = 51.291004
+scale_min = 8.0
+scale_max = 8.0
+scale_curve = SubResource("CurveTexture_236st")
+
 [sub_resource type="CircleShape2D" id="CircleShape2D_1"]
-radius = 8.0
+radius = 7.272727
 
 [node name="BallLightningAbility" type="Node2D" unique_id=1728836774]
 script = ExtResource("1_script")
@@ -40,12 +98,26 @@ script = ExtResource("1_script")
 texture_filter = 1
 material = SubResource("ShaderMaterial_ball")
 offset_left = -8.0
-offset_top = -16.0
+offset_top = -15.0
 offset_right = 8.0
+offset_bottom = 1.0
 pivot_offset = Vector2(8, 8)
 size_flags_horizontal = 4
 size_flags_vertical = 4
 color = Color(0, 0, 0, 0)
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="BallColorRect" unique_id=1805061999]
+material = SubResource("ShaderMaterial_kguxa")
+position = Vector2(8, 8)
+emitting = false
+amount = 24
+lifetime = 1.2
+one_shot = true
+preprocess = 0.4
+speed_scale = 1.2
+explosiveness = 1.0
+randomness = 0.1
+process_material = SubResource("ParticleProcessMaterial_h3kha")
 
 [node name="HitboxComponent" parent="." unique_id=1757191736 instance=ExtResource("3_hitbox")]
 scale = Vector2(1.1, 1.1)
@@ -54,7 +126,8 @@ collision_mask = 32
 hit_spark_config = ExtResource("4_spark")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent" unique_id=1823615303]
-position = Vector2(0, -7.272727)
+visible = false
+position = Vector2(0, -6.363636)
 shape = SubResource("CircleShape2D_1")
 
 [node name="TickTimer" type="Timer" parent="." unique_id=1894178959]

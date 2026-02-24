@@ -1,20 +1,65 @@
-[gd_scene format=3]
+[gd_scene format=3 uid="uid://c76q4lixhtanb"]
 
-[ext_resource type="Script" path="res://scenes/ability/flamethrower_ability/flamethrower_ability.gd" id="1_script"]
-[ext_resource type="Texture2D" uid="uid://cd2obi7dehuqv" path="res://scenes/ability/sword_ability/sword.png" id="2_placeholder"]
-[ext_resource type="PackedScene" uid="uid://dly1mra0vau0s" path="res://scenes/component/hitbox_component.tscn" id="3_hitbox"]
+[ext_resource type="Script" uid="uid://bvpdloewi8013" path="res://scenes/ability/flamethrower_ability/flamethrower_ability.gd" id="1_script"]
+[ext_resource type="Shader" uid="uid://3cn02jxp8grw" path="res://scenes/ability/flamethrower_ability/flamethrower_fire.gdshader" id="2_shader"]
+[ext_resource type="Texture2D" uid="uid://byuh1i502x005" path="res://resources/effects/color_temp_800_6000.exr" id="3_temp_tex"]
+[ext_resource type="PackedScene" uid="uid://dly1mra0vau0s" path="res://scenes/component/hitbox_component.tscn" id="4_hitbox"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_1"]
-size = Vector2(40, 20)
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_m8nlv"]
+shader = ExtResource("2_shader")
+shader_parameter/texture_plancks_emission = ExtResource("3_temp_tex")
+shader_parameter/plancks_emission_energy = 2.0
+shader_parameter/plancks_emission_temperature_celcius = 968.00002223
+shader_parameter/temperature_cooling_rate = 2.0
+shader_parameter/age_to_time_scale = 2.0
+shader_parameter/temperature_texture_min_k = 800.0
+shader_parameter/temperature_texture_max_k = 6000.0
 
-[node name="FlamethrowerAbility" type="Node2D"]
+[sub_resource type="Gradient" id="Gradient_age"]
+interpolation_mode = 1
+colors = PackedColorArray(0, 0, 0, 1, 1, 0, 0, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_age"]
+gradient = SubResource("Gradient_age")
+
+[sub_resource type="Curve" id="Curve_scale"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.3, 0.9), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_scale"]
+curve = SubResource("Curve_scale")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_flame"]
+particle_flag_disable_z = true
+emission_shape = 6
+emission_ring_axis = Vector3(0, 0, 1)
+emission_ring_height = 1.0
+emission_ring_radius = 1.0
+emission_ring_inner_radius = 1.0
+emission_ring_cone_angle = 90.0
+spread = 2.0
+initial_velocity_min = 160.0
+initial_velocity_max = 280.0
+gravity = Vector3(0, 0, 0)
+scale_min = 8.0
+scale_max = 8.0
+scale_curve = SubResource("CurveTexture_scale")
+color_ramp = SubResource("GradientTexture1D_age")
+
+[node name="FlamethrowerAbility" type="Node2D" unique_id=1552832919]
 script = ExtResource("1_script")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("2_placeholder")
-scale = Vector2(0.5, 0.5)
+[node name="FlameParticles" type="GPUParticles2D" parent="." unique_id=1181417821]
+texture_filter = 1
+material = SubResource("ShaderMaterial_m8nlv")
+amount = 120
+lifetime = 0.2
+preprocess = 0.2
+process_material = SubResource("ParticleProcessMaterial_flame")
 
-[node name="HitboxComponent" parent="." instance=ExtResource("3_hitbox")]
+[node name="HitboxComponent" parent="." unique_id=137977121 instance=ExtResource("4_hitbox")]
+collision_mask = 32
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent"]
-shape = SubResource("RectangleShape2D_1")
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="HitboxComponent" unique_id=1914837565]
+visible = false
+polygon = PackedVector2Array(0, 3, 0, -3, 65, -0.5, 65, 0.5)

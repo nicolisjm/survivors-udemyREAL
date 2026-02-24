@@ -7,11 +7,11 @@ const MAX_ENTRIES := 5
 
 ## Arcade-style placeholder entries to encourage players to beat them.
 const PLACEHOLDER_ENTRIES: Array[Dictionary] = [
-	{"initials": "AAA", "time_survived": 900.0, "exp_collected": 5000, "ability_names": []},
-	{"initials": "BBB", "time_survived": 720.0, "exp_collected": 4000, "ability_names": []},
-	{"initials": "CCC", "time_survived": 600.0, "exp_collected": 3500, "ability_names": []},
-	{"initials": "DDD", "time_survived": 540.0, "exp_collected": 3000, "ability_names": []},
-	{"initials": "EEE", "time_survived": 480.0, "exp_collected": 2500, "ability_names": []},
+	{"initials": "NIC", "time_survived": 1200.0, "exp_collected": 20000, "ability_names": ["???"]},
+	{"initials": "THO", "time_survived": 600.0, "exp_collected": 6000, "ability_names": ["Sword", "Axe", "Chain Lightning"]},
+	{"initials": "WIL", "time_survived": 360.0, "exp_collected": 3000, "ability_names": ["Ball Lightning", "Chain Lightning", "Sword"]},
+	{"initials": "SHO", "time_survived": 180.0, "exp_collected": 300, "ability_names": ["Bite", "Sword", "Axe"]},
+	{"initials": "DED", "time_survived": 60.0, "exp_collected": 20, "ability_names": ["Sword"]},
 ]
 
 var _entries: Array = []

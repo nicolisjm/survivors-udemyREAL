@@ -107,6 +107,7 @@ func _ready() -> void:
 		path_chain_lightning,
 		path_bite,
 		path_ball_lightning,
+		path_flamethrower,
 	]
 	# Initialize display order: starting ability first, then others as acquired.
 	_acquired_ability_order.append(start_id)

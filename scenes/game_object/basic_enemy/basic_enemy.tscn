@@ -129,7 +129,7 @@ drop_percent = 1.0
 health_component = NodePath("../HealthComponent")
 
 [node name="VelocityComponent" parent="." unique_id=1336253212 instance=ExtResource("7_jkye5")]
-max_speed = 60
+max_speed = 55
 acceleration = 8.0
 
 [node name="HitFlashComponent" parent="." unique_id=1675950127 node_paths=PackedStringArray("health_component", "sprite") instance=ExtResource("5_v58qd")]

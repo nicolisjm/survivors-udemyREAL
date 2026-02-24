@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://bwfhtbd115oy1" path="res://scenes/UI/options_menu.gd" id="1_qgort"]
 [ext_resource type="PackedScene" uid="uid://wgqo2sfosuiu" path="res://scenes/UI/vignette.tscn" id="2_ijsq6"]
 [ext_resource type="TileSet" uid="uid://cc6ovf2ndyenj" path="res://resources/tile_set.tres" id="3_5tpni"]
+[ext_resource type="Theme" uid="uid://cae3pri8pifdf" path="res://resources/theme/theme.tres" id="4_6mmsa"]
 [ext_resource type="PackedScene" uid="uid://daoc7rc3himy6" path="res://scenes/UI/sound_button.tscn" id="4_bj8r8"]
 
 [node name="OptionsMenu" type="CanvasLayer" unique_id=422418085]
@@ -81,6 +82,7 @@ max_value = 1.0
 step = 0.1
 
 [node name="WindowOptionContainer" type="VBoxContainer" parent="MarginContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer" unique_id=610794976]
+unique_name_in_owner = true
 layout_mode = 2
 
 [node name="Label" type="Label" parent="MarginContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/WindowOptionContainer" unique_id=1563759678]
@@ -95,6 +97,47 @@ layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 4
 text = "Fullscreen Toggle"
+
+[node name="JoystickSizeOptionContainer" type="VBoxContainer" parent="MarginContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer" unique_id=2000000001]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+theme = ExtResource("4_6mmsa")
+
+[node name="Label" type="Label" parent="MarginContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/JoystickSizeOptionContainer" unique_id=2000000002]
+layout_mode = 2
+theme_type_variation = &"BlueOutlineLabel"
+text = "Joystick Size"
+
+[node name="JoystickSizeOption" type="OptionButton" parent="MarginContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/JoystickSizeOptionContainer" unique_id=2000000003]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(100, 25)
+layout_mode = 2
+selected = 1
+item_count = 3
+popup/item_0/id = 0
+popup/item_1/id = 1
+popup/item_2/id = 2
+
+[node name="InputModeOptionContainer" type="VBoxContainer" parent="MarginContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer" unique_id=2000000004]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+theme = ExtResource("4_6mmsa")
+
+[node name="Label" type="Label" parent="MarginContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/InputModeOptionContainer" unique_id=2000000005]
+layout_mode = 2
+theme_type_variation = &"BlueOutlineLabel"
+text = "Movement"
+
+[node name="InputModeOption" type="OptionButton" parent="MarginContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/InputModeOptionContainer" unique_id=2000000006]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(100, 25)
+layout_mode = 2
+selected = 1
+item_count = 2
+popup/item_0/id = 0
+popup/item_1/id = 1
 
 [node name="BackButton" parent="MarginContainer/PanelContainer/MarginContainer/VBoxContainer" unique_id=1200199526 instance=ExtResource("4_bj8r8")]
 unique_name_in_owner = true

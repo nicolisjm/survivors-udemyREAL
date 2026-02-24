@@ -23,7 +23,8 @@ func _ready() -> void:
 ## source: optional; if the damage kills the target, passed through to health_component.died(killer_source) for kill attribution.
 ## is_crit: if true, floating text shows damage in gold with "!" (e.g. 10!); use for crits from Bite or other abilities.
 ## hit_sound: optional; ability-specific sound (e.g. bite chomp, chain zap). Played at hit position, use hit_sound_volume_db for level.
-func apply_damage(amount: float, spark_config: HitSparkConfig = null, stun_duration: float = 0.0, source: Variant = null, is_crit: bool = false, hit_sound: AudioStream = null, hit_sound_volume_db: float = -12.0) -> void:
+## floating_text_color: optional; if set (e.g. Color), floating damage text uses this color (e.g. burn = red-ish fire).
+func apply_damage(amount: float, spark_config: HitSparkConfig = null, stun_duration: float = 0.0, source: Variant = null, is_crit: bool = false, hit_sound: AudioStream = null, hit_sound_volume_db: float = -12.0, floating_text_color: Variant = null) -> void:
 	var hc = health_component
 	if hc == null:
 		hc = get_parent().get_node_or_null("HealthComponent") as HealthComponent
@@ -40,7 +41,8 @@ func apply_damage(amount: float, spark_config: HitSparkConfig = null, stun_durat
 		foreground.add_child(floating_text)
 		floating_text.global_position = global_position + (Vector2.UP * 16)
 		var format_string = "%0.0f"
-		floating_text.start(format_string % amount, is_crit)
+		var custom_color: Variant = floating_text_color
+		floating_text.start(format_string % amount, is_crit, custom_color)
 		# Generic hit sparks: configurable per ability via spark_config.
 		var sparks = hit_sparks_scene.instantiate() as Node2D
 		sparks.global_position = global_position
@@ -63,5 +65,8 @@ func on_area_entered(other_area: Area2D) -> void:
 	if not other_area is HitboxComponent:
 		return
 	var hitbox_component = other_area as HitboxComponent
+	# Skip overlap-based damage when hitbox uses 0 (e.g. flamethrower applies damage on timer only).
+	if hitbox_component.damage <= 0:
+		return
 	var spark_config = hitbox_component.hit_spark_config if hitbox_component.hit_spark_config else null
 	apply_damage(hitbox_component.damage, spark_config)

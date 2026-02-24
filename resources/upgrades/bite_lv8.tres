@@ -6,7 +6,7 @@
 script = ExtResource("1_script")
 id = "bite_lv8"
 name = "Bite"
-sub_name = "Single-target bonus"
-description = "Bite deals its single-target bonus damage when 3 or fewer enemies are targeted."
+sub_name = "Dire"
+description = "Single target crits now crit if targeting 3 or fewer enemies"
 ability_id = "bite"
 level = 8

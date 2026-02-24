@@ -8,5 +8,5 @@ script = ExtResource("1_script")
 ball_lightning_ability_scene = ExtResource("2_visual")
 
 [node name="Timer" type="Timer" parent="." unique_id=1286463150]
-wait_time = 2.0
+wait_time = 1.7999999999999998
 autostart = true

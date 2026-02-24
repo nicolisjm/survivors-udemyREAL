@@ -1,12 +1,12 @@
-[gd_scene format=3]
+[gd_scene format=3 uid="uid://cufle5pwr0rf7"]
 
-[ext_resource type="Script" path="res://scenes/ability/flamethrower_ability_controller/flamethrower_ability_controller.gd" id="1_script"]
-[ext_resource type="PackedScene" path="res://scenes/ability/flamethrower_ability/flamethrower_ability.tscn" id="2_visual"]
+[ext_resource type="Script" uid="uid://c5xd8m6agipqk" path="res://scenes/ability/flamethrower_ability_controller/flamethrower_ability_controller.gd" id="1_script"]
+[ext_resource type="PackedScene" uid="uid://c76q4lixhtanb" path="res://scenes/ability/flamethrower_ability/flamethrower_ability.tscn" id="2_visual"]
 
-[node name="FlamethrowerAbilityController" type="Node"]
+[node name="FlamethrowerAbilityController" type="Node" unique_id=513137291]
 script = ExtResource("1_script")
 flamethrower_ability_scene = ExtResource("2_visual")
 
-[node name="Timer" type="Timer" parent="."]
-wait_time = 0.5
+[node name="Timer" type="Timer" parent="." unique_id=1714524252]
+wait_time = 0.14
 autostart = true

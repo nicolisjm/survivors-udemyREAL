@@ -79,6 +79,41 @@ content_margin_right = 2.0
 content_margin_bottom = 4.0
 bg_color = Color(0.24705882, 0.14901961, 0.19215687, 1)
 
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_56c54"]
+load_path = "res://.godot/imported/ui.png-18543ef61e2d0147d509ac18b5e095b1.ctex"
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_tu17m"]
+texture = SubResource("CompressedTexture2D_56c54")
+texture_margin_left = 3.0
+texture_margin_top = 3.0
+texture_margin_right = 3.0
+texture_margin_bottom = 3.0
+region_rect = Rect2(20, 20, 8, 8)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_orw62"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_65ii4"]
+load_path = "res://.godot/imported/ui.png-18543ef61e2d0147d509ac18b5e095b1.ctex"
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_iwyt8"]
+texture = SubResource("CompressedTexture2D_65ii4")
+texture_margin_left = 3.0
+texture_margin_top = 3.0
+texture_margin_right = 3.0
+texture_margin_bottom = 3.0
+region_rect = Rect2(4, 20, 8, 8)
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_j4h2o"]
+load_path = "res://.godot/imported/ui.png-18543ef61e2d0147d509ac18b5e095b1.ctex"
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_f2l62"]
+texture = SubResource("CompressedTexture2D_j4h2o")
+texture_margin_left = 3.0
+texture_margin_top = 3.0
+texture_margin_right = 3.0
+texture_margin_bottom = 3.0
+region_rect = Rect2(4, 20, 8, 8)
+
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_orw62"]
 texture = ExtResource("1_8n3oo")
 texture_margin_left = 4.0
@@ -116,5 +151,17 @@ HSlider/styles/grabber_area = SubResource("StyleBoxFlat_56c54")
 HSlider/styles/grabber_area_highlight = SubResource("StyleBoxFlat_8n3oo")
 HSlider/styles/slider = SubResource("StyleBoxFlat_orw62")
 Label/constants/line_spacing = 0
+OptionButton/colors/font_hover_pressed_color = Color(0.24705882, 0.14901961, 0.19215687, 1)
+OptionButton/colors/font_pressed_color = Color(0.24705882, 0.14901961, 0.19215687, 1)
+OptionButton/styles/disabled = SubResource("StyleBoxTexture_tu17m")
+OptionButton/styles/disabled_mirrored = SubResource("StyleBoxTexture_tu17m")
+OptionButton/styles/focus = SubResource("StyleBoxEmpty_orw62")
+OptionButton/styles/hover = SubResource("StyleBoxTexture_tu17m")
+OptionButton/styles/hover_mirrored = SubResource("StyleBoxTexture_tu17m")
+OptionButton/styles/hover_pressed = SubResource("StyleBoxTexture_iwyt8")
+OptionButton/styles/normal = SubResource("StyleBoxTexture_iwyt8")
+OptionButton/styles/normal_mirrored = SubResource("StyleBoxTexture_iwyt8")
+OptionButton/styles/pressed = SubResource("StyleBoxTexture_f2l62")
+OptionButton/styles/pressed_mirrored = SubResource("StyleBoxTexture_f2l62")
 PanelContainer/styles/panel = SubResource("StyleBoxTexture_orw62")
 ProgressBar/styles/background = SubResource("StyleBoxFlat_ss5pk")

@@ -16,6 +16,7 @@ alwaysApply: true
 | `scenes/UI/` | Main menu, ability selector, upgrade screen, end screen, pause menu, highscores |
 | `scenes/autoload/` | GameEvents, StartingAbilityRegistry, HighscoresManager, ScreenTransition, etc. |
 | `resources/upgrades/` | Ability resource `.tres` files: `*_path.tres`, `*.tres`, `*_lv2.tres` … `*_lv9.tres` |
+| `resources/effects/`  | Hit spark configs, Planck fire temperature gradient EXR(s) (e.g. from plancks-law-colors), `fire_temperature_gradient.tres` |
 
 ## Game Flow
 
@@ -50,3 +51,45 @@ Main Menu (main_menu.tscn) [run scene]
 - Ability folders: `*_ability/`, `*_ability_controller/`
 - Resources: `ability_id.tres`, `ability_id_path.tres`
 - Unique nodes: `%NodeName` for `$%NodeName` access
+
+## Ability Creation (Summary)
+
+When adding a new ability, touch these areas:
+
+- **Resources**: `resources/upgrades/{id}.tres` (Ability), `{id}_lv2.tres` … `{id}_lv9.tres`, `{id}_path.tres` (AbilityUpgradePath)
+- **Manager**: Register path in `upgrade_manager.gd` (`_ability_paths`, `ability_levels[id] = 0` or `1` for pre-attached)
+- **Controller**: `scenes/ability/{id}_ability_controller/` — Node + Timer, script with `_apply_stats_from_level()`, `_apply_attack_speed()`, `on_timer_timeout`, `on_ability_upgrade_added`
+- **Visual**: `scenes/ability/{id}_ability/` — Node2D with either HitboxComponent (hitbox-based) or no hitbox (direct-damage)
+- **Wire**: Base Ability `.tres` → `ability_controller_scene` = controller scene
+
+**Groups used by controllers**: `"player"`, `"enemy"`, `"foreground_layer"`, `"upgrade_manager"`.
+
+## Ability Damage Models
+
+- **Hitbox-based (Sword, Axe, Ball Lightning)**: Visual scene has HitboxComponent. Controller sets `hitbox_component.damage` (and any spawn params), adds visual to `foreground_layer`. Enemies' HurtboxComponent overlaps hitbox; damage can be applied in controller (one shot) or in visual script (e.g. tick-based overlap checks + `hurtbox.apply_damage()`).
+- **Direct-damage (Chain Lightning, Bite)**: No hitbox on visual. Controller finds targets, calls `hurtbox.apply_damage(...)` on each, then spawns visual (e.g. chain positions, or one visual per target with `impact` signal for timing).
+
+## Controller Pattern (Required)
+
+- `_get_upgrade_manager()` → `get_tree().get_first_node_in_group("upgrade_manager")`
+- `_get_*_level()` or `_get_ability_level()` → `manager.get_ability_level("ability_id")`
+- `_apply_stats_from_level()`: map levels 1–9 to `base_wait_time`, `_damage_flat_bonus`, `_rate_reduction`, quantity, and any ability-specific stats
+- `_ready()`: connect Timer timeout, `GameEvents.ability_upgrade_added`, call `_apply_stats_from_level()` and `_apply_attack_speed()`
+- `_apply_attack_speed()`: apply `player.attack_speed_multiplier` and rate reductions to `$Timer.wait_time`, clamp with `MIN_WAIT_TIME`
+- `on_ability_upgrade_added`: if `upgrade.ability_id == "ability_id"` → refresh stats and attack speed; also handle `generic_attack_speed`, `generic_damage`, `generic_size`, `generic_duration` (often no-op, read from player at attack time)
+- Damage formula: `(base_damage + _damage_flat_bonus + flat_bonus) * damage_mult` (read `player.damage_multiplier`, `player.damage_flat_bonus` at attack time); apply `size_mult` / `duration_mult` from player when spawning visuals
+
+## Collision (Abilities)
+
+- **HitboxComponent**: `collision_layer = 4`, `collision_mask = 0`
+- **HurtboxComponent** (on enemies): `collision_mask` includes 4 to receive hitbox overlaps
+
+## Reference Abilities (Copy From)
+
+| Pattern | Controller | Visual |
+|--------|------------|--------|
+| Nearest-target, one shot (Hitbox) | sword_ability_controller | sword_ability |
+| Orbiting, Hitbox | axe_ability_controller | axe_ability |
+| Chaining, direct damage | chain_lightning_ability_controller | chainLightning_ability |
+| Orbiting + tick damage (Hitbox + apply_damage in visual) | ball_lightning_ability_controller | ball_lightning_ability |
+| Close-range, direct damage, signal timing | bite_ability_controller | bite_ability |

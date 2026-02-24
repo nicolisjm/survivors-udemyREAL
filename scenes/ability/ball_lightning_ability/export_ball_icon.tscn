@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://bycmcod5yqeiq"]
+
+[ext_resource type="Script" uid="uid://c781vcehqjlmy" path="res://scenes/ability/ball_lightning_ability/export_ball_icon.gd" id="1_script"]
+
+[node name="ExportBallIcon" type="Node" unique_id=461390862]
+script = ExtResource("1_script")

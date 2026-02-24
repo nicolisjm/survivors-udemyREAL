@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="AbilityUpgrade" format=3 uid="uid://cgeneric_duration_prestige"]
+[gd_resource type="Resource" script_class="AbilityUpgrade" format=3 uid="uid://djhcf8lqob5ft"]
 
 [ext_resource type="Script" uid="uid://dwgsoek0kp41e" path="res://resources/upgrades/ability_upgrade.gd" id="1_durp"]
 
@@ -8,4 +8,4 @@ id = "generic_duration_prestige"
 max_quantity = 99
 name = "Duration"
 sub_name = "Diminishing"
-description = "Increases ability duration and debuffs by 3% (unlocks after maxing Duration)"
+description = "Increases ability duration and debuffs by 3%"

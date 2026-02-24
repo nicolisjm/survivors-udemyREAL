@@ -2,16 +2,18 @@
 
 [ext_resource type="PackedScene" uid="uid://1wtvprcjrcm3" path="res://scenes/ability/ball_lightning_ability_controller/ball_lightning_ability_controller.tscn" id="1_controller"]
 [ext_resource type="Script" uid="uid://bpw3kuyytb1cx" path="res://resources/upgrades/ability.gd" id="2_ability"]
-[ext_resource type="Texture2D" uid="uid://bopvjp0fwvdd5" path="res://scenes/ability/ball_lightning_ability/ball_lightning_icon.png" id="2_l8na6"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_yp5s1"]
+load_path = "res://.godot/imported/ball_lightning_icon.png-8c8ba0dd92abc04b86b8ea754ae87802.ctex"
 
 [resource]
 script = ExtResource("2_ability")
 ability_controller_scene = ExtResource("1_controller")
-icon = ExtResource("2_l8na6")
+icon = SubResource("CompressedTexture2D_yp5s1")
 id = "ball_lightning"
 max_quantity = 1
 name = "Ball Lightning"
 sub_name = "New skill:"
-description = "Orbiting lightning balls. Every 3rd hit on same enemy crits."
+description = "Casts a orbiting lightning ball that rapidly shocks enemies, every third shock on the same enemy crits and deals increased damage"
 ability_id = "ball_lightning"
 level = 1

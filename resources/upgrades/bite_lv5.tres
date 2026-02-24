@@ -6,7 +6,7 @@
 script = ExtResource("1_script")
 id = "bite_lv5"
 name = "Bite"
-sub_name = "Faster"
-description = "Bite rate -0.2s."
+sub_name = "Starving"
+description = "Bite rate -0.2s"
 ability_id = "bite"
 level = 5
