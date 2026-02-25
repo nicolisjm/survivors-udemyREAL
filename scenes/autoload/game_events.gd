@@ -5,6 +5,8 @@ signal ability_upgrade_added(upgrade: AbilityUpgrade, current_upgrades: Dictiona
 signal player_damaged
 signal player_healed
 signal black_hole_activated
+## Emitted when a burning enemy dies (for flamethrower level 8: spread burn to nearby).
+signal burning_enemy_died(position: Vector2)
 
 
 func emit_experience_vial_collected(number: float):
@@ -25,3 +27,7 @@ func emit_player_healed():
 
 func emit_black_hole_activated():
 	black_hole_activated.emit()
+
+
+func emit_burning_enemy_died(position: Vector2):
+	burning_enemy_died.emit(position)

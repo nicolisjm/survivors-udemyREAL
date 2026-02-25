@@ -6,27 +6,25 @@ const BURNABLE_COMPONENT_SCENE := preload("res://scenes/component/burnable_compo
 
 const BASE_TICK_RATE := 0.2
 const MIN_TICK_INTERVAL := 0.05
-const BURN_DAMAGE_PER_TICK_RATE_UPGRADE := 2
-const FLAMETHROWER_BASE_DAMAGE := 2
-## Base damage per burn tick; levels 2/5/8 add +2 burn damage each instead of faster tick rate.
-const BASE_BURN_DAMAGE_PER_TICK := 5.0
+const BURN_DAMAGE_PER_TICK_RATE_UPGRADE := 1
+## Base damage per burn tick; levels 3/5/8 add +2 burn damage each.
+const BASE_BURN_DAMAGE_PER_TICK := 4.0
 const BURN_DURATION_BASE := 3.0
-const BURN_TICK_WINDOW := 4.0
-const TICKS_TO_APPLY_BURN := 3
 ## Offset in pixels so the flame cone starts in front of the character.
 const FLAME_OFFSET_PIXELS := 8
 ## Vertical offset (up = negative Y) so the flame aligns with the character.
 const FLAME_OFFSET_UP_PIXELS := -6.0
+## Level 8: range for spreading burn to nearby enemies when a burning enemy dies (~experience orb pickup).
+const BURN_SPREAD_ON_DEATH_RANGE := 40
 
 var _flamethrower_visual: Node2D = null
-var _target_tick_data: Dictionary = {}  # Node -> { tick_count: int, last_tick_time: float }
-var _target_enter_cooldown: Dictionary = {}  # instance_id -> last_apply_time (enter-hit cooldown = tick interval)
 
 # From upgrades
 var _burn_damage_bonus: int = 0
 var _base_particle_amount: int = 60
 var _spread_value: float = 2.0
 var _burn_tick_interval_base: float = 1.0
+## Level 9 upgrade disabled for now; leave in game for later.
 var _burn_refreshes_on_hit: bool = false
 
 
@@ -63,8 +61,7 @@ func _apply_stats_from_level() -> void:
 		_spread_value = 6.0
 	if level >= 6:
 		_spread_value = 12.0
-	if level >= 8:
-		_spread_value = 24.0
+	# Level 8: burn spread on death instead of spread 24
 
 	_burn_tick_interval_base = 1.0
 	if level >= 4:
@@ -72,12 +69,14 @@ func _apply_stats_from_level() -> void:
 	if level >= 7:
 		_burn_tick_interval_base = 0.6
 
+	# Level 9: 1% of burning enemy's health as base damage to that burn.
 	_burn_refreshes_on_hit = level >= 9
 
 
 func _ready() -> void:
 	$Timer.timeout.connect(_on_timer_timeout)
 	GameEvents.ability_upgrade_added.connect(_on_ability_upgrade_added)
+	GameEvents.burning_enemy_died.connect(_on_burning_enemy_died)
 	_apply_stats_from_level()
 	_apply_attack_speed()
 	_ensure_visual()
@@ -154,16 +153,15 @@ func _on_timer_timeout() -> void:
 	if hitbox == null:
 		return
 	var player = get_tree().get_first_node_in_group("player")
-	var damage_mult: float = player.get("damage_multiplier") if player and player.get("damage_multiplier") != null else 1.0
-	var duration_mult: float = player.get("duration_multiplier") if player and player.get("duration_multiplier") != null else 1.0
-	var attack_speed: float = player.get("attack_speed_multiplier") if player and player.get("attack_speed_multiplier") != null else 1.0
+	if player == null:
+		return
+	var damage_mult: float = player.get("damage_multiplier") if player.get("damage_multiplier") != null else 1.0
+	var duration_mult: float = player.get("duration_multiplier") if player.get("duration_multiplier") != null else 1.0
+	var attack_speed: float = player.get("attack_speed_multiplier") if player.get("attack_speed_multiplier") != null else 1.0
 	if attack_speed <= 0.0:
 		attack_speed = 1.0
-	var now: float = Time.get_ticks_msec() / 1000.0
 	var burn_tick_interval: float = _burn_tick_interval_base / attack_speed
-	var burn_damage_per_tick: float = (BASE_BURN_DAMAGE_PER_TICK + float(_burn_damage_bonus)) * damage_mult
 
-	var tick_interval: float = $Timer.wait_time
 	var overlapping: Array = hitbox.get_overlapping_areas()
 	for area in overlapping:
 		if not area is HurtboxComponent:
@@ -171,43 +169,6 @@ func _on_timer_timeout() -> void:
 		var target: Node = area.get_parent()
 		if not is_instance_valid(target):
 			continue
-		# Skip tick if this target was just hit by enter (avoids double hit within one tick window).
-		var key := target.get_instance_id()
-		if _target_enter_cooldown.get(key, -999.0) + tick_interval > now:
-			continue
-		_apply_one_tick_to_target(target, area as HurtboxComponent, now, damage_mult, duration_mult, attack_speed, burn_tick_interval, burn_damage_per_tick)
-
-	_prune_tick_data()
-
-
-## Applies one tick of damage and burn buildup to a single target. Used by both timer and enter-hit.
-func _apply_one_tick_to_target(
-	target: Node,
-	hurtbox: HurtboxComponent,
-	now: float,
-	damage_mult: float,
-	duration_mult: float,
-	attack_speed: float,
-	burn_tick_interval: float,
-	burn_damage_per_tick: float
-) -> void:
-	var tick_damage: float = float(FLAMETHROWER_BASE_DAMAGE) * damage_mult
-	var burnable: Node = target.get_node_or_null("BurnableComponent")
-	if burnable != null and burnable.has_method("is_burning") and burnable.is_burning() and _burn_refreshes_on_hit:
-		tick_damage += burn_damage_per_tick
-	hurtbox.apply_damage(tick_damage)
-
-	var key := target.get_instance_id()
-	var data: Dictionary = _target_tick_data.get(key, { "tick_count": 0, "last_tick_time": 0.0 })
-	if now - data.last_tick_time > BURN_TICK_WINDOW:
-		data.tick_count = 0
-	data.tick_count += 1
-	data.last_tick_time = now
-	_target_tick_data[key] = data
-
-	if data.tick_count >= TICKS_TO_APPLY_BURN:
-		data.tick_count = 0
-		_target_tick_data[key] = data
 		_apply_burn_to_target(target, damage_mult, duration_mult, attack_speed, burn_tick_interval)
 
 
@@ -216,11 +177,6 @@ func _on_flamethrower_hitbox_area_entered(area: Area2D) -> void:
 		return
 	var target: Node = area.get_parent()
 	if not is_instance_valid(target):
-		return
-	var tick_interval: float = $Timer.wait_time
-	var now: float = Time.get_ticks_msec() / 1000.0
-	var key := target.get_instance_id()
-	if _target_enter_cooldown.get(key, -999.0) + tick_interval > now:
 		return
 	var player = get_tree().get_first_node_in_group("player")
 	if player == null:
@@ -231,9 +187,35 @@ func _on_flamethrower_hitbox_area_entered(area: Area2D) -> void:
 	if attack_speed <= 0.0:
 		attack_speed = 1.0
 	var burn_tick_interval: float = _burn_tick_interval_base / attack_speed
-	var burn_damage_per_tick: float = (BASE_BURN_DAMAGE_PER_TICK + float(_burn_damage_bonus)) * damage_mult
-	_apply_one_tick_to_target(target, area as HurtboxComponent, now, damage_mult, duration_mult, attack_speed, burn_tick_interval, burn_damage_per_tick)
-	_target_enter_cooldown[key] = now
+	_apply_burn_to_target(target, damage_mult, duration_mult, attack_speed, burn_tick_interval)
+
+
+func _on_burning_enemy_died(position: Vector2) -> void:
+	if _get_ability_level() < 8:
+		return
+	var player = get_tree().get_first_node_in_group("player")
+	if player == null:
+		return
+	var damage_mult: float = player.get("damage_multiplier") if player.get("damage_multiplier") != null else 1.0
+	var duration_mult: float = player.get("duration_multiplier") if player.get("duration_multiplier") != null else 1.0
+	var attack_speed: float = player.get("attack_speed_multiplier") if player.get("attack_speed_multiplier") != null else 1.0
+	if attack_speed <= 0.0:
+		attack_speed = 1.0
+	var burn_tick_interval: float = _burn_tick_interval_base / attack_speed
+	var range_sq: float = BURN_SPREAD_ON_DEATH_RANGE * BURN_SPREAD_ON_DEATH_RANGE
+	var enemies: Array = get_tree().get_nodes_in_group("enemy")
+	for node in enemies:
+		if not node is Node2D:
+			continue
+		var enemy: Node2D = node as Node2D
+		if not is_instance_valid(enemy):
+			continue
+		if enemy.global_position.distance_squared_to(position) > range_sq:
+			continue
+		var burnable: Node = enemy.get_node_or_null("BurnableComponent")
+		if burnable != null and burnable.has_method("is_burning") and burnable.is_burning():
+			continue
+		_apply_burn_to_target(enemy, damage_mult, duration_mult, attack_speed, burn_tick_interval)
 
 
 func _apply_burn_to_target(target: Node, damage_mult: float, duration_mult: float, attack_speed: float, burn_tick_interval: float) -> void:
@@ -242,26 +224,19 @@ func _apply_burn_to_target(target: Node, damage_mult: float, duration_mult: floa
 		burnable = BURNABLE_COMPONENT_SCENE.instantiate()
 		target.add_child(burnable)
 	if burnable.has_method("apply_burn"):
-		# Base damage per tick (5) + bonus from levels 2/5/8 (+2 each).
+		var base_damage: float = BASE_BURN_DAMAGE_PER_TICK + float(_burn_damage_bonus)
+		if _burn_refreshes_on_hit:
+			var hc: HealthComponent = target.get_node_or_null("HealthComponent") as HealthComponent
+			if hc != null:
+				base_damage += 0.01 * hc.max_health
 		burnable.apply_burn(
-			BASE_BURN_DAMAGE_PER_TICK + float(_burn_damage_bonus),
+			base_damage,
 			BURN_DURATION_BASE,
 			burn_tick_interval,
 			damage_mult,
 			duration_mult,
 			_burn_refreshes_on_hit
 		)
-
-
-func _prune_tick_data() -> void:
-	var to_erase: Array = []
-	for key in _target_tick_data:
-		var node: Object = instance_from_id(key)
-		if node == null or not is_instance_valid(node):
-			to_erase.append(key)
-	for k in to_erase:
-		_target_tick_data.erase(k)
-		_target_enter_cooldown.erase(k)
 
 
 func _on_ability_upgrade_added(upgrade: AbilityUpgrade, _current: Dictionary) -> void:

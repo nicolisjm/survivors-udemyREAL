@@ -12,6 +12,6 @@ id = "bite"
 max_quantity = 1
 name = "Bite"
 sub_name = "New skill:"
-description = "Bites all enemies close to the player, every repeated hit against an enemy increases its base damage. If targeting a single enemy, it crits for double damage."
+description = "Bites nearby enemies, repeat hits increase damage. Deals 2X damage to isolated enemies"
 ability_id = "bite"
 level = 1

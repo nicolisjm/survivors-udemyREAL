@@ -14,6 +14,6 @@ id = "ball_lightning"
 max_quantity = 1
 name = "Ball Lightning"
 sub_name = "New skill:"
-description = "Casts a orbiting lightning ball that rapidly shocks enemies, every third shock on the same enemy crits and deals increased damage"
+description = "An orbiting lightning ball that deals rapid damage."
 ability_id = "ball_lightning"
 level = 1

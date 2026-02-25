@@ -1,17 +1,17 @@
-[gd_resource type="Resource" script_class="Ability" format=3]
+[gd_resource type="Resource" script_class="Ability" format=3 uid="uid://criwwd2me7s1m"]
 
-[ext_resource type="PackedScene" path="res://scenes/ability/flamethrower_ability_controller/flamethrower_ability_controller.tscn" id="1_controller"]
-[ext_resource type="Script" path="res://resources/upgrades/ability.gd" id="2_ability"]
-[ext_resource type="Texture2D" uid="uid://cd2obi7dehuqv" path="res://scenes/ability/sword_ability/sword.png" id="3_icon"]
+[ext_resource type="PackedScene" uid="uid://cufle5pwr0rf7" path="res://scenes/ability/flamethrower_ability_controller/flamethrower_ability_controller.tscn" id="1_controller"]
+[ext_resource type="Script" uid="uid://bpw3kuyytb1cx" path="res://resources/upgrades/ability.gd" id="2_ability"]
+[ext_resource type="Texture2D" uid="uid://bexqafi33ltxy" path="res://scenes/ability/flamethrower_ability/Flamethrower Icon.png" id="2_xgu6m"]
 
 [resource]
 script = ExtResource("2_ability")
 ability_controller_scene = ExtResource("1_controller")
-icon = ExtResource("3_icon")
+icon = ExtResource("2_xgu6m")
 id = "flamethrower"
 max_quantity = 1
 name = "Flamethrower"
 sub_name = "New skill:"
-description = "Cone AOE of flames."
+description = "Cone AOE of flames that burns enemies"
 ability_id = "flamethrower"
 level = 1

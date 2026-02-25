@@ -61,5 +61,4 @@ process_material = SubResource("ParticleProcessMaterial_flame")
 collision_mask = 32
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="HitboxComponent" unique_id=1914837565]
-visible = false
-polygon = PackedVector2Array(0, 3, 0, -3, 65, -0.5, 65, 0.5)
+polygon = PackedVector2Array(0, 3, 0, -3, 55, -0.5, 55, 0.5)

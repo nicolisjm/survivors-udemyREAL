@@ -6,6 +6,11 @@ extends Node
 signal burn_ended
 
 const BURN_FLOATING_TEXT_COLOR := Color(0.95, 0.35, 0.1, 1.0)  # Red-ish fire
+const BURN_SOUND := preload("res://assets/audio/sfx/u_xjrmmgxfru-burn-flesh-01-266302.mp3")
+const BURN_SOUND_APPLY_VOLUME_DB := -17.0
+const BURN_SOUND_DAMAGE_VOLUME_DB := -22.0
+const BURN_SOUND_PITCH_MIN := 0.9
+const BURN_SOUND_PITCH_MAX := 1.1
 
 var _hurtbox: HurtboxComponent
 var _burn_timer: Timer
@@ -17,6 +22,9 @@ var _ember_visual: Node2D = null  # Set when we add ember particles
 
 func _ready() -> void:
 	_hurtbox = get_parent().get_node_or_null("HurtboxComponent") as HurtboxComponent
+	var hc: HealthComponent = get_parent().get_node_or_null("HealthComponent") as HealthComponent
+	if hc != null:
+		hc.died.connect(_on_parent_died)
 	_burn_timer = Timer.new()
 	_burn_timer.one_shot = false
 	add_child(_burn_timer)
@@ -45,9 +53,11 @@ func apply_burn(
 
 	if _burn_timer.timeout.is_connected(_on_burn_tick):
 		if refresh_if_burning:
+			# Extend duration only; do not reset the burn damage timer (keeps tick rhythm).
 			_remaining_duration = full_duration
 			_stop_duration_timer()
 			_start_duration_timer(full_duration)
+			_damage_per_tick_base = damage_per_tick_base
 			return
 		# Already burning and not refresh: could stack or ignore; we stop and reapply so new params take effect.
 		_burn_timer.stop()
@@ -59,6 +69,7 @@ func apply_burn(
 	_burn_timer.start()
 	_start_duration_timer(full_duration)
 	_spawn_ember_visual()
+	_play_burn_sound(BURN_SOUND_APPLY_VOLUME_DB)
 
 
 func _start_duration_timer(duration: float) -> void:
@@ -68,6 +79,23 @@ func _start_duration_timer(duration: float) -> void:
 
 func _stop_duration_timer() -> void:
 	_duration_timer.stop()
+
+
+func _play_burn_sound(volume_db: float) -> void:
+	var parent_2d: Node2D = get_parent() as Node2D
+	if parent_2d == null:
+		return
+	var foreground = get_tree().get_first_node_in_group("foreground_layer")
+	if foreground == null:
+		return
+	var sound_player := AudioStreamPlayer2D.new()
+	sound_player.stream = BURN_SOUND
+	sound_player.volume_db = volume_db
+	sound_player.pitch_scale = randf_range(BURN_SOUND_PITCH_MIN, BURN_SOUND_PITCH_MAX)
+	foreground.add_child(sound_player)
+	sound_player.global_position = parent_2d.global_position
+	sound_player.finished.connect(sound_player.queue_free)
+	sound_player.play()
 
 
 ## Uses current player damage_multiplier and damage_flat_bonus so generic damage upgrades affect burn.
@@ -86,6 +114,7 @@ func _on_burn_tick() -> void:
 	if _remaining_duration <= 0.0:
 		return
 	var damage: float = _get_current_burn_damage()
+	_play_burn_sound(BURN_SOUND_DAMAGE_VOLUME_DB)
 	_hurtbox.apply_damage(
 		damage,
 		null, 0.0, null, false, null, -12.0,
@@ -104,6 +133,13 @@ func _on_duration_ended() -> void:
 
 func is_burning() -> bool:
 	return _duration_timer.time_left > 0.0
+
+
+func _on_parent_died(_killer_source: Variant = null) -> void:
+	if is_burning():
+		var parent_2d: Node2D = get_parent() as Node2D
+		if parent_2d != null:
+			GameEvents.emit_burning_enemy_died(parent_2d.global_position)
 
 
 func _spawn_ember_visual() -> void:

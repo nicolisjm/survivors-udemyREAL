@@ -16,8 +16,9 @@ extends Node2D
 var _base_particle_amount: int = 120
 var _base_lifetime: float = 0.2
 var _base_cone_angle: float = 90.0
-## Base length (tip x); from scene polygon points 2/3.
-var _base_length: float = 65.0
+## Base length (tip x); from scene polygon points 2/3. Reduced ~25% from original.
+var _base_length: float = 55.0
+const LENGTH_SCALE: float = 0.75
 ## Nozzle half-width (points 0/1 y); from scene.
 var _base_nozzle_half_width: float = 3.0
 ## Minimum half-width at tip when spread is 0 (keeps beam a thin strip).
@@ -56,7 +57,8 @@ func apply_parameters(
 	var amount: int = int(base_particle_amount * attack_speed_mult)
 	flame_particles.amount = maxi(amount, 8)
 
-	var lifetime: float = _base_lifetime * duration_mult
+	# Particle lifetime: size_mult only (duration_mult no longer affects particles; still affects burn duration).
+	var lifetime: float = _base_lifetime * size_mult
 	flame_particles.lifetime = lifetime
 
 	if spread_angle_deg >= 0.0:
@@ -71,8 +73,8 @@ func apply_parameters(
 
 	flame_particles.scale = Vector2.ONE * size_mult * SIZE_SCALE
 
-	# 4-point trapezoid: points 0,1 = nozzle (left), points 2,3 = tip (right). Spread/length adjust last two points.
-	var length: float = _base_length * size_mult * duration_mult * SIZE_SCALE
+	# 4-point trapezoid: points 0,1 = nozzle (left), points 2,3 = tip (right). Duration no longer affects hitbox length.
+	var length: float = _base_length * size_mult * SIZE_SCALE * LENGTH_SCALE
 	var cone_deg: float = spread_angle_deg if spread_angle_deg >= 0.0 else _base_cone_angle
 	var half_angle_rad: float = deg_to_rad(cone_deg) * 0.5
 	var tip_half_width: float = length * tan(half_angle_rad)

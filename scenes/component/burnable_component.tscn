@@ -1,6 +1,6 @@
-[gd_scene load_steps=2 format=3]
+[gd_scene format=3 uid="uid://cmxsf8m0uottu"]
 
-[ext_resource type="Script" path="res://scenes/component/burnable_component.gd" id="1_script"]
+[ext_resource type="Script" uid="uid://fabe2qvhnjm8" path="res://scenes/component/burnable_component.gd" id="1_script"]
 
-[node name="BurnableComponent" type="Node"]
+[node name="BurnableComponent" type="Node" unique_id=245162154]
 script = ExtResource("1_script")

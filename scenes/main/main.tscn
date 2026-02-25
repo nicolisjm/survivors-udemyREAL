@@ -14,7 +14,7 @@
 [ext_resource type="PackedScene" uid="uid://wgqo2sfosuiu" path="res://scenes/UI/vignette.tscn" id="12_blune"]
 [ext_resource type="PackedScene" uid="uid://bjdee2vks8s0m" path="res://scenes/UI/current_abilities.tscn" id="13_abilities"]
 [ext_resource type="PackedScene" uid="uid://btrwg4bddjkiu" path="res://scenes/manager/breakable_manager.tscn" id="14_breakable"]
-[ext_resource type="PackedScene" uid="uid://cgameplay_joystick" path="res://scenes/UI/gameplay_joystick.tscn" id="15_joystick"]
+[ext_resource type="PackedScene" uid="uid://c80nj30iq3wwv" path="res://scenes/UI/gameplay_joystick.tscn" id="15_joystick"]
 
 [node name="Main" type="Node" unique_id=1584566805]
 script = ExtResource("1_a8run")
@@ -24,7 +24,7 @@ end_screen_scene = ExtResource("2_ouso4")
 
 [node name="CurrentAbilities" parent="." unique_id=324102788 instance=ExtResource("13_abilities")]
 
-[node name="GameplayJoystick" parent="." instance=ExtResource("15_joystick")]
+[node name="GameplayJoystick" parent="." unique_id=1109252779 instance=ExtResource("15_joystick")]
 
 [node name="ArenaTimeUI" parent="." unique_id=1339497021 node_paths=PackedStringArray("arena_time_manager") instance=ExtResource("1_ow5a4")]
 arena_time_manager = NodePath("../ArenaTimeManager")
