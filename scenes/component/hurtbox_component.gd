@@ -69,4 +69,4 @@ func on_area_entered(other_area: Area2D) -> void:
 	if hitbox_component.damage <= 0:
 		return
 	var spark_config = hitbox_component.hit_spark_config if hitbox_component.hit_spark_config else null
-	apply_damage(hitbox_component.damage, spark_config)
+	apply_damage(hitbox_component.damage, spark_config, 0.0, null, hitbox_component.is_crit)

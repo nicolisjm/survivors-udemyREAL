@@ -10,6 +10,8 @@ var _damage_flat_bonus: int = 0
 var _rate_reduction: float = 0.0
 ## Extra damage per repeat hit on same enemy (level 4: 2, level 7: 3).
 var _repeat_hit_bonus: int = 1
+## Cap on total extra damage from repeat hits on the same enemy.
+const REPEAT_HIT_BONUS_CAP := 5
 ## Single-target bonus applies when enemies in range <= this (level 8: 3).
 var _single_target_max_enemies: int = 1
 ## Level 9: bite twice per tick (like sword double swipe).
@@ -135,7 +137,8 @@ func _on_bite_impact(enemy, is_single_target: bool) -> void:
 			flat_bonus = int(fb)
 	var is_crit: bool = is_single_target
 	var crit_mult: float = SINGLE_TARGET_CRIT_MULT if is_single_target else 1.0
-	var damage: float = (base_damage + _damage_flat_bonus + flat_bonus + count * _repeat_hit_bonus) * damage_mult * crit_mult
+	var repeat_bonus: int = mini(count * _repeat_hit_bonus, REPEAT_HIT_BONUS_CAP)
+	var damage: float = (base_damage + _damage_flat_bonus + flat_bonus + repeat_bonus) * damage_mult * crit_mult
 	var hurtbox = enemy.get_node_or_null("HurtboxComponent") as HurtboxComponent
 	if hurtbox:
 		hurtbox.apply_damage(damage, null, 0.0, null, is_crit, _bite_hit_sound, -30.0)

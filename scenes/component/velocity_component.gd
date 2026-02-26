@@ -25,6 +25,17 @@ static var _cached_frame: int = -1
 const _CELL_SIZE: float = 24.0
 
 
+## If owner has "slow_until" and "slow_multiplier" meta and slow is active, returns max_speed * multiplier; else max_speed.
+func get_effective_max_speed() -> float:
+	var node = owner
+	if node == null or not node.has_meta("slow_until") or not node.has_meta("slow_multiplier"):
+		return max_speed
+	var now := Time.get_ticks_msec() / 1000.0
+	if now >= node.get_meta("slow_until"):
+		return max_speed
+	return max_speed * node.get_meta("slow_multiplier")
+
+
 func accelerate_to_player():
 	# Throttle AI updates - run every ai_update_interval frames to reduce CPU.
 	if ai_update_interval > 1 and Engine.get_process_frames() % ai_update_interval != 0:
@@ -40,7 +51,8 @@ func accelerate_to_player():
 
 
 func accelerate_in_direction(direction: Vector2):
-	var desired_velocity = direction * max_speed
+	var effective_speed := get_effective_max_speed()
+	var desired_velocity = direction * effective_speed
 	velocity = velocity.lerp(desired_velocity, 1 - exp(-acceleration * get_process_delta_time()))
 	
 	

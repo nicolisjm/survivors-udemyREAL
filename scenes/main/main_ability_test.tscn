@@ -20,7 +20,7 @@ end_screen_scene = ExtResource("2_ouso4")
 
 [node name="AbilityTestSetup" type="Node" parent="." unique_id=88149096]
 script = ExtResource("13_test")
-test_ability_id = "flamethrower"
+test_ability_id = "claws"
 
 [node name="Vignette" parent="." unique_id=1374168513 instance=ExtResource("12_blune")]
 

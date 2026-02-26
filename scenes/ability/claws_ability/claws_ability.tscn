@@ -1,20 +1,203 @@
-[gd_scene format=3]
+[gd_scene format=3 uid="uid://trhyfarvk3yp"]
 
-[ext_resource type="Script" path="res://scenes/ability/claws_ability/claws_ability.gd" id="1_script"]
-[ext_resource type="Texture2D" uid="uid://cd2obi7dehuqv" path="res://scenes/ability/sword_ability/sword.png" id="2_placeholder"]
+[ext_resource type="Script" uid="uid://dljuc14bv3xac" path="res://scenes/ability/claws_ability/claws_ability.gd" id="1_script"]
+[ext_resource type="Texture2D" uid="uid://c7rkrgm07bn8n" path="res://scenes/ability/claws_ability/claw.png" id="2_iwd25"]
 [ext_resource type="PackedScene" uid="uid://dly1mra0vau0s" path="res://scenes/component/hitbox_component.tscn" id="3_hitbox"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1"]
-size = Vector2(25, 8)
+size = Vector2(12.374371, 2.6516507)
 
-[node name="ClawsAbility" type="Node2D"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wflyn"]
+size = Vector2(17.324118, 4.2426414)
+
+[sub_resource type="Animation" id="Animation_lytvp"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:skew")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite2D:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("HitboxClawLeft/CollisionShapeClawLeft:disabled")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("HitboxClawRight/CollisionShapeClawRight:disabled")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("HitboxClawMiddle/CollisionShapeClawMiddle:disabled")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_wwr72"]
+resource_name = "attack"
+step = 0.01
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:modulate")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.15, 0.2, 0.4, 0.90000004),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Color(0.101960786, 0.101960786, 0.101960786, 0), Color(1, 1, 1, 1), Color(0.18717623, 0.18717608, 0.18717614, 1), Color(0.8431952, 0.8431794, 0.8431834, 0.99607843), Color(0.103743605, 0.103743516, 0.103743516, 1), Color(0.103743605, 0.103743516, 0.103743516, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:skew")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.35, 0.37),
+"transitions": PackedFloat32Array(1, 0.0853778),
+"update": 0,
+"values": [0.0, -0.4363323129985824]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite2D:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.35, 0.90000004, 1),
+"transitions": PackedFloat32Array(6, 1, 1, 1, 3.363586, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(1.2, 1.2), Vector2(1.2, 1.2), Vector2(1, 1), Vector2(1, 1), Vector2(0, 0)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("HitboxClawLeft/CollisionShapeClawLeft:disabled")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.09, 0.21),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [true, false, true]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("HitboxClawRight/CollisionShapeClawRight:disabled")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 0.09, 0.21),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [true, false, true]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("HitboxClawMiddle/CollisionShapeClawMiddle:disabled")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0, 0.09, 0.21),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [true, false, true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_7tyop"]
+_data = {
+&"RESET": SubResource("Animation_lytvp"),
+&"attack": SubResource("Animation_wwr72")
+}
+
+[node name="ClawsAbility" type="Node2D" unique_id=305361170]
+scale = Vector2(2, 2)
 script = ExtResource("1_script")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("2_placeholder")
-scale = Vector2(0.5, 0.5)
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1635049010]
+texture = ExtResource("2_iwd25")
 
-[node name="HitboxComponent" parent="." instance=ExtResource("3_hitbox")]
+[node name="HitboxClawLeft" parent="." unique_id=2127989627 instance=ExtResource("3_hitbox")]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent"]
+[node name="CollisionShapeClawLeft" type="CollisionShape2D" parent="HitboxClawLeft" unique_id=800509906]
+position = Vector2(-3.5, 3.5)
+rotation = 0.7853982
+scale = Vector2(0.9999999, 0.9999999)
 shape = SubResource("RectangleShape2D_1")
+
+[node name="HitboxClawMiddle" parent="." unique_id=318863790 instance=ExtResource("3_hitbox")]
+
+[node name="CollisionShapeClawMiddle" type="CollisionShape2D" parent="HitboxClawMiddle" unique_id=100394630]
+position = Vector2(0.124999225, 0.124999344)
+rotation = 0.7853982
+scale = Vector2(0.9999999, 0.9999999)
+shape = SubResource("RectangleShape2D_wflyn")
+
+[node name="HitboxClawRight" parent="." unique_id=481661185 instance=ExtResource("3_hitbox")]
+
+[node name="CollisionShapeClawRight" type="CollisionShape2D" parent="HitboxClawRight" unique_id=1531270009]
+position = Vector2(3.6249995, -3.375)
+rotation = 0.7853982
+scale = Vector2(0.9999999, 0.9999999)
+shape = SubResource("RectangleShape2D_1")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=552524970]
+libraries/ = SubResource("AnimationLibrary_7tyop")
+autoplay = &"attack"

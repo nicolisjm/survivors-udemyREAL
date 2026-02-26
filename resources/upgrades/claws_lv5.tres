@@ -1,12 +1,12 @@
-[gd_resource type="Resource" script_class="AbilityUpgrade" format=3]
+[gd_resource type="Resource" script_class="AbilityUpgrade" format=3 uid="uid://cwkku6dx06pm8"]
 
-[ext_resource type="Script" path="res://resources/upgrades/ability_upgrade.gd" id="1_script"]
+[ext_resource type="Script" uid="uid://dwgsoek0kp41e" path="res://resources/upgrades/ability_upgrade.gd" id="1_script"]
 
 [resource]
 script = ExtResource("1_script")
 id = "claws_lv5"
 name = "Claws"
-sub_name = "TBD"
-description = "TBD"
+sub_name = "Heavy"
+description = "Claws slow enemies on hit"
 ability_id = "claws"
 level = 5

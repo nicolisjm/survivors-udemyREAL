@@ -37,7 +37,7 @@ func _process(delta: float) -> void:
 		_retarget_timer -= delta
 		if _retarget_timer <= 0.0:
 			var dir = (player.global_position - global_position).normalized()
-			velocity_component.velocity = dir * velocity_component.max_speed
+			velocity_component.velocity = dir * velocity_component.get_effective_max_speed()
 			_state = State.FLYING
 		velocity_component.move(self)
 		_update_facing()
@@ -56,7 +56,7 @@ func _process(delta: float) -> void:
 		var dir_to_player: Vector2 = (player.global_position - global_position).normalized()
 		var current_dir: Vector2 = velocity_component.velocity.normalized() if velocity_component.velocity.length() > 1.0 else dir_to_player
 		var steer_dir: Vector2 = current_dir.lerp(dir_to_player, STEER_STRENGTH)
-		var desired_velocity: Vector2 = steer_dir * velocity_component.max_speed
+		var desired_velocity: Vector2 = steer_dir * velocity_component.get_effective_max_speed()
 		velocity_component.velocity = velocity_component.velocity.lerp(desired_velocity, 1 - exp(-velocity_component.acceleration * delta))
 	velocity_component.move(self)
 	_update_facing()
