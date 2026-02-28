@@ -78,7 +78,8 @@ func _apply_attack_speed() -> void:
 	if mult <= 0.0:
 		mult = 1.0
 	$Timer.wait_time = max(base_wait_time / mult, MIN_WAIT_TIME)
-	$Timer.start()
+	if $Timer.is_stopped():
+		$Timer.start()
 
 
 func on_timer_timeout() -> void:

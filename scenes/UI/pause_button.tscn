@@ -1,0 +1,27 @@
+[gd_scene format=3 uid="uid://dbfcafdg5lm1u"]
+
+[ext_resource type="Script" uid="uid://bybccwroh6q5w" path="res://scenes/UI/pause_button.gd" id="1_script"]
+
+[node name="PauseButton" type="CanvasLayer" unique_id=1011919939]
+layer = 11
+script = ExtResource("1_script")
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=64298442]
+custom_minimum_size = Vector2(25, 25)
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -25.0
+offset_bottom = 25.0
+grow_horizontal = 0
+size_flags_horizontal = 8
+size_flags_vertical = 0
+
+[node name="Button" type="Button" parent="MarginContainer" unique_id=1073295747]
+texture_filter = 1
+custom_minimum_size = Vector2(25, 25)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+text = "I I"
+icon_alignment = 1

@@ -139,6 +139,8 @@ func _create_slot(ability_id: String, icon: Texture2D, unlocked: bool) -> PanelC
 	var tex_rect := TextureRect.new()
 	tex_rect.custom_minimum_size = Vector2(ICON_SIZE, ICON_SIZE)
 	tex_rect.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+	tex_rect.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+	tex_rect.clip_contents = true
 	tex_rect.texture = icon
 	center.add_child(tex_rect)
 	btn.add_child(center)

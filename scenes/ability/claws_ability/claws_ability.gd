@@ -8,6 +8,8 @@ const HURTBOX_LAYER := 32
 ## If true, use random rotation (old style). If false, use alternating x + offset from controller; no random skew.
 @export var use_random_rotation := false
 
+var _slash_sound: AudioStream = preload("res://assets/audio/sfx/u_xjrmmgxfru-sword-slash-02-266315.mp3") as AudioStream
+
 @onready var hitbox_left: HitboxComponent = $HitboxClawLeft
 @onready var hitbox_middle: HitboxComponent = $HitboxClawMiddle
 @onready var hitbox_right: HitboxComponent = $HitboxClawRight
@@ -71,6 +73,20 @@ func _get_hurtboxes_from(hitbox: HitboxComponent) -> Array[HurtboxComponent]:
 		if area is HurtboxComponent:
 			list.append(area as HurtboxComponent)
 	return list
+
+
+## Call from AnimationPlayer keyframe when the slash should be heard (e.g. at strike impact).
+func play_slash_sound() -> void:
+	var foreground = get_tree().get_first_node_in_group("foreground_layer")
+	if foreground == null:
+		return
+	var player := AudioStreamPlayer2D.new()
+	player.stream = _slash_sound
+	player.volume_db = -21.0
+	player.global_position = global_position
+	foreground.add_child(player)
+	player.finished.connect(player.queue_free)
+	player.play()
 
 
 func _on_attack_finished(_anim_name: StringName) -> void:

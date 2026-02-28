@@ -7,6 +7,6 @@ script = ExtResource("1_script")
 id = "chain_lightning_lv7"
 name = "Chain Lightning"
 sub_name = "Strike Thrice"
-description = "Fires an additional bolt"
+description = "+1 Bolt"
 ability_id = "chain_lightning"
 level = 7

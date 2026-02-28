@@ -185,8 +185,8 @@ libraries/ = SubResource("AnimationLibrary_tj6oj")
 libraries/ = SubResource("AnimationLibrary_rix40")
 
 [node name="VelocityComponent" parent="." unique_id=1336253212 instance=ExtResource("3_tj6oj")]
-max_speed = 90
-acceleration = 100.0
+max_speed = 85
+acceleration = 85.0
 
 [node name="HealthComponent" parent="." unique_id=1523482959 instance=ExtResource("2_ss5pk")]
 max_health = 100.0

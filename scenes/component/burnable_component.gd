@@ -18,6 +18,10 @@ var _duration_timer: Timer
 var _damage_per_tick_base: float = 0.0
 var _remaining_duration: float = 0.0
 var _ember_visual: Node2D = null  # Set when we add ember particles
+## Base tick interval (set in apply_burn); used to shorten next tick when in flame hitbox.
+var _base_tick_interval: float = 1.0
+## Multiplier for next tick interval (e.g. 1.25 = ticks 25% faster while in flamethrower hitbox).
+var _tick_speed_mult: float = 1.0
 
 
 func _ready() -> void:
@@ -65,11 +69,32 @@ func apply_burn(
 
 	_remaining_duration = full_duration
 	_burn_timer.wait_time = tick_interval
+	_base_tick_interval = tick_interval
 	_burn_timer.timeout.connect(_on_burn_tick)
 	_burn_timer.start()
 	_start_duration_timer(full_duration)
 	_spawn_ember_visual()
 	_play_burn_sound(BURN_SOUND_APPLY_VOLUME_DB)
+
+
+## Call when already burning to add time without resetting the burn tick timer.
+## seconds_to_add: e.g. 3 — added to current remaining duration.
+## max_total_duration: cap so remaining never exceeds this (e.g. 8).
+func add_burn_duration(seconds_to_add: float, max_total_duration: float) -> void:
+	if not is_burning():
+		return
+	var current_left: float = _duration_timer.time_left
+	var new_remaining: float = minf(current_left + seconds_to_add, max_total_duration)
+	_remaining_duration = new_remaining
+	_duration_timer.wait_time = new_remaining
+	_duration_timer.start()
+
+
+## Call while enemy is in flamethrower hitbox so the next burn tick happens sooner (e.g. 1.25x).
+func set_burn_tick_speed_mult(mult: float) -> void:
+	if not is_burning():
+		return
+	_tick_speed_mult = maxf(_tick_speed_mult, mult)
 
 
 func _start_duration_timer(duration: float) -> void:
@@ -120,6 +145,11 @@ func _on_burn_tick() -> void:
 		null, 0.0, null, false, null, -12.0,
 		BURN_FLOATING_TEXT_COLOR
 	)
+	# Next tick: shorter interval if we're in the flame hitbox (_tick_speed_mult > 1).
+	_burn_timer.stop()
+	_burn_timer.wait_time = _base_tick_interval / _tick_speed_mult
+	_tick_speed_mult = 1.0
+	_burn_timer.start()
 
 
 func _on_duration_ended() -> void:

@@ -16,7 +16,7 @@ const SIZE_GROWTH_PER_STRIKE_LEVEL_9 := 0.2
 const SLOW_DURATION := 3.0
 ## Movement speed multiplier when slowed (e.g. 0.9 = 10% reduction). Level 8 upgrades to 20%.
 const SLOW_MULTIPLIER := 0.9
-const SLOW_MULTIPLIER_LEVEL_8 := 0.75
+const SLOW_MULTIPLIER_LEVEL_8 := 0.8
 
 @export var claws_ability_scene: PackedScene
 
@@ -85,7 +85,7 @@ func _apply_attack_speed() -> void:
 	var wait: float = base_wait_time - _rate_reduction
 	wait = wait / mult
 	$Timer.wait_time = max(wait, MIN_WAIT_TIME)
-	if not $Timer.is_stopped():
+	if $Timer.is_stopped():
 		$Timer.start()
 
 func _get_nearest_enemy_position() -> Vector2:
@@ -129,7 +129,16 @@ func _do_claw_sequence() -> void:
 		if claws.has_method("set_damage"):
 			claws.set_damage(damage, CRIT_MULTIPLIER, _slow_duration, _slow_multiplier)
 		if i < _strike_count - 1:
-			await get_tree().create_timer(_strike_delay).timeout
+			await _wait_unpaused(_strike_delay)
+
+
+## Waits for strike_delay seconds but only counts time when the tree is not paused, so pause doesn't queue up a burst of strikes on unpause.
+func _wait_unpaused(seconds: float) -> void:
+	var elapsed := 0.0
+	while elapsed < seconds:
+		await get_tree().process_frame
+		if not get_tree().paused:
+			elapsed += get_process_delta_time()
 
 func _on_timer_timeout() -> void:
 	if _get_ability_level() <= 0:

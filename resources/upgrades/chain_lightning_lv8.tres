@@ -7,6 +7,6 @@ script = ExtResource("1_script")
 id = "chain_lightning_lv8"
 name = "Chain Lightning"
 sub_name = "Stay Indoors"
-description = "Base attack rate -0.2s again"
+description = "Base attack rate -0.2s and stuns enemies hit for 0.4s"
 ability_id = "chain_lightning"
 level = 8

@@ -79,7 +79,8 @@ func _apply_attack_speed() -> void:
 	var wait: float = base_wait_time - _rate_reduction
 	wait = wait / mult
 	$Timer.wait_time = max(wait, MIN_WAIT_TIME)
-	$Timer.start()
+	if $Timer.is_stopped():
+		$Timer.start()
 
 func _on_timer_timeout() -> void:
 	if _get_ability_level() <= 0:

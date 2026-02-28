@@ -29,4 +29,7 @@ func _apply_settings() -> void:
 
 
 func _process(_delta: float) -> void:
-	visible = (_game_settings.get_input_mode() == "joystick") and (not get_tree().paused)
+	var use_joystick: bool = (_game_settings.get_input_mode() == "joystick") and (not get_tree().paused)
+	visible = use_joystick
+	## When in touch mode, disable joystick input so touch events reach the player as mouse (left_click + position).
+	joystick.process_mode = Node.PROCESS_MODE_ALWAYS if use_joystick else Node.PROCESS_MODE_DISABLED

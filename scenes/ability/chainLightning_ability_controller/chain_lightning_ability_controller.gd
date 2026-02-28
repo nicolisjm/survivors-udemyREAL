@@ -9,10 +9,10 @@ const DEFAULT_VISUAL_SCENE = preload("res://scenes/ability/chainLightning_abilit
 const DEFAULT_SPARK_CONFIG = preload("res://resources/effects/chain_lightning_spark_config.tres") as HitSparkConfig
 var _chain_hit_sound: AudioStream = preload("res://assets/audio/sfx/freesound_community-electric_zap_001-6374.mp3") as AudioStream
 const MIN_WAIT_TIME := 0.01
-const STUN_DURATION_LEVEL_9: float = 0.5
+const STUN_DURATION_LEVEL_9: float = 0.4
 
 ## Max distance from player to consider enemies for bolts, and from each enemy to the next chain target. Lower = shorter chains.
-@export var chain_range: float = 140
+@export var chain_range: float = 150
 
 var base_damage: int = 4
 var base_wait_time: float
@@ -34,17 +34,17 @@ func _get_chain_lightning_level() -> int:
 	return 0
 
 
-## Level 1 = unlock. 2: +1 chain. 3: +2 damage. 4: +1 bolt. 5: +1 chain. 6: attack rate -0.2s. 7: +1 bolt. 8: attack rate -0.2s. 9: chains x2 + stun 0.2s.
+## Level 1 = unlock. 2: +1 chain. 3: +2 damage. 4: +1 bolt. 5: +1 chain. 6: attack rate -0.2s. 7: +1 bolt. 8: attack rate -0.2s + stun. 9: chains x2.
 func _apply_stats_from_level() -> void:
 	var level: int = _get_chain_lightning_level()
 	_effective_chain_count = max_chain_count
 	if level >= 2:
-		_effective_chain_count += 1
+		_effective_chain_count += 2
 	if level >= 5:
-		_effective_chain_count += 1
+		_effective_chain_count += 2
 	_chains_doubled = level >= 9
 	if _chains_doubled:
-		_effective_chain_count *= 2
+		_effective_chain_count = 18
 
 	_quantity = 1
 	if level >= 4:
@@ -60,7 +60,7 @@ func _apply_stats_from_level() -> void:
 	if level >= 8:
 		_rate_reduction += 0.2
 
-	_stun_duration = STUN_DURATION_LEVEL_9 if level >= 9 else 0.0
+	_stun_duration = STUN_DURATION_LEVEL_9 if level >= 8 else 0.0
 
 
 func _ready() -> void:
@@ -78,7 +78,8 @@ func _apply_attack_speed() -> void:
 		mult = 1.0
 	var wait: float = base_wait_time - _rate_reduction
 	$Timer.wait_time = max(wait / mult, MIN_WAIT_TIME)
-	$Timer.start()
+	if $Timer.is_stopped():
+		$Timer.start()
 
 
 func on_timer_timeout() -> void:

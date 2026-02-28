@@ -10,6 +10,12 @@ const BURN_DAMAGE_PER_TICK_RATE_UPGRADE := 1
 ## Base damage per burn tick; levels 3/5/8 add +2 burn damage each.
 const BASE_BURN_DAMAGE_PER_TICK := 4.0
 const BURN_DURATION_BASE := 3.0
+## When flamethrower keeps hitting an already-burning enemy, add this much duration (tick timer is never reset).
+const BURN_DURATION_ADD_ON_HIT := 3.0
+## Max burn duration when adding on hit (cap so it can't stack forever).
+const BURN_DURATION_MAX := 8.0
+## Burn ticks this much faster (e.g. 1.25 = 25% faster) while enemy is inside the flamethrower hitbox.
+const BURN_TICK_SPEED_MULT_IN_HITBOX := 2
 ## Offset in pixels so the flame cone starts in front of the character.
 const FLAME_OFFSET_PIXELS := 8
 ## Vertical offset (up = negative Y) so the flame aligns with the character.
@@ -136,7 +142,8 @@ func _apply_parameters_to_visual() -> void:
 			size_mult
 		)
 	$Timer.wait_time = max(BASE_TICK_RATE / attack_speed, MIN_TICK_INTERVAL)
-	$Timer.start()
+	if $Timer.is_stopped():
+		$Timer.start()
 
 
 func _apply_attack_speed() -> void:
@@ -223,6 +230,14 @@ func _apply_burn_to_target(target: Node, damage_mult: float, duration_mult: floa
 	if burnable == null:
 		burnable = BURNABLE_COMPONENT_SCENE.instantiate()
 		target.add_child(burnable)
+	if burnable.has_method("is_burning") and burnable.is_burning():
+		# Already burning: add duration (capped) without resetting the burn tick timer.
+		if burnable.has_method("add_burn_duration"):
+			burnable.add_burn_duration(BURN_DURATION_ADD_ON_HIT, BURN_DURATION_MAX)
+		# Tick faster while in the flame (next tick will use shorter interval).
+		if burnable.has_method("set_burn_tick_speed_mult"):
+			burnable.set_burn_tick_speed_mult(BURN_TICK_SPEED_MULT_IN_HITBOX)
+		return
 	if burnable.has_method("apply_burn"):
 		var base_damage: float = BASE_BURN_DAMAGE_PER_TICK + float(_burn_damage_bonus)
 		if _burn_refreshes_on_hit:
