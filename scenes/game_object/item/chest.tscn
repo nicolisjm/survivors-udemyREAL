@@ -1,8 +1,8 @@
-[gd_scene format=3 uid="uid://c2chest01"]
+[gd_scene format=3]
 
-[ext_resource type="Script" uid="uid://b5gpheak75uho" path="res://scenes/game_object/item/chest.gd" id="1_script"]
-[ext_resource type="Texture2D" uid="uid://bv4w64pesys38" path="res://assets/sprite/chest.png" id="2_tex"]
-[ext_resource type="AudioStream" uid="uid://bq8w8rthpcbla" path="res://assets/audio/sfx/freesound_community-coin-2-47744.mp3" id="3_coin"]
+[ext_resource type="Script" path="res://scenes/game_object/item/chest.gd" id="1_script"]
+[ext_resource type="Texture2D" path="res://assets/sprite/chest.png" id="2_tex"]
+[ext_resource type="AudioStream" path="res://assets/audio/sfx/freesound_community-coin-2-47744.mp3" id="3_coin"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1"]
 size = Vector2(24, 20)

@@ -1,9 +1,9 @@
-[gd_scene format=3 uid="uid://buwlkjda1y0fd"]
+[gd_scene format=3]
 
-[ext_resource type="Script" uid="uid://54ag48gp1sy8" path="res://scenes/UI/end_screen.gd" id="1_3ktt3"]
-[ext_resource type="PackedScene" uid="uid://daoc7rc3himy6" path="res://scenes/UI/sound_button.tscn" id="2_2xf1k"]
-[ext_resource type="AudioStream" uid="uid://wve1tfyj8bqv" path="res://assets/audio/sfx/jingles_victory.ogg" id="2_cjddi"]
-[ext_resource type="AudioStream" uid="uid://bta2m5hqx2vi6" path="res://assets/audio/sfx/jingles_defeat.ogg" id="3_vhg70"]
+[ext_resource type="Script" path="res://scenes/UI/end_screen.gd" id="1_3ktt3"]
+[ext_resource type="PackedScene" path="res://scenes/UI/sound_button.tscn" id="2_2xf1k"]
+[ext_resource type="AudioStream" path="res://assets/audio/sfx/jingles_victory.ogg" id="2_cjddi"]
+[ext_resource type="AudioStream" path="res://assets/audio/sfx/jingles_defeat.ogg" id="3_vhg70"]
 
 [sub_resource type="Animation" id="Animation_l62tb"]
 length = 0.001

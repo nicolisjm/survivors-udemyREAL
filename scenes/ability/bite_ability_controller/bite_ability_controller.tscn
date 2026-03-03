@@ -1,7 +1,7 @@
-[gd_scene format=3 uid="uid://bsv58wm0jj87s"]
+[gd_scene format=3]
 
-[ext_resource type="Script" uid="uid://b0bdsc2djfwq3" path="res://scenes/ability/bite_ability_controller/bite_ability_controller.gd" id="1_script"]
-[ext_resource type="PackedScene" uid="uid://wr8xk85cn66r" path="res://scenes/ability/bite_ability/bite_ability.tscn" id="2_visual"]
+[ext_resource type="Script" path="res://scenes/ability/bite_ability_controller/bite_ability_controller.gd" id="1_script"]
+[ext_resource type="PackedScene" path="res://scenes/ability/bite_ability/bite_ability.tscn" id="2_visual"]
 
 [node name="BiteAbilityController" type="Node" unique_id=1010141398]
 script = ExtResource("1_script")

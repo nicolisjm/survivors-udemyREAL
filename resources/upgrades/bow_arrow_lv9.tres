@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="AbilityUpgrade" format=3 uid="uid://tx138jking8d"]
+[gd_resource type="Resource" script_class="AbilityUpgrade" format=3 uid="uid://cxj4qnftcpbm2"]
 
 [ext_resource type="Script" uid="uid://dwgsoek0kp41e" path="res://resources/upgrades/ability_upgrade.gd" id="1_script"]
 
@@ -7,6 +7,6 @@ script = ExtResource("1_script")
 id = "bow_arrow_lv9"
 name = "Bow"
 sub_name = "Quill Volley"
-description = "2X attack rate & +50% arrow speed"
+description = "2X Base attack rate & +50% arrow speed"
 ability_id = "bow_arrow"
 level = 9

@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="AbilityUpgrade" format=3 uid="uid://dik20weompgu3"]
+[gd_resource type="Resource" script_class="AbilityUpgrade" format=3 uid="uid://bng14oivh2k3a"]
 
 [ext_resource type="Script" uid="uid://dwgsoek0kp41e" path="res://resources/upgrades/ability_upgrade.gd" id="1_script"]
 
@@ -7,6 +7,6 @@ script = ExtResource("1_script")
 id = "axe_lv4"
 name = "Blessed Axe"
 sub_name = "Double Orbit"
-description = "Orbits an additional axe around you."
+description = "+1 orbiting axe"
 ability_id = "axe"
 level = 4

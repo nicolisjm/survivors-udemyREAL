@@ -1,9 +1,9 @@
-[gd_scene format=3 uid="uid://buy13ljadjl7f"]
+[gd_scene format=3]
 
-[ext_resource type="Script" uid="uid://po5fi1tiwxbt" path="res://scenes/UI/ability_upgrade_card.gd" id="1_xbdcf"]
-[ext_resource type="PackedScene" uid="uid://j0q4soe4vwwy" path="res://scenes/component/random_stream_player_component.tscn" id="2_hlvmk"]
-[ext_resource type="AudioStream" uid="uid://cxn5lnp8yrbfh" path="res://assets/audio/sfx/universfield-level-up-02-199574.mp3" id="3_rolx5"]
-[ext_resource type="AudioStream" uid="uid://bmdwp7op7nq2r" path="res://assets/audio/sfx/floraphonic-playful-casino-slot-machine-jackpot-2-183923.mp3" id="4_ko0bw"]
+[ext_resource type="Script" path="res://scenes/UI/ability_upgrade_card.gd" id="1_xbdcf"]
+[ext_resource type="PackedScene" path="res://scenes/component/random_stream_player_component.tscn" id="2_hlvmk"]
+[ext_resource type="AudioStream" path="res://assets/audio/sfx/universfield-level-up-02-199574.mp3" id="3_rolx5"]
+[ext_resource type="AudioStream" path="res://assets/audio/sfx/floraphonic-playful-casino-slot-machine-jackpot-2-183923.mp3" id="4_ko0bw"]
 
 [sub_resource type="Animation" id="Animation_xbdcf"]
 length = 0.001

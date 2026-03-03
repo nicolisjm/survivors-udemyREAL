@@ -1,7 +1,7 @@
-[gd_scene format=3 uid="uid://bfptgeuipljq7"]
+[gd_scene format=3]
 
-[ext_resource type="Script" uid="uid://orgyl1r0m8cy" path="res://scenes/game_object/experience_vial/experience_vial.gd" id="1_jmuu1"]
-[ext_resource type="AudioStream" uid="uid://cxn5lnp8yrbfh" path="res://assets/audio/sfx/universfield-level-up-02-199574.mp3" id="3_0himn"]
+[ext_resource type="Script" path="res://scenes/game_object/experience_vial/experience_vial.gd" id="1_jmuu1"]
+[ext_resource type="AudioStream" path="res://assets/audio/sfx/universfield-level-up-02-199574.mp3" id="3_0himn"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_jmuu1"]
 radius = 20.0

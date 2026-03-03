@@ -1,6 +1,6 @@
-[gd_resource type="Resource" script_class="Ability" format=3 uid="uid://d0xrd07xg6owl"]
+[gd_resource type="Resource" script_class="Ability" format=3 uid="uid://x86edv5655le"]
 
-[ext_resource type="PackedScene" uid="uid://bqydnhauyxagu" path="res://scenes/ability/axe_ability_controller/axe_ability_controller.tscn" id="1_lxg8a"]
+[ext_resource type="PackedScene" path="res://scenes/ability/axe_ability_controller/axe_ability_controller.tscn" id="1_lxg8a"]
 [ext_resource type="Script" uid="uid://bpw3kuyytb1cx" path="res://resources/upgrades/ability.gd" id="1_vgov1"]
 [ext_resource type="Texture2D" uid="uid://dlqpgvleplrtr" path="res://scenes/ability/axe_ability/axe.png" id="2_icon"]
 
@@ -12,6 +12,6 @@ id = "axe"
 max_quantity = 1
 name = "Blessed Axe"
 sub_name = "New skill:"
-description = "Periodically sends out a spinning axe."
+description = "Periodically sends out a spinning axe"
 ability_id = "axe"
 level = 1

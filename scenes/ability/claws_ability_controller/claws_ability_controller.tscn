@@ -1,7 +1,7 @@
-[gd_scene format=3 uid="uid://c6q4mglstb0i3"]
+[gd_scene format=3]
 
-[ext_resource type="Script" uid="uid://1bxk28pk53kl" path="res://scenes/ability/claws_ability_controller/claws_ability_controller.gd" id="1_script"]
-[ext_resource type="PackedScene" uid="uid://trhyfarvk3yp" path="res://scenes/ability/claws_ability/claws_ability.tscn" id="2_visual"]
+[ext_resource type="Script" path="res://scenes/ability/claws_ability_controller/claws_ability_controller.gd" id="1_script"]
+[ext_resource type="PackedScene" path="res://scenes/ability/claws_ability/claws_ability.tscn" id="2_visual"]
 
 [node name="ClawsAbilityController" type="Node" unique_id=1620773238]
 script = ExtResource("1_script")

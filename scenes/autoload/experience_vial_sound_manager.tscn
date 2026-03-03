@@ -1,4 +1,4 @@
-[gd_scene format=3 uid="uid://bqxvial_sound_mgr"]
+[gd_scene format=3]
 
 [ext_resource type="Script" path="res://scenes/autoload/experience_vial_sound_manager.gd" id="1_mgr"]
 

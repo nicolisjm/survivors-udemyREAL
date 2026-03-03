@@ -1,6 +1,6 @@
-[gd_resource type="Resource" script_class="Ability" format=3 uid="uid://d0ntatus06jp5"]
+[gd_resource type="Resource" script_class="Ability" format=3 uid="uid://dj4te2jvxcjmn"]
 
-[ext_resource type="PackedScene" uid="uid://1wtvprcjrcm3" path="res://scenes/ability/ball_lightning_ability_controller/ball_lightning_ability_controller.tscn" id="1_controller"]
+[ext_resource type="PackedScene" path="res://scenes/ability/ball_lightning_ability_controller/ball_lightning_ability_controller.tscn" id="1_controller"]
 [ext_resource type="Script" uid="uid://bpw3kuyytb1cx" path="res://resources/upgrades/ability.gd" id="2_ability"]
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_yp5s1"]
@@ -14,6 +14,6 @@ id = "ball_lightning"
 max_quantity = 1
 name = "Ball Lightning"
 sub_name = "New skill:"
-description = "An orbiting lightning ball that deals rapid damage."
+description = "Orbiting lightning ball, rapid damage"
 ability_id = "ball_lightning"
 level = 1

@@ -1,6 +1,6 @@
-[gd_scene format=3 uid="uid://c7xqbitepoly"]
+[gd_scene format=3]
 
-[ext_resource type="Script" uid="uid://b1jbvoca6gdms" path="res://scenes/ability/bite_ability/bite_ability_polygon.gd" id="1_script"]
+[ext_resource type="Script" path="res://scenes/ability/bite_ability/bite_ability_polygon.gd" id="1_script"]
 
 [node name="BiteAbilityPolygon" type="Node2D" unique_id=1510335907]
 script = ExtResource("1_script")

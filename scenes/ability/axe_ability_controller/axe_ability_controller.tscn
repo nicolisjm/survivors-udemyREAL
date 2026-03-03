@@ -1,7 +1,7 @@
-[gd_scene format=3 uid="uid://bqydnhauyxagu"]
+[gd_scene format=3]
 
-[ext_resource type="Script" uid="uid://dm4kih63hy188" path="res://scenes/ability/axe_ability_controller/axe_ability_controller.gd" id="1_s261h"]
-[ext_resource type="PackedScene" uid="uid://d1xd6gy57r7wf" path="res://scenes/ability/axe_ability/axe_ability.tscn" id="2_pxip5"]
+[ext_resource type="Script" path="res://scenes/ability/axe_ability_controller/axe_ability_controller.gd" id="1_s261h"]
+[ext_resource type="PackedScene" path="res://scenes/ability/axe_ability/axe_ability.tscn" id="2_pxip5"]
 
 [node name="AxeAbilityController" type="Node" unique_id=637952398]
 script = ExtResource("1_s261h")

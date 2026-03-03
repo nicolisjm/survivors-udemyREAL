@@ -1,10 +1,10 @@
-[gd_scene format=4 uid="uid://dlrffhcf4481b"]
+[gd_scene format=4]
 
-[ext_resource type="Script" uid="uid://bwfhtbd115oy1" path="res://scenes/UI/options_menu.gd" id="1_qgort"]
-[ext_resource type="PackedScene" uid="uid://wgqo2sfosuiu" path="res://scenes/UI/vignette.tscn" id="2_ijsq6"]
-[ext_resource type="TileSet" uid="uid://cc6ovf2ndyenj" path="res://resources/tile_set.tres" id="3_5tpni"]
-[ext_resource type="Theme" uid="uid://cae3pri8pifdf" path="res://resources/theme/theme.tres" id="4_6mmsa"]
-[ext_resource type="PackedScene" uid="uid://daoc7rc3himy6" path="res://scenes/UI/sound_button.tscn" id="4_bj8r8"]
+[ext_resource type="Script" path="res://scenes/UI/options_menu.gd" id="1_qgort"]
+[ext_resource type="PackedScene" path="res://scenes/UI/vignette.tscn" id="2_ijsq6"]
+[ext_resource type="TileSet" path="res://resources/tile_set.tres" id="3_5tpni"]
+[ext_resource type="Theme" path="res://resources/theme/theme.tres" id="4_6mmsa"]
+[ext_resource type="PackedScene" path="res://scenes/UI/sound_button.tscn" id="4_bj8r8"]
 
 [node name="OptionsMenu" type="CanvasLayer" unique_id=422418085]
 layer = 2

@@ -109,7 +109,11 @@ func _ready() -> void:
 		path_ball_lightning,
 		path_flamethrower,
 		path_claws,
-		path_bow_arrow
+		path_bow_arrow,
+		path_bomb,
+		path_boomerang,
+		path_earth_spikes,
+		path_ice_shards
 	]
 	# Initialize display order: starting ability first, then others as acquired.
 	_acquired_ability_order.append(start_id)

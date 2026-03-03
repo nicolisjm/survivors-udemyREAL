@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="AbilityUpgrade" format=3 uid="uid://b38em0kgaguxb"]
+[gd_resource type="Resource" script_class="AbilityUpgrade" format=3 uid="uid://dru8mm0xcbifn"]
 
 [ext_resource type="Script" uid="uid://dwgsoek0kp41e" path="res://resources/upgrades/ability_upgrade.gd" id="1_script"]
 
@@ -7,6 +7,6 @@ script = ExtResource("1_script")
 id = "flamethrower_lv9"
 name = "Flamethrower"
 sub_name = "Torment"
-description = "Burn damage gains 1% of enemy max health as damage"
+description = "Burn +1% enemy max health"
 ability_id = "flamethrower"
 level = 9

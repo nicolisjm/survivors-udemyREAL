@@ -8,6 +8,7 @@ signal health_changed(old_health: float, new_health: float)
 
 var current_health: float
 var _last_damage_source: Variant = null
+var _has_emitted_died := false
 
 
 func _ready() -> void:
@@ -35,6 +36,10 @@ func get_health_percent():
 
 
 func check_death() -> void:
-	if current_health == 0:
-		died.emit(_last_damage_source)
-		owner.queue_free()
+	if current_health != 0:
+		return
+	if _has_emitted_died:
+		return
+	_has_emitted_died = true
+	died.emit(_last_damage_source)
+	owner.queue_free()

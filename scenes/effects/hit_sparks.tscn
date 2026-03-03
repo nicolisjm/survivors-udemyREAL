@@ -1,6 +1,6 @@
-[gd_scene format=3 uid="uid://b7q6s5742iffw"]
+[gd_scene format=3]
 
-[ext_resource type="Script" uid="uid://b7p1llguqf572" path="res://scenes/effects/hit_sparks.gd" id="1_script"]
+[ext_resource type="Script" path="res://scenes/effects/hit_sparks.gd" id="1_script"]
 
 [node name="HitSparks" type="Node2D" unique_id=117048191]
 script = ExtResource("1_script")

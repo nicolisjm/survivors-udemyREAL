@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="HitSparkConfig" format=3 uid="uid://8oykouf4i3yo"]
+[gd_resource type="Resource" script_class="HitSparkConfig" format=3 uid="uid://c2vya6yk8xlfe"]
 
 [ext_resource type="Script" uid="uid://b7sv4hu3dhblj" path="res://resources/effects/hit_spark_config.gd" id="1_script"]
 

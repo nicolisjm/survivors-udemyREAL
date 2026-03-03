@@ -1,6 +1,6 @@
-[gd_scene format=3 uid="uid://c2blackhole01"]
+[gd_scene format=3]
 
-[ext_resource type="Script" uid="uid://ca367hyj0u6v6" path="res://scenes/game_object/item/black_hole.gd" id="1_script"]
+[ext_resource type="Script" path="res://scenes/game_object/item/black_hole.gd" id="1_script"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_1"]
 radius = 20.0

@@ -1,6 +1,6 @@
-[gd_scene format=3 uid="uid://derak8g2ftdn6"]
+[gd_scene format=3]
 
-[ext_resource type="Script" uid="uid://b5k8xs4fougfe" path="res://scenes/UI/arena_time_ui.gd" id="1_8vf48"]
+[ext_resource type="Script" path="res://scenes/UI/arena_time_ui.gd" id="1_8vf48"]
 
 [sub_resource type="Theme" id="Theme_8vf48"]
 

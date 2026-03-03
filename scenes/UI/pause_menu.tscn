@@ -1,8 +1,8 @@
-[gd_scene format=3 uid="uid://vd58wsqx3vs8"]
+[gd_scene format=3]
 
-[ext_resource type="Script" uid="uid://qwjqxuetrr3a" path="res://scenes/UI/pause_menu.gd" id="1_bl585"]
-[ext_resource type="PackedScene" uid="uid://buwlkjda1y0fd" path="res://scenes/UI/end_screen.tscn" id="2_mko1u"]
-[ext_resource type="PackedScene" uid="uid://daoc7rc3himy6" path="res://scenes/UI/sound_button.tscn" id="4_3pfkw"]
+[ext_resource type="Script" path="res://scenes/UI/pause_menu.gd" id="1_bl585"]
+[ext_resource type="PackedScene" path="res://scenes/UI/end_screen.tscn" id="2_mko1u"]
+[ext_resource type="PackedScene" path="res://scenes/UI/sound_button.tscn" id="4_3pfkw"]
 
 [sub_resource type="Animation" id="Animation_bl585"]
 length = 0.001

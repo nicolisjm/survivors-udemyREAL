@@ -1,6 +1,6 @@
-[gd_scene format=3 uid="uid://b2p5k4w5bl471"]
+[gd_scene format=3]
 
-[ext_resource type="Script" uid="uid://1eym6nfnh220" path="res://scenes/manager/arena_time_manager.gd" id="1_h76kk"]
+[ext_resource type="Script" path="res://scenes/manager/arena_time_manager.gd" id="1_h76kk"]
 
 [node name="ArenaTimeManager" type="Node" unique_id=1325596868]
 process_mode = 0

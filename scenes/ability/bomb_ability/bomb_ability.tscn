@@ -1,20 +1,193 @@
-[gd_scene format=3 uid="uid://b5v6oeghwdwjs"]
+[gd_scene format=3]
 
-[ext_resource type="Script" uid="uid://beh8dstt2nh6q" path="res://scenes/ability/bomb_ability/bomb_ability.gd" id="1_script"]
-[ext_resource type="Texture2D" uid="uid://cd2obi7dehuqv" path="res://scenes/ability/sword_ability/sword.png" id="2_placeholder"]
-[ext_resource type="PackedScene" uid="uid://dly1mra0vau0s" path="res://scenes/component/hitbox_component.tscn" id="3_hitbox"]
+[ext_resource type="Script" path="res://scenes/ability/bomb_ability/bomb_ability.gd" id="1_script"]
+[ext_resource type="Texture2D" path="res://scenes/ability/bomb_ability/Bombs.png" id="2_t1qh8"]
+[ext_resource type="PackedScene" path="res://scenes/component/hitbox_component.tscn" id="3_hitbox"]
+[ext_resource type="AudioStream" path="res://assets/audio/sfx/freesound_community-cartoon-jump-6462.mp3" id="4_throw"]
+[ext_resource type="AudioStream" path="res://assets/audio/sfx/freesound_crunchpixstudio-big-bomb-explosion-394474.mp3" id="5_explosion"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_1"]
-radius = 20.0
+radius = 70.0
+
+[sub_resource type="Animation" id="Animation_t1qh8"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0.5, 0.5)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("GPUParticles2D:emitting")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("HitboxComponent/CollisionShape2D:disabled")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_8pks5"]
+resource_name = "explode"
+length = 1.2
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:modulate")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 0.95, 1, 1.2),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 9.849135),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(0.6056738, 1.6605109e-06, 3.85046e-07, 1), Color(1, 1, 1, 1), Color(0.6056738, 1.6605109e-06, 3.85046e-07, 1), Color(1, 1, 1, 1), Color(0.6056738, 1.6605109e-06, 3.85046e-07, 1), Color(1, 1, 1, 1), Color(0.6056738, 1.6605109e-06, 3.85046e-07, 1), Color(1, 1, 1, 1), Color(0.6056738, 1.6605109e-06, 3.85046e-07, 1), Color(0.6039216, 0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:scale")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.5, 0.6, 0.7, 0.8, 0.90000004, 0.95, 1, 1.2),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 9.513641),
+"update": 0,
+"values": [Vector2(0.4, 0.4), Vector2(0.45, 0.45), Vector2(0.4, 0.4), Vector2(0.45, 0.45), Vector2(0.4, 0.4), Vector2(0.45, 0.45), Vector2(0.4, 0.4), Vector2(0.45, 0.45), Vector2(0.4, 0.4), Vector2(0.9, 0.9), Vector2(0, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("GPUParticles2D:emitting")
+tracks/2/interp = 2
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("HitboxComponent/CollisionShape2D:disabled")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 1, 1.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [true, false, true]
+}
+tracks/4/type = "method"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath(".")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(1),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"play_explosion_sound"
+}]
+}
+tracks/5/type = "method"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath(".")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(1),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"trigger_mini_bombs"
+}]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_3e8fp"]
+_data = {
+&"RESET": SubResource("Animation_t1qh8"),
+&"explode": SubResource("Animation_8pks5")
+}
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_t1qh8"]
+lifetime_randomness = 0.51
+particle_flag_disable_z = true
+emission_shape = 6
+emission_ring_axis = Vector3(0, 0, 1)
+emission_ring_height = 1.0
+emission_ring_radius = 10.0
+emission_ring_inner_radius = 10.0
+emission_ring_cone_angle = 90.0
+radial_velocity_min = 109.99998
+radial_velocity_max = 119.99998
+gravity = Vector3(0, 0, 0)
 
 [node name="BombAbility" type="Node2D" unique_id=587135890]
+scale = Vector2(0.5, 0.5)
 script = ExtResource("1_script")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=698815176]
+position = Vector2(0, -2)
 scale = Vector2(0.5, 0.5)
-texture = ExtResource("2_placeholder")
+texture = ExtResource("2_t1qh8")
 
 [node name="HitboxComponent" parent="." unique_id=674523766 instance=ExtResource("3_hitbox")]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent" unique_id=752669274]
 shape = SubResource("CircleShape2D_1")
+disabled = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1594626828]
+libraries/ = SubResource("AnimationLibrary_3e8fp")
+
+[node name="ThrowStreamPlayer" type="AudioStreamPlayer2D" parent="." unique_id=317007523]
+stream = ExtResource("4_throw")
+
+[node name="ExplosionStreamPlayer" type="AudioStreamPlayer2D" parent="." unique_id=956978458]
+stream = ExtResource("5_explosion")
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="." unique_id=872024264]
+emitting = false
+amount = 240
+lifetime = 0.5
+one_shot = true
+explosiveness = 1.0
+process_material = SubResource("ParticleProcessMaterial_t1qh8")

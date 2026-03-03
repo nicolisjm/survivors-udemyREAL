@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="AbilityUpgrade" format=3 uid="uid://hsef17tfj0yj"]
+[gd_resource type="Resource" script_class="AbilityUpgrade" format=3 uid="uid://bqnqapyj5n61"]
 
 [ext_resource type="Script" uid="uid://dwgsoek0kp41e" path="res://resources/upgrades/ability_upgrade.gd" id="1_script"]
 
@@ -7,6 +7,6 @@ script = ExtResource("1_script")
 id = "bite_lv2"
 name = "Bite"
 sub_name = "Hungry"
-description = "Bite rate -0.2s"
+description = "-0.2s Bite rate"
 ability_id = "bite"
 level = 2

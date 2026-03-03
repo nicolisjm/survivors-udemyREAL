@@ -22,7 +22,7 @@ config/icon="res://icon.svg"
 
 [audio]
 
-buses/default_bus_layout="uid://3x85ydfb8sd4"
+buses/default_bus_layout="res://assets/audio/default_bus_layout.tres"
 
 [autoload]
 
@@ -65,7 +65,7 @@ upgrade_card=""
 [gui]
 
 fonts/dynamic_fonts/use_oversampling=false
-theme/custom="uid://cae3pri8pifdf"
+theme/custom="res://resources/theme/theme.tres"
 
 [input]
 

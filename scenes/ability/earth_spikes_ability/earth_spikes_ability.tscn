@@ -1,11 +1,241 @@
-[gd_scene format=3]
+[gd_scene format=3 uid="uid://dfyby0058dl0f"]
 
-[ext_resource type="Script" path="res://scenes/ability/earth_spikes_ability/earth_spikes_ability.gd" id="1_script"]
-[ext_resource type="Texture2D" uid="uid://cd2obi7dehuqv" path="res://scenes/ability/sword_ability/sword.png" id="2_placeholder"]
+[ext_resource type="Script" uid="uid://c1kgrcnxoaxvu" path="res://scenes/ability/earth_spikes_ability/earth_spikes_ability.gd" id="1_script"]
+[ext_resource type="Texture2D" uid="uid://biogh2spwv5yn" path="res://scenes/ability/earth_spikes_ability/earth_spike.png" id="2_83umh"]
+[ext_resource type="PackedScene" path="res://scenes/component/hitbox_component.tscn" id="3_ykdf6"]
 
-[node name="EarthSpikesAbility" type="Node2D"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8esam"]
+size = Vector2(6, 14)
+
+[sub_resource type="Animation" id="Animation_8esam"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 7)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1.2, 1.2)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("HitboxComponent/CollisionShape2D:disabled")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("GPUParticles2D:emitting")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_u54f4"]
+resource_name = "retract"
+length = 0.5
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.05, 0.1, 0.15, 0.2, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(0, -7), Vector2(0.5, -7), Vector2(-0.5, -7), Vector2(0.5, -7), Vector2(0, -7), Vector2(0, 7)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:scale")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.15, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1.2745605),
+"update": 0,
+"values": [Vector2(1.2, 1.2), Vector2(1.2, 1.2), Vector2(0, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("HitboxComponent/CollisionShape2D:disabled")
+tracks/2/interp = 2
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.35),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("GPUParticles2D:emitting")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.0001),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/4/type = "method"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath(".")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [true],
+"method": &"play_rock_destroy_sound"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_ykdf6"]
+resource_name = "rise"
+length = 0.35
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, 7), Vector2(0, -7)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:scale")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.25),
+"transitions": PackedFloat32Array(1, 2),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(1.2, 1.2)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("HitboxComponent/CollisionShape2D:disabled")
+tracks/2/interp = 2
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("GPUParticles2D:emitting")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0.05),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/4/type = "method"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath(".")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"play_rock_destroy_sound"
+}]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_8esam"]
+_data = {
+&"RESET": SubResource("Animation_8esam"),
+&"retract": SubResource("Animation_u54f4"),
+&"rise": SubResource("Animation_ykdf6")
+}
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_ykdf6"]
+particle_flag_disable_z = true
+direction = Vector3(0, -1, 0)
+spread = 20.0
+initial_velocity_min = 40.0
+initial_velocity_max = 80.0
+gravity = Vector3(0, 98, 0)
+scale_min = 1.1999999
+scale_max = 1.1999999
+color = Color(0.7410223, 0.4985905, 0.15095259, 1)
+
+[node name="EarthSpikesAbility" type="Node2D" unique_id=1640351836]
 script = ExtResource("1_script")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("2_placeholder")
-scale = Vector2(0.3, 0.3)
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1265109886]
+y_sort_enabled = true
+texture_filter = 1
+position = Vector2(0, 7)
+scale = Vector2(1.2, 1.2)
+texture = ExtResource("2_83umh")
+
+[node name="HitboxComponent" parent="." unique_id=353815779 instance=ExtResource("3_ykdf6")]
+position = Vector2(0, -7)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent" unique_id=1238515253]
+scale = Vector2(1.2, 1.2)
+shape = SubResource("RectangleShape2D_8esam")
+disabled = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1132359791]
+libraries/ = SubResource("AnimationLibrary_8esam")
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="." unique_id=1221638322]
+emitting = false
+amount = 16
+lifetime = 0.4
+interp_to_end = 1.0
+one_shot = true
+explosiveness = 1.0
+process_material = SubResource("ParticleProcessMaterial_ykdf6")

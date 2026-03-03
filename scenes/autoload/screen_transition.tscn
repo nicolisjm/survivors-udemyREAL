@@ -1,8 +1,8 @@
-[gd_scene format=3 uid="uid://cxvtx5vxvf5ho"]
+[gd_scene format=3]
 
-[ext_resource type="Shader" uid="uid://bg3kiho2lcfeh" path="res://scenes/autoload/screen_transition.gdshader" id="1_0u5r8"]
-[ext_resource type="Script" uid="uid://ba1m2i5s2mgws" path="res://scenes/autoload/screen_transition.gd" id="1_hctam"]
-[ext_resource type="Texture2D" uid="uid://c7jhqr15ifcml" path="res://assets/ui/screen_transition.png" id="2_q8s3n"]
+[ext_resource type="Shader" path="res://scenes/autoload/screen_transition.gdshader" id="1_0u5r8"]
+[ext_resource type="Script" path="res://scenes/autoload/screen_transition.gd" id="1_hctam"]
+[ext_resource type="Texture2D" path="res://assets/ui/screen_transition.png" id="2_q8s3n"]
 
 [sub_resource type="Animation" id="Animation_hctam"]
 length = 0.001

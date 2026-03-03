@@ -1,6 +1,6 @@
-[gd_resource type="Resource" script_class="Ability" format=3 uid="uid://c0v80vtrb5xuf"]
+[gd_resource type="Resource" script_class="Ability" format=3 uid="uid://kfjforbn8046"]
 
-[ext_resource type="PackedScene" path="res://scenes/ability/boomerang_ability_controller/boomerang_ability_controller.tscn" id="1_controller"]
+[ext_resource type="PackedScene" uid="uid://ityxyjhja4ee" path="res://scenes/ability/boomerang_ability_controller/boomerang_ability_controller.tscn" id="1_controller"]
 [ext_resource type="Script" uid="uid://bpw3kuyytb1cx" path="res://resources/upgrades/ability.gd" id="2_ability"]
 [ext_resource type="Texture2D" uid="uid://bufhgj5fso45h" path="res://scenes/ability/boomerang_ability/MagicBoomerang.png" id="2_kwvf3"]
 
@@ -12,6 +12,6 @@ id = "boomerang"
 max_quantity = 1
 name = "Boomerang"
 sub_name = "New skill:"
-description = "Hits one, returns with pierce."
+description = "Hits one, returns with pierce"
 ability_id = "boomerang"
 level = 1

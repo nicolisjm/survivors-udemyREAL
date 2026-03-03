@@ -1,9 +1,9 @@
-[gd_scene format=3 uid="uid://ckwjvvk0ve22"]
+[gd_scene format=3]
 
-[ext_resource type="Script" uid="uid://c3uiny4awsbv2" path="res://scenes/ability/ball_lightning_ability/ball_lightning_ability.gd" id="1_script"]
-[ext_resource type="Shader" uid="uid://bf6kc5txly30j" path="res://scenes/ability/ball_lightning_ability/ball_lightning_ball.gdshader" id="2_shader"]
-[ext_resource type="PackedScene" uid="uid://dly1mra0vau0s" path="res://scenes/component/hitbox_component.tscn" id="3_hitbox"]
-[ext_resource type="Script" uid="uid://b7sv4hu3dhblj" path="res://resources/effects/hit_spark_config.gd" id="4_spark"]
+[ext_resource type="Script" path="res://scenes/ability/ball_lightning_ability/ball_lightning_ability.gd" id="1_script"]
+[ext_resource type="Shader" path="res://scenes/ability/ball_lightning_ability/ball_lightning_ball.gdshader" id="2_shader"]
+[ext_resource type="PackedScene" path="res://scenes/component/hitbox_component.tscn" id="3_hitbox"]
+[ext_resource type="Script" path="res://resources/effects/hit_spark_config.gd" id="4_spark"]
 
 [sub_resource type="Gradient" id="Gradient_nw7un"]
 interpolation_mode = 2

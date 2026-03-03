@@ -1,8 +1,8 @@
-[gd_scene format=3 uid="uid://daoc7rc3himy6"]
+[gd_scene format=3]
 
-[ext_resource type="Script" uid="uid://bkn035dtrawbf" path="res://scenes/UI/sound_button.gd" id="1_c37cg"]
-[ext_resource type="PackedScene" uid="uid://j0q4soe4vwwy" path="res://scenes/component/random_stream_player_component.tscn" id="2_7kjcd"]
-[ext_resource type="AudioStream" uid="uid://s66roeayd632" path="res://assets/audio/sfx/click1.ogg" id="3_6e3pl"]
+[ext_resource type="Script" path="res://scenes/UI/sound_button.gd" id="1_c37cg"]
+[ext_resource type="PackedScene" path="res://scenes/component/random_stream_player_component.tscn" id="2_7kjcd"]
+[ext_resource type="AudioStream" path="res://assets/audio/sfx/click1.ogg" id="3_6e3pl"]
 
 [node name="SoundButton" type="Button" unique_id=618049927]
 offset_right = 6.0

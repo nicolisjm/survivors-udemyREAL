@@ -1,7 +1,7 @@
-[gd_scene format=3 uid="uid://cpleghftxflto"]
+[gd_scene format=3]
 
-[ext_resource type="Script" uid="uid://30ull34gs34p" path="res://scenes/game_object/item/health_vial.gd" id="1_health"]
-[ext_resource type="Texture2D" uid="uid://dja3tyx7s4lob" path="res://assets/sprite/health_vial.png" id="2_tex"]
+[ext_resource type="Script" path="res://scenes/game_object/item/health_vial.gd" id="1_health"]
+[ext_resource type="Texture2D" path="res://assets/sprite/health_vial.png" id="2_tex"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_1"]
 radius = 16.0

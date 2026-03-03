@@ -1,7 +1,7 @@
-[gd_scene format=3 uid="uid://dqtncc8pgpx2i"]
+[gd_scene format=3]
 
-[ext_resource type="Script" uid="uid://bko3mltxdh2i2" path="res://scenes/UI/highscores_screen.gd" id="1_script"]
-[ext_resource type="PackedScene" uid="uid://daoc7rc3himy6" path="res://scenes/UI/sound_button.tscn" id="2_button"]
+[ext_resource type="Script" path="res://scenes/UI/highscores_screen.gd" id="1_script"]
+[ext_resource type="PackedScene" path="res://scenes/UI/sound_button.tscn" id="2_button"]
 
 [node name="HighscoresScreen" type="CanvasLayer" unique_id=267687758]
 layer = 10

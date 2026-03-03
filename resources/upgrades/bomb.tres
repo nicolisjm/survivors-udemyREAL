@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="Ability" format=3 uid="uid://bvvxjumhi6kwi"]
+[gd_resource type="Resource" script_class="Ability" format=3 uid="uid://bvmoawck1evo0"]
 
 [ext_resource type="PackedScene" path="res://scenes/ability/bomb_ability_controller/bomb_ability_controller.tscn" id="1_controller"]
 [ext_resource type="Script" uid="uid://bpw3kuyytb1cx" path="res://resources/upgrades/ability.gd" id="2_ability"]
@@ -12,6 +12,6 @@ id = "bomb"
 max_quantity = 1
 name = "Bomb"
 sub_name = "New skill:"
-description = "Delayed large circle AOE."
+description = "Delayed large circle AOE"
 ability_id = "bomb"
 level = 1

@@ -1,12 +1,12 @@
-[gd_scene format=3]
+[gd_scene format=3 uid="uid://d37t0cx7lmerj"]
 
-[ext_resource type="Script" path="res://scenes/ability/ice_shards_ability_controller/ice_shards_ability_controller.gd" id="1_script"]
-[ext_resource type="PackedScene" path="res://scenes/ability/ice_shards_ability/ice_shards_ability.tscn" id="2_visual"]
+[ext_resource type="Script" uid="uid://b8d3rvihou3av" path="res://scenes/ability/ice_shards_ability_controller/ice_shards_ability_controller.gd" id="1_script"]
+[ext_resource type="PackedScene" uid="uid://npgmn85fjflk" path="res://scenes/ability/ice_shards_ability/ice_shards_ability.tscn" id="2_visual"]
 
-[node name="IceShardsAbilityController" type="Node"]
+[node name="IceShardsAbilityController" type="Node" unique_id=147540383]
 script = ExtResource("1_script")
 ice_shards_ability_scene = ExtResource("2_visual")
 
-[node name="Timer" type="Timer" parent="."]
-wait_time = 2.0
+[node name="Timer" type="Timer" parent="." unique_id=1979532523]
+wait_time = 2.5
 autostart = true

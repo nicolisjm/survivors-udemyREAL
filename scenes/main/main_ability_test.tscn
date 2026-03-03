@@ -1,18 +1,18 @@
-[gd_scene format=4 uid="uid://775g1j82hwfe"]
+[gd_scene format=4]
 
-[ext_resource type="PackedScene" uid="uid://dfqxeb3akqwwu" path="res://scenes/manager/enemy_manager.tscn" id="1_6q06x"]
-[ext_resource type="Script" uid="uid://de8mj451b1lp6" path="res://scenes/main/main.gd" id="1_a8run"]
-[ext_resource type="PackedScene" uid="uid://jdgpe1uur0vb" path="res://scenes/game_object/player/player.tscn" id="1_hyk8p"]
-[ext_resource type="TileSet" uid="uid://cc6ovf2ndyenj" path="res://resources/tile_set.tres" id="1_iuonh"]
-[ext_resource type="PackedScene" uid="uid://d2tm6kilarbit" path="res://scenes/game_object/camera/GameCamera.tscn" id="1_k2fmo"]
-[ext_resource type="PackedScene" uid="uid://derak8g2ftdn6" path="res://scenes/UI/arena_time_ui.tscn" id="1_ow5a4"]
-[ext_resource type="PackedScene" uid="uid://buwlkjda1y0fd" path="res://scenes/UI/end_screen.tscn" id="2_ouso4"]
-[ext_resource type="PackedScene" uid="uid://b2p5k4w5bl471" path="res://scenes/manager/arena_time_manager.tscn" id="2_ow5a4"]
-[ext_resource type="PackedScene" uid="uid://cvwrwcxyluicr" path="res://scenes/UI/experience_bar.tscn" id="2_yyfjg"]
-[ext_resource type="PackedScene" uid="uid://b4qcoxttdoh4j" path="res://scenes/manager/experience_manager.tscn" id="4_yyfjg"]
-[ext_resource type="PackedScene" uid="uid://curqy0wwqoiry" path="res://scenes/manager/upgrade_manager.tscn" id="6_b1x3f"]
-[ext_resource type="PackedScene" uid="uid://wgqo2sfosuiu" path="res://scenes/UI/vignette.tscn" id="12_blune"]
-[ext_resource type="Script" uid="uid://cg4kg3jaqitfw" path="res://scenes/main/ability_test_setup.gd" id="13_test"]
+[ext_resource type="PackedScene" path="res://scenes/manager/enemy_manager.tscn" id="1_6q06x"]
+[ext_resource type="Script" path="res://scenes/main/main.gd" id="1_a8run"]
+[ext_resource type="PackedScene" path="res://scenes/game_object/player/player.tscn" id="1_hyk8p"]
+[ext_resource type="TileSet" path="res://resources/tile_set.tres" id="1_iuonh"]
+[ext_resource type="PackedScene" path="res://scenes/game_object/camera/GameCamera.tscn" id="1_k2fmo"]
+[ext_resource type="PackedScene" path="res://scenes/UI/arena_time_ui.tscn" id="1_ow5a4"]
+[ext_resource type="PackedScene" path="res://scenes/UI/end_screen.tscn" id="2_ouso4"]
+[ext_resource type="PackedScene" path="res://scenes/manager/arena_time_manager.tscn" id="2_ow5a4"]
+[ext_resource type="PackedScene" path="res://scenes/UI/experience_bar.tscn" id="2_yyfjg"]
+[ext_resource type="PackedScene" path="res://scenes/manager/experience_manager.tscn" id="4_yyfjg"]
+[ext_resource type="PackedScene" path="res://scenes/manager/upgrade_manager.tscn" id="6_b1x3f"]
+[ext_resource type="PackedScene" path="res://scenes/UI/vignette.tscn" id="12_blune"]
+[ext_resource type="Script" path="res://scenes/main/ability_test_setup.gd" id="13_test"]
 
 [node name="Main" type="Node" unique_id=1584566805]
 script = ExtResource("1_a8run")
@@ -20,7 +20,7 @@ end_screen_scene = ExtResource("2_ouso4")
 
 [node name="AbilityTestSetup" type="Node" parent="." unique_id=88149096]
 script = ExtResource("13_test")
-test_ability_id = "claws"
+test_ability_id = "bomb"
 
 [node name="Vignette" parent="." unique_id=1374168513 instance=ExtResource("12_blune")]
 

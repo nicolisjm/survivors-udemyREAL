@@ -1,9 +1,9 @@
-[gd_scene format=3 uid="uid://c76q4lixhtanb"]
+[gd_scene format=3]
 
-[ext_resource type="Script" uid="uid://bvpdloewi8013" path="res://scenes/ability/flamethrower_ability/flamethrower_ability.gd" id="1_script"]
-[ext_resource type="Shader" uid="uid://3cn02jxp8grw" path="res://scenes/ability/flamethrower_ability/flamethrower_fire.gdshader" id="2_shader"]
-[ext_resource type="Texture2D" uid="uid://byuh1i502x005" path="res://resources/effects/color_temp_800_6000.exr" id="3_temp_tex"]
-[ext_resource type="PackedScene" uid="uid://dly1mra0vau0s" path="res://scenes/component/hitbox_component.tscn" id="4_hitbox"]
+[ext_resource type="Script" path="res://scenes/ability/flamethrower_ability/flamethrower_ability.gd" id="1_script"]
+[ext_resource type="Shader" path="res://scenes/ability/flamethrower_ability/flamethrower_fire.gdshader" id="2_shader"]
+[ext_resource type="Texture2D" path="res://resources/effects/color_temp_800_6000.exr" id="3_temp_tex"]
+[ext_resource type="PackedScene" path="res://scenes/component/hitbox_component.tscn" id="4_hitbox"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_m8nlv"]
 shader = ExtResource("2_shader")

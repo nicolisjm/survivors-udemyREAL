@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="AbilityUpgrade" format=3 uid="uid://covcaakjnovb3"]
+[gd_resource type="Resource" script_class="AbilityUpgrade" format=3 uid="uid://u8oi2qgk3mr6"]
 
 [ext_resource type="Script" uid="uid://dwgsoek0kp41e" path="res://resources/upgrades/ability_upgrade.gd" id="1_script"]
 
@@ -7,6 +7,6 @@ script = ExtResource("1_script")
 id = "chain_lightning_lv6"
 name = "Chain Lightning"
 sub_name = "Heavy Storm"
-description = "Base attack rate -0.2s"
+description = "-0.2s Base attack rate"
 ability_id = "chain_lightning"
 level = 6

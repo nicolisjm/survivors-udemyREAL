@@ -15,7 +15,7 @@ const BOW_FIRE_TRIM_START := 0.15
 
 var _bow_sound_player: AudioStreamPlayer2D
 
-var base_damage: int = 4
+var base_damage: int = 5
 var base_wait_time: float
 ## Number of arrows (odd: 1, 3, 5, 7, 9). Center targets nearest enemy, others spread.
 var _quantity: int = 1
@@ -53,7 +53,7 @@ func _apply_stats_from_level() -> void:
 	if level >= 8:
 		_quantity += 4   # 9 arrows
 
-	_pierce = 0
+	_pierce = 1
 	if level >= 2:
 		_pierce += 2
 	if level >= 6:

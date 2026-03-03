@@ -1,8 +1,8 @@
-[gd_resource type="Resource" script_class="Ability" format=3]
+[gd_resource type="Resource" script_class="Ability" format=3 uid="uid://ciq4ybswc532a"]
 
-[ext_resource type="PackedScene" path="res://scenes/ability/ice_shards_ability_controller/ice_shards_ability_controller.tscn" id="1_controller"]
-[ext_resource type="Script" path="res://resources/upgrades/ability.gd" id="2_ability"]
-[ext_resource type="Texture2D" uid="uid://cd2obi7dehuqv" path="res://scenes/ability/sword_ability/sword.png" id="3_icon"]
+[ext_resource type="PackedScene" uid="uid://d37t0cx7lmerj" path="res://scenes/ability/ice_shards_ability_controller/ice_shards_ability_controller.tscn" id="1_controller"]
+[ext_resource type="Script" uid="uid://bpw3kuyytb1cx" path="res://resources/upgrades/ability.gd" id="2_ability"]
+[ext_resource type="Texture2D" path="res://resources/ice_shards_icon_atlas.tres" id="3_icon"]
 
 [resource]
 script = ExtResource("2_ability")
@@ -12,6 +12,6 @@ id = "ice_shards"
 max_quantity = 1
 name = "Ice Shards"
 sub_name = "New skill:"
-description = "Burst toward target, explode after delay."
+description = "Low damage rapid bursts, chain to nearest enemy"
 ability_id = "ice_shards"
 level = 1

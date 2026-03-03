@@ -1,6 +1,6 @@
-[gd_resource type="Resource" script_class="Ability" format=3 uid="uid://d3u6ayh0iq5jw"]
+[gd_resource type="Resource" script_class="Ability" format=3 uid="uid://bpjex87kr5bos"]
 
-[ext_resource type="PackedScene" uid="uid://c3ab540ud0dji" path="res://scenes/ability/chainLightning_ability_controller/chain_lightning_ability_controller.tscn" id="1_ci8q0"]
+[ext_resource type="PackedScene" path="res://scenes/ability/chainLightning_ability_controller/chain_lightning_ability_controller.tscn" id="1_ci8q0"]
 [ext_resource type="Script" uid="uid://bpw3kuyytb1cx" path="res://resources/upgrades/ability.gd" id="2_0c5wb"]
 [ext_resource type="Texture2D" uid="uid://bumm1jbbkdy8d" path="res://assets/sprite/chain_lightning_icon.png" id="2_188by"]
 
@@ -12,6 +12,6 @@ id = "chain_lightning"
 max_quantity = 1
 name = "Chain Lightning"
 sub_name = "New skill:"
-description = "Casts a lightning bolt that chains to nearby enemies."
+description = "Lightning bolt chains to nearby enemies"
 ability_id = "chain_lightning"
 level = 1

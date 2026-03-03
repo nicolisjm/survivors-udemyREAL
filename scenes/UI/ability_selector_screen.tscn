@@ -1,7 +1,7 @@
-[gd_scene format=3 uid="uid://cefow58y8qh5b"]
+[gd_scene format=3]
 
-[ext_resource type="Script" uid="uid://cqbw40nly2cka" path="res://scenes/UI/ability_selector_screen.gd" id="1_script"]
-[ext_resource type="PackedScene" uid="uid://daoc7rc3himy6" path="res://scenes/UI/sound_button.tscn" id="2_button"]
+[ext_resource type="Script" path="res://scenes/UI/ability_selector_screen.gd" id="1_script"]
+[ext_resource type="PackedScene" path="res://scenes/UI/sound_button.tscn" id="2_button"]
 
 [node name="AbilitySelectorScreen" type="CanvasLayer" unique_id=378186594]
 layer = 10

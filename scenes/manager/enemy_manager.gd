@@ -94,6 +94,8 @@ func _rebuild_spawn_weights() -> void:
 	for cfg in _enemy_configs:
 		if _arena_difficulty < cfg["unlock_diff"]:
 			continue
+		if _arena_difficulty > 120 and (cfg["tier"] == 1 or cfg["tier"] == 2):
+			continue
 		var tier_delta: int = _current_tier - int(cfg["tier"])
 		var weight_float := WEIGHT_BASE * pow(0.5, float(tier_delta))
 		if cfg["is_flying"]:
@@ -142,6 +144,15 @@ func get_spawn_position():
 	return spawn_position
 
 
+## Spawn position for flying enemies: on the same radius but no wall check, so they can spawn past arena walls.
+func get_spawn_position_flying() -> Vector2:
+	var player = get_tree().get_first_node_in_group("player") as Node2D
+	if player == null:
+		return Vector2.ZERO
+	var random_direction := Vector2.RIGHT.rotated(randf_range(0, TAU))
+	return player.global_position + random_direction * SPAWN_RADIUS
+
+
 
 func on_timer_timeout():
 	timer.start()
@@ -157,8 +168,9 @@ func on_timer_timeout():
 		var enemy_scene = enemy_table.pick_item()
 		if enemy_scene == null:
 			continue
+		var cfg := _get_config_for_scene(enemy_scene)
+		var base_pos: Vector2 = get_spawn_position_flying() if cfg.get("is_flying", false) else get_spawn_position()
 		var group_size: int = _get_group_size_for_enemy(enemy_scene)
-		var base_pos = get_spawn_position()
 		for j in group_size:
 			# Before 10 min, elites may only spawn on the highest-health enemy type in the pool
 			var will_be_elite := _try_make_elite(null)
@@ -167,6 +179,8 @@ func on_timer_timeout():
 				scene_to_spawn = _get_highest_health_enemy_scene()
 				if scene_to_spawn == null:
 					scene_to_spawn = enemy_scene
+			elif will_be_elite and _arena_difficulty > 120 and ogre_enemy_scene:
+				scene_to_spawn = ogre_enemy_scene
 			var enemy = scene_to_spawn.instantiate() as Node2D
 			entities_layer.add_child(enemy)
 			var offset = Vector2(randf_range(-GROUP_SPAWN_OFFSET_RADIUS, GROUP_SPAWN_OFFSET_RADIUS), randf_range(-GROUP_SPAWN_OFFSET_RADIUS, GROUP_SPAWN_OFFSET_RADIUS))

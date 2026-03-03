@@ -23,8 +23,11 @@ func _ready() -> void:
 ## source: optional; if the damage kills the target, passed through to health_component.died(killer_source) for kill attribution.
 ## is_crit: if true, floating text shows damage in gold with "!" (e.g. 10!); use for crits from Bite or other abilities.
 ## hit_sound: optional; ability-specific sound (e.g. bite chomp, chain zap). Played at hit position, use hit_sound_volume_db for level.
+## hit_sound_trim_end: if > 0 and hit_sound set, stop playback this many seconds before stream end.
+## hit_sound_pitch_scale: if > 0, use this pitch for hit_sound; else use default random 0.8–1.2.
 ## floating_text_color: optional; if set (e.g. Color), floating damage text uses this color (e.g. burn = red-ish fire).
-func apply_damage(amount: float, spark_config: HitSparkConfig = null, stun_duration: float = 0.0, source: Variant = null, is_crit: bool = false, hit_sound: AudioStream = null, hit_sound_volume_db: float = -12.0, floating_text_color: Variant = null) -> void:
+## knockback_impulse: optional; if non-zero, added to the parent's VelocityComponent.velocity (e.g. boomerang knockback).
+func apply_damage(amount: float, spark_config: HitSparkConfig = null, stun_duration: float = 0.0, source: Variant = null, is_crit: bool = false, hit_sound: AudioStream = null, hit_sound_volume_db: float = -12.0, hit_sound_trim_end: float = 0.0, hit_sound_pitch_scale: float = 0.0, floating_text_color: Variant = null, knockback_impulse: Vector2 = Vector2.ZERO) -> void:
 	var hc = health_component
 	if hc == null:
 		hc = get_parent().get_node_or_null("HealthComponent") as HealthComponent
@@ -35,6 +38,31 @@ func apply_damage(amount: float, spark_config: HitSparkConfig = null, stun_durat
 		var parent_node = get_parent()
 		if parent_node:
 			parent_node.set_meta("stun_until", Time.get_ticks_msec() / 1000.0 + stun_duration)
+	if knockback_impulse != Vector2.ZERO:
+		var parent_node = get_parent()
+		if parent_node:
+			var vc = parent_node.get_node_or_null("VelocityComponent") as Node
+			if vc != null and vc.get("velocity") != null:
+				var magnitude: float = knockback_impulse.length()
+				if parent_node.is_in_group("flying_enemy"):
+					magnitude *= 0.25
+				# Scale by enemy acceleration so knockback feels more consistent: high-accel (e.g. spider) re-accelerates quickly so use stronger impulse; low-accel (e.g. ogre) gets less so they don't get launched off-screen.
+				var accel: Variant = vc.get("acceleration")
+				if accel != null and typeof(accel) == TYPE_FLOAT:
+					var scale_factor: float = clampf(float(accel) / 10.0, 0.4, 2.0)
+					magnitude *= scale_factor
+				# Always knock back away from the player for consistent direction and to avoid odd interactions (wizard slide, separation).
+				var player = get_tree().get_first_node_in_group("player") as Node2D
+				var away_from_player: Vector2
+				if player != null and is_instance_valid(player):
+					away_from_player = (parent_node.global_position - player.global_position)
+					if away_from_player.length_squared() > 1.0:
+						away_from_player = away_from_player.normalized()
+					else:
+						away_from_player = Vector2.RIGHT
+				else:
+					away_from_player = knockback_impulse.normalized()
+				vc.velocity += away_from_player * magnitude
 	var foreground = get_tree().get_first_node_in_group("foreground_layer")
 	if foreground:
 		var floating_text = floating_text_scene.instantiate() as Node2D
@@ -48,16 +76,26 @@ func apply_damage(amount: float, spark_config: HitSparkConfig = null, stun_durat
 		sparks.global_position = global_position
 		sparks.set_spark_config(spark_config if spark_config else default_spark_config)
 		foreground.add_child(sparks)
-		# Optional ability-specific hit sound (pitch variation 0.8–1.2).
-		if hit_sound != null:
+		# Optional ability-specific hit sound (pitch: override or 0.8–1.2). Skip when paused to avoid burst on unpause.
+		if hit_sound != null and not get_tree().paused:
 			var sound_player := AudioStreamPlayer2D.new()
 			sound_player.stream = hit_sound
 			sound_player.volume_db = hit_sound_volume_db
-			sound_player.pitch_scale = randf_range(HIT_SOUND_PITCH_MIN, HIT_SOUND_PITCH_MAX)
+			sound_player.pitch_scale = hit_sound_pitch_scale if hit_sound_pitch_scale > 0.0 else randf_range(HIT_SOUND_PITCH_MIN, HIT_SOUND_PITCH_MAX)
 			foreground.add_child(sound_player)
 			sound_player.global_position = global_position
 			sound_player.finished.connect(sound_player.queue_free)
 			sound_player.play()
+			if hit_sound_trim_end > 0.0 and hit_sound.get_length() > 0.0:
+				var trim_time := maxf(0.0, hit_sound.get_length() - hit_sound_trim_end)
+				if trim_time > 0.0:
+					var t := get_tree().create_timer(trim_time)
+					var player_ref = weakref(sound_player)
+					t.timeout.connect(func():
+						var p = player_ref.get_ref()
+						if p:
+							p.stop()
+					)
 	hit.emit()
 
 
@@ -69,4 +107,12 @@ func on_area_entered(other_area: Area2D) -> void:
 	if hitbox_component.damage <= 0:
 		return
 	var spark_config = hitbox_component.hit_spark_config if hitbox_component.hit_spark_config else null
-	apply_damage(hitbox_component.damage, spark_config, 0.0, null, hitbox_component.is_crit)
+	var knockback_impulse := Vector2.ZERO
+	if hitbox_component.knockback_strength > 0:
+		var away: Vector2 = (global_position - hitbox_component.global_position).normalized()
+		knockback_impulse = away * hitbox_component.knockback_strength
+	var h_sound: AudioStream = hitbox_component.hit_sound if hitbox_component.get("hit_sound") != null else null
+	var h_vol: float = hitbox_component.hit_sound_volume_db if hitbox_component.get("hit_sound_volume_db") != null else -12.0
+	var h_trim: float = hitbox_component.hit_sound_trim_end if hitbox_component.get("hit_sound_trim_end") != null else 0.0
+	var h_pitch: float = hitbox_component.hit_sound_pitch_scale if hitbox_component.get("hit_sound_pitch_scale") != null else 0.0
+	apply_damage(hitbox_component.damage, spark_config, 0.0, null, hitbox_component.is_crit, h_sound, h_vol, h_trim, h_pitch, null, knockback_impulse)

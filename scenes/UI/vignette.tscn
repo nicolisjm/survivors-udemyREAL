@@ -1,7 +1,7 @@
-[gd_scene format=3 uid="uid://wgqo2sfosuiu"]
+[gd_scene format=3]
 
-[ext_resource type="Shader" uid="uid://co588rjs8hu8x" path="res://scenes/UI/vignette.gdshader" id="1_m8kkv"]
-[ext_resource type="Script" uid="uid://dtynv5fm3qpdq" path="res://scenes/UI/vignette.gd" id="1_rgbxt"]
+[ext_resource type="Shader" path="res://scenes/UI/vignette.gdshader" id="1_m8kkv"]
+[ext_resource type="Script" path="res://scenes/UI/vignette.gd" id="1_rgbxt"]
 
 [sub_resource type="Animation" id="Animation_322r2"]
 length = 0.001

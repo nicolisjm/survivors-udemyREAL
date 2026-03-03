@@ -1,6 +1,6 @@
-[gd_scene format=3 uid="uid://dbfcafdg5lm1u"]
+[gd_scene format=3]
 
-[ext_resource type="Script" uid="uid://bybccwroh6q5w" path="res://scenes/UI/pause_button.gd" id="1_script"]
+[ext_resource type="Script" path="res://scenes/UI/pause_button.gd" id="1_script"]
 
 [node name="PauseButton" type="CanvasLayer" unique_id=1011919939]
 layer = 11

@@ -1,8 +1,8 @@
-[gd_scene format=3 uid="uid://cykqgd1td646w"]
+[gd_scene format=3]
 
-[ext_resource type="Script" uid="uid://blom0dlakb6sv" path="res://scenes/ability/bow_arrow_ability/bow_arrow_ability.gd" id="1_script"]
-[ext_resource type="Texture2D" uid="uid://83see6lf5anm" path="res://scenes/ability/bow_arrow_ability/arrow.png" id="2_sdpdt"]
-[ext_resource type="PackedScene" uid="uid://dly1mra0vau0s" path="res://scenes/component/hitbox_component.tscn" id="3_hitbox"]
+[ext_resource type="Script" path="res://scenes/ability/bow_arrow_ability/bow_arrow_ability.gd" id="1_script"]
+[ext_resource type="Texture2D" path="res://scenes/ability/bow_arrow_ability/arrow.png" id="2_sdpdt"]
+[ext_resource type="PackedScene" path="res://scenes/component/hitbox_component.tscn" id="3_hitbox"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1"]
 size = Vector2(16, 3)
@@ -15,6 +15,7 @@ script = ExtResource("1_script")
 texture = ExtResource("2_sdpdt")
 
 [node name="HitboxComponent" parent="." unique_id=785517962 instance=ExtResource("3_hitbox")]
+collision_mask = 32
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent" unique_id=100374171]
 position = Vector2(0, -0.5)

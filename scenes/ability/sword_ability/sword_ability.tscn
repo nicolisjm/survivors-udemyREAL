@@ -1,8 +1,8 @@
-[gd_scene load_steps=8 format=3 uid="uid://chduxjrc2d2pi"]
+[gd_scene load_steps=8 format=3]
 
-[ext_resource type="Script" uid="uid://cgut4c7h3a0k0" path="res://scenes/ability/sword_ability/sword_ability.gd" id="1_t8g1f"]
-[ext_resource type="Texture2D" uid="uid://cd2obi7dehuqv" path="res://scenes/ability/sword_ability/sword.png" id="1_upg5g"]
-[ext_resource type="PackedScene" uid="uid://dly1mra0vau0s" path="res://scenes/component/hitbox_component.tscn" id="2_abpad"]
+[ext_resource type="Script" path="res://scenes/ability/sword_ability/sword_ability.gd" id="1_t8g1f"]
+[ext_resource type="Texture2D" path="res://scenes/ability/sword_ability/sword.png" id="1_upg5g"]
+[ext_resource type="PackedScene" path="res://scenes/component/hitbox_component.tscn" id="2_abpad"]
 
 [sub_resource type="Animation" id="Animation_abpad"]
 length = 0.001

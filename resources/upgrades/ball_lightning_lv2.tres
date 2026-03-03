@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="AbilityUpgrade" format=3 uid="uid://bu6jwbsq0eg0e"]
+[gd_resource type="Resource" script_class="AbilityUpgrade" format=3 uid="uid://dhpdyci87sgnt"]
 
 [ext_resource type="Script" uid="uid://dwgsoek0kp41e" path="res://resources/upgrades/ability_upgrade.gd" id="1_script"]
 
@@ -7,6 +7,6 @@ script = ExtResource("1_script")
 id = "ball_lightning_lv2"
 name = "Ball Lightning"
 sub_name = "Gathering static"
-description = "Base attack rate -0.2s"
+description = "-0.2s Base attack rate"
 ability_id = "ball_lightning"
 level = 2

@@ -1,6 +1,6 @@
 extends Node2D
 
-const BASE_ORBIT_RADIUS := 25
+const BASE_ORBIT_RADIUS := 28
 const BASE_ORBIT_DURATION := 2.5
 const CRIT_WINDOW_SEC := 1.0
 const SPAWN_SCALE_DURATION := 0.15

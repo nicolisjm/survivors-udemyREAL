@@ -1,6 +1,6 @@
-[gd_resource type="Resource" script_class="Ability" format=3 uid="uid://cjym2y5hiwncn"]
+[gd_resource type="Resource" script_class="Ability" format=3 uid="uid://clccufnqjggr0"]
 
-[ext_resource type="PackedScene" uid="uid://c6q4mglstb0i3" path="res://scenes/ability/claws_ability_controller/claws_ability_controller.tscn" id="1_controller"]
+[ext_resource type="PackedScene" path="res://scenes/ability/claws_ability_controller/claws_ability_controller.tscn" id="1_controller"]
 [ext_resource type="Texture2D" uid="uid://c7rkrgm07bn8n" path="res://scenes/ability/claws_ability/claw.png" id="2_7nryg"]
 [ext_resource type="Script" uid="uid://bpw3kuyytb1cx" path="res://resources/upgrades/ability.gd" id="2_ability"]
 
@@ -12,6 +12,6 @@ id = "claws"
 max_quantity = 1
 name = "Claws"
 sub_name = "New skill:"
-description = "Three diagonal rectangle AOEs."
+description = "Three diagonal rectangle AOEs"
 ability_id = "claws"
 level = 1

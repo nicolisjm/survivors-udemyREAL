@@ -142,7 +142,7 @@ func _on_burn_tick() -> void:
 	_play_burn_sound(BURN_SOUND_DAMAGE_VOLUME_DB)
 	_hurtbox.apply_damage(
 		damage,
-		null, 0.0, null, false, null, -12.0,
+		null, 0.0, null, false, null, -12.0, 0.0, 0.0,
 		BURN_FLOATING_TEXT_COLOR
 	)
 	# Next tick: shorter interval if we're in the flame hitbox (_tick_speed_mult > 1).

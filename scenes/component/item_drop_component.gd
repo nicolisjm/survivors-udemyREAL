@@ -11,9 +11,9 @@ var health_potion_scene: PackedScene = preload("res://scenes/game_object/item/he
 var black_hole_scene: PackedScene = preload("res://scenes/game_object/item/black_hole.tscn")
 
 const DROP_CHANCE_XP := 0.01  # Low for testing
-const DROP_CHANCE_HEALTH_VIAL := 0.25
+const DROP_CHANCE_HEALTH_VIAL := 0.50
 const DROP_CHANCE_HEALTH_POTION := 0.25
-const DROP_CHANCE_BLACK_HOLE := 0.50  # 50% for testing black hole
+const DROP_CHANCE_BLACK_HOLE := 0.25
 
 
 func _ready() -> void:

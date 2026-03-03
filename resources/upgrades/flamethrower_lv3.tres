@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="AbilityUpgrade" format=3 uid="uid://sqjkg2or8ix"]
+[gd_resource type="Resource" script_class="AbilityUpgrade" format=3 uid="uid://dk5eharuvqicx"]
 
 [ext_resource type="Script" uid="uid://dwgsoek0kp41e" path="res://resources/upgrades/ability_upgrade.gd" id="1_script"]
 

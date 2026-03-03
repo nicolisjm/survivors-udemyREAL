@@ -1,9 +1,9 @@
-[gd_scene format=3 uid="uid://bf66ew8b0f8c0"]
+[gd_scene format=3]
 
-[ext_resource type="PackedScene" uid="uid://buy13ljadjl7f" path="res://scenes/UI/ability_upgrade_card.tscn" id="1_auatr"]
-[ext_resource type="Script" uid="uid://bs7dcbe42bev5" path="res://scenes/UI/upgrade_screen.gd" id="1_l62tb"]
-[ext_resource type="AudioStream" uid="uid://cle7qwiaft7fl" path="res://assets/audio/sfx/floraphonic-playful-casino-slot-machine-bonus-1-183918.mp3" id="3_klice"]
-[ext_resource type="PackedScene" uid="uid://cxy68hidvs0ov" path="res://scenes/UI/ability_upgrade_card_mobile.tscn" id="3_rqbkw"]
+[ext_resource type="PackedScene" path="res://scenes/UI/ability_upgrade_card.tscn" id="1_auatr"]
+[ext_resource type="Script" path="res://scenes/UI/upgrade_screen.gd" id="1_l62tb"]
+[ext_resource type="AudioStream" path="res://assets/audio/sfx/floraphonic-playful-casino-slot-machine-bonus-1-183918.mp3" id="3_klice"]
+[ext_resource type="PackedScene" path="res://scenes/UI/ability_upgrade_card_mobile.tscn" id="3_rqbkw"]
 
 [sub_resource type="Animation" id="Animation_l62tb"]
 length = 0.001

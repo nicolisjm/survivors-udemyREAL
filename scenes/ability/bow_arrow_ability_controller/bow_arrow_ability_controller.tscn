@@ -1,7 +1,7 @@
-[gd_scene format=3 uid="uid://cghp3roomy0hp"]
+[gd_scene format=3 uid="uid://bceqgtbttkevm"]
 
 [ext_resource type="Script" uid="uid://dcwd5fu7rkb4d" path="res://scenes/ability/bow_arrow_ability_controller/bow_arrow_ability_controller.gd" id="1_script"]
-[ext_resource type="PackedScene" uid="uid://cykqgd1td646w" path="res://scenes/ability/bow_arrow_ability/bow_arrow_ability.tscn" id="2_visual"]
+[ext_resource type="PackedScene" path="res://scenes/ability/bow_arrow_ability/bow_arrow_ability.tscn" id="2_visual"]
 
 [node name="BowArrowAbilityController" type="Node" unique_id=897808406]
 script = ExtResource("1_script")

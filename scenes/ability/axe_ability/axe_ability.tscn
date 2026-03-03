@@ -1,8 +1,8 @@
-[gd_scene format=3 uid="uid://d1xd6gy57r7wf"]
+[gd_scene format=3]
 
-[ext_resource type="Texture2D" uid="uid://dlqpgvleplrtr" path="res://scenes/ability/axe_ability/axe.png" id="1_4o2mv"]
-[ext_resource type="Script" uid="uid://b535yxy61wik0" path="res://scenes/ability/axe_ability/axe_ability.gd" id="1_65u81"]
-[ext_resource type="PackedScene" uid="uid://dly1mra0vau0s" path="res://scenes/component/hitbox_component.tscn" id="3_m8265"]
+[ext_resource type="Texture2D" path="res://scenes/ability/axe_ability/axe.png" id="1_4o2mv"]
+[ext_resource type="Script" path="res://scenes/ability/axe_ability/axe_ability.gd" id="1_65u81"]
+[ext_resource type="PackedScene" path="res://scenes/component/hitbox_component.tscn" id="3_m8265"]
 
 [sub_resource type="Animation" id="Animation_r58rl"]
 length = 0.001

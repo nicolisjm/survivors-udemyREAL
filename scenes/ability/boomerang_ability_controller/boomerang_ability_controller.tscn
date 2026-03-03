@@ -1,12 +1,24 @@
-[gd_scene format=3]
+[gd_scene format=3 uid="uid://ityxyjhja4ee"]
 
-[ext_resource type="Script" path="res://scenes/ability/boomerang_ability_controller/boomerang_ability_controller.gd" id="1_script"]
-[ext_resource type="PackedScene" path="res://scenes/ability/boomerang_ability/boomerang_ability.tscn" id="2_visual"]
+[ext_resource type="Script" uid="uid://bsadbi5a51als" path="res://scenes/ability/boomerang_ability_controller/boomerang_ability_controller.gd" id="1_script"]
+[ext_resource type="PackedScene" uid="uid://d28sei4qwohtd" path="res://scenes/ability/boomerang_ability/boomerang_ability.tscn" id="2_visual"]
 
-[node name="BoomerangAbilityController" type="Node"]
+[node name="BoomerangAbilityController" type="Node" unique_id=1491109985]
 script = ExtResource("1_script")
 boomerang_ability_scene = ExtResource("2_visual")
 
-[node name="Timer" type="Timer" parent="."]
-wait_time = 1.5
-autostart = true
+[node name="Timer" type="Timer" parent="." unique_id=2034713477]
+wait_time = 0.6
+one_shot = true
+
+[node name="Timer2" type="Timer" parent="." unique_id=1231581091]
+wait_time = 0.6
+one_shot = true
+
+[node name="Timer3" type="Timer" parent="." unique_id=1252685691]
+wait_time = 0.6
+one_shot = true
+
+[node name="Timer4" type="Timer" parent="." unique_id=1099524158]
+wait_time = 0.6
+one_shot = true

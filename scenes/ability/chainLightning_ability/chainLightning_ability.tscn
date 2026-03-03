@@ -1,6 +1,6 @@
-[gd_scene format=3 uid="uid://dqwp7bpv4vlc"]
+[gd_scene format=3]
 
-[ext_resource type="Script" uid="uid://dj8holk6282c8" path="res://scenes/ability/chainLightning_ability/chain_lightning_ability.gd" id="1_f6nq1"]
+[ext_resource type="Script" path="res://scenes/ability/chainLightning_ability/chain_lightning_ability.gd" id="1_f6nq1"]
 
 [sub_resource type="Gradient" id="Gradient_glow"]
 interpolation_mode = 2

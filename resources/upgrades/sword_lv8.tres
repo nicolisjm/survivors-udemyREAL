@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="AbilityUpgrade" format=3 uid="uid://bgtpfd84q8rm8"]
+[gd_resource type="Resource" script_class="AbilityUpgrade" format=3 uid="uid://burrei2cxm7ci"]
 
 [ext_resource type="Script" uid="uid://dwgsoek0kp41e" path="res://resources/upgrades/ability_upgrade.gd" id="1_script"]
 
@@ -7,6 +7,6 @@ script = ExtResource("1_script")
 id = "sword_lv8"
 name = "Sword"
 sub_name = "Shredder"
-description = "Base attack rate -0.2s and slashes a fourth enemy"
+description = "-0.2s Base attack rate and slashes a fourth enemy"
 ability_id = "sword"
 level = 8

@@ -1,6 +1,6 @@
-[gd_scene format=3 uid="uid://c3ab540ud0dji"]
+[gd_scene format=3]
 
-[ext_resource type="Script" uid="uid://bixhpsdur20yg" path="res://scenes/ability/chainLightning_ability_controller/chain_lightning_ability_controller.gd" id="1_ft5xs"]
+[ext_resource type="Script" path="res://scenes/ability/chainLightning_ability_controller/chain_lightning_ability_controller.gd" id="1_ft5xs"]
 
 [node name="ChainLightningAbilityController" type="Node" unique_id=2019363455]
 script = ExtResource("1_ft5xs")

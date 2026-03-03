@@ -1,0 +1,21 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scenes/ability/boomerang_ability/mini_boomerang_ability.gd" id="1_script"]
+[ext_resource type="Texture2D" path="res://scenes/ability/boomerang_ability/MagicBoomerang.png" id="2_tex"]
+[ext_resource type="PackedScene" path="res://scenes/component/hitbox_component.tscn" id="3_hitbox"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1"]
+size = Vector2(10, 10)
+
+[node name="MiniBoomerangAbility" type="Node2D"]
+script = ExtResource("1_script")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.15, 0.15)
+texture = ExtResource("2_tex")
+
+[node name="HitboxComponent" parent="." instance=ExtResource("3_hitbox")]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent"]
+position = Vector2(0.5, -0.5)
+shape = SubResource("RectangleShape2D_1")

@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="AbilityUpgrade" format=3 uid="uid://cgeneric_attack_speed"]
+[gd_resource type="Resource" script_class="AbilityUpgrade" format=3 uid="uid://daplagn33oemy"]
 
 [ext_resource type="Script" uid="uid://dwgsoek0kp41e" path="res://resources/upgrades/ability_upgrade.gd" id="1_aspd"]
 
@@ -7,5 +7,4 @@ script = ExtResource("1_aspd")
 id = "generic_attack_speed"
 max_quantity = 5
 name = "Attack Speed"
-sub_name = ""
 description = "Increases all ability attack speed by 10%"

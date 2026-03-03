@@ -1,6 +1,6 @@
-[gd_scene format=3 uid="uid://bqwi754w6c1ib"]
+[gd_scene format=3]
 
-[ext_resource type="Script" uid="uid://ccnomrue72s4y" path="res://scenes/component/shuffle_playlist_component.gd" id="1_playlist"]
+[ext_resource type="Script" path="res://scenes/component/shuffle_playlist_component.gd" id="1_playlist"]
 
 [node name="ShufflePlaylistComponent" type="Node" unique_id=1728534848]
 process_mode = 3

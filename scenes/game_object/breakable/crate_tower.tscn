@@ -1,10 +1,10 @@
-[gd_scene load_steps=8 format=3 uid="uid://ccratetower01"]
+[gd_scene load_steps=8 format=3]
 
-[ext_resource type="Texture2D" uid="uid://csyg2hehbi888" path="res://assets/sprite/lowercrate.png" id="1_tex_lower"]
-[ext_resource type="Texture2D" uid="uid://bshofpnqlrugt" path="res://assets/sprite/crate.png" id="2_tex_top"]
-[ext_resource type="PackedScene" uid="uid://40irphxwdaut" path="res://scenes/component/health_component.tscn" id="3_health"]
-[ext_resource type="PackedScene" uid="uid://b4fmb3q018fah" path="res://scenes/component/hurtbox_component.tscn" id="4_hurtbox"]
-[ext_resource type="PackedScene" uid="uid://bpb8aq2cd82w0" path="res://scenes/component/death_component.tscn" id="5_death"]
+[ext_resource type="Texture2D" path="res://assets/sprite/lowercrate.png" id="1_tex_lower"]
+[ext_resource type="Texture2D" path="res://assets/sprite/crate.png" id="2_tex_top"]
+[ext_resource type="PackedScene" path="res://scenes/component/health_component.tscn" id="3_health"]
+[ext_resource type="PackedScene" path="res://scenes/component/hurtbox_component.tscn" id="4_hurtbox"]
+[ext_resource type="PackedScene" path="res://scenes/component/death_component.tscn" id="5_death"]
 [ext_resource type="PackedScene" path="res://scenes/component/item_drop_component.tscn" id="6_item"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1"]

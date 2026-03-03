@@ -1,7 +1,7 @@
-[gd_scene format=3 uid="uid://1wtvprcjrcm3"]
+[gd_scene format=3]
 
-[ext_resource type="Script" uid="uid://ct4lyq6wehtyv" path="res://scenes/ability/ball_lightning_ability_controller/ball_lightning_ability_controller.gd" id="1_script"]
-[ext_resource type="PackedScene" uid="uid://ckwjvvk0ve22" path="res://scenes/ability/ball_lightning_ability/ball_lightning_ability.tscn" id="2_visual"]
+[ext_resource type="Script" path="res://scenes/ability/ball_lightning_ability_controller/ball_lightning_ability_controller.gd" id="1_script"]
+[ext_resource type="PackedScene" path="res://scenes/ability/ball_lightning_ability/ball_lightning_ability.tscn" id="2_visual"]
 
 [node name="BallLightningAbilityController" type="Node" unique_id=1305007578]
 script = ExtResource("1_script")

@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="AbilityUpgrade" format=3 uid="uid://g24a4vp8w4ej"]
+[gd_resource type="Resource" script_class="AbilityUpgrade" format=3 uid="uid://d3kt7a2inkj41"]
 
 [ext_resource type="Script" uid="uid://dwgsoek0kp41e" path="res://resources/upgrades/ability_upgrade.gd" id="1_script"]
 
@@ -6,7 +6,7 @@
 script = ExtResource("1_script")
 id = "ball_lightning_lv9"
 name = "Ball Lightning"
-sub_name = "Lightning Universe"
-description = "Every cast also shoots a second ball lightning straight forward"
+sub_name = "Universe"
+description = "+1 ball per cast that moves forward"
 ability_id = "ball_lightning"
 level = 9

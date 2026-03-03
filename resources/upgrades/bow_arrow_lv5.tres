@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="AbilityUpgrade" format=3 uid="uid://u2kx6uj20tju"]
+[gd_resource type="Resource" script_class="AbilityUpgrade" format=3 uid="uid://ckjoasejxef0e"]
 
 [ext_resource type="Script" uid="uid://dwgsoek0kp41e" path="res://resources/upgrades/ability_upgrade.gd" id="1_script"]
 
@@ -7,6 +7,6 @@ script = ExtResource("1_script")
 id = "bow_arrow_lv5"
 name = "Bow"
 sub_name = "Quickshot"
-description = "Attack rate -0.2s"
+description = "-0.2s Base attack rate"
 ability_id = "bow_arrow"
 level = 5

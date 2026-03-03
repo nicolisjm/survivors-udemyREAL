@@ -1,8 +1,8 @@
-[gd_scene format=3 uid="uid://trhyfarvk3yp"]
+[gd_scene format=3]
 
-[ext_resource type="Script" uid="uid://dljuc14bv3xac" path="res://scenes/ability/claws_ability/claws_ability.gd" id="1_script"]
-[ext_resource type="Texture2D" uid="uid://c7rkrgm07bn8n" path="res://scenes/ability/claws_ability/claw.png" id="2_iwd25"]
-[ext_resource type="PackedScene" uid="uid://dly1mra0vau0s" path="res://scenes/component/hitbox_component.tscn" id="3_hitbox"]
+[ext_resource type="Script" path="res://scenes/ability/claws_ability/claws_ability.gd" id="1_script"]
+[ext_resource type="Texture2D" path="res://scenes/ability/claws_ability/claw.png" id="2_iwd25"]
+[ext_resource type="PackedScene" path="res://scenes/component/hitbox_component.tscn" id="3_hitbox"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1"]
 size = Vector2(12.374371, 2.6516507)

@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="AbilityUpgrade" format=3 uid="uid://b64i8cpvplqfk"]
+[gd_resource type="Resource" script_class="AbilityUpgrade" format=3 uid="uid://bucc7khktjub2"]
 
 [ext_resource type="Script" uid="uid://dwgsoek0kp41e" path="res://resources/upgrades/ability_upgrade.gd" id="1_script"]
 
@@ -7,6 +7,6 @@ script = ExtResource("1_script")
 id = "flamethrower_lv7"
 name = "Flamethrower"
 sub_name = "Immolation"
-description = "Burn ticks -0.2"
+description = "-0.2 Burn ticks"
 ability_id = "flamethrower"
 level = 7
