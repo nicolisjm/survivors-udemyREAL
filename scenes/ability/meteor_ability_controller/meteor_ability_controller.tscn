@@ -1,12 +1,14 @@
-[gd_scene format=3]
+[gd_scene format=3 uid="uid://cijenk8cns3mq"]
 
-[ext_resource type="Script" path="res://scenes/ability/meteor_ability_controller/meteor_ability_controller.gd" id="1_script"]
-[ext_resource type="PackedScene" path="res://scenes/ability/meteor_ability/meteor_ability.tscn" id="2_visual"]
+[ext_resource type="Script" uid="uid://ceen14j1uyyen" path="res://scenes/ability/meteor_ability_controller/meteor_ability_controller.gd" id="1_script"]
+[ext_resource type="PackedScene" uid="uid://c2kltc5nvht05" path="res://scenes/ability/meteor_ability/meteor_ability.tscn" id="2_visual"]
+[ext_resource type="PackedScene" path="res://scenes/ability/meteor_ability/meteor_burning_ground.tscn" id="3_burning"]
 
-[node name="MeteorAbilityController" type="Node"]
+[node name="MeteorAbilityController" type="Node" unique_id=1575746516]
 script = ExtResource("1_script")
 meteor_ability_scene = ExtResource("2_visual")
+burning_ground_scene = ExtResource("3_burning")
 
-[node name="Timer" type="Timer" parent="."]
+[node name="Timer" type="Timer" parent="." unique_id=1392883346]
 wait_time = 3.0
 autostart = true

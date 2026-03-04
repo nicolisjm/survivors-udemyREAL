@@ -55,6 +55,7 @@ func _build_slot(panel: PanelContainer, data: Dictionary) -> void:
 	icon_rect.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
 	icon_rect.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
 	icon_rect.texture = data.get("icon") if data.get("icon") else DEFAULT_ICON
+	icon_rect.modulate = data.get("icon_modulate", Color.WHITE)
 
 	var level_label := Label.new()
 	level_label.theme_type_variation = &"BlueOutlineLabel"

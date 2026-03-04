@@ -3,7 +3,7 @@ extends Node
 const SAVE_PATH := "user://highscores.dat"
 const MAX_ENTRIES := 5
 ## Set to true to always show initials entry (for testing). Set to false for release.
-# const FORCE_NEW_HIGHSCORE_FOR_TESTING := true
+const FORCE_NEW_HIGHSCORE_FOR_TESTING := false
 
 ## Arcade-style placeholder entries to encourage players to beat them.
 const PLACEHOLDER_ENTRIES: Array[Dictionary] = [
@@ -55,8 +55,8 @@ func save_highscores(entries: Array) -> void:
 
 
 func would_be_highscore(time_survived: float) -> bool:
-	# if FORCE_NEW_HIGHSCORE_FOR_TESTING:
-	# 	return true
+	if FORCE_NEW_HIGHSCORE_FOR_TESTING:
+		return true
 	var entries: Array = get_highscores()
 	if entries.size() < MAX_ENTRIES:
 		return true

@@ -1,13 +1,18 @@
 [gd_resource type="Resource" script_class="Ability" format=3 uid="uid://3q5rqmwmotcv"]
 
-[ext_resource type="PackedScene" path="res://scenes/ability/meteor_ability_controller/meteor_ability_controller.tscn" id="1_controller"]
+[ext_resource type="PackedScene" uid="uid://cijenk8cns3mq" path="res://scenes/ability/meteor_ability_controller/meteor_ability_controller.tscn" id="1_controller"]
 [ext_resource type="Script" uid="uid://bpw3kuyytb1cx" path="res://resources/upgrades/ability.gd" id="2_ability"]
-[ext_resource type="Texture2D" uid="uid://cd2obi7dehuqv" path="res://scenes/ability/sword_ability/sword.png" id="3_icon"]
+[ext_resource type="Texture2D" uid="uid://d3ynjf0hdqte" path="res://scenes/ability/meteor_ability/rock_round.png" id="2_ksuly"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ksuly"]
+atlas = ExtResource("2_ksuly")
+region = Rect2(0, 0, 32, 32)
 
 [resource]
 script = ExtResource("2_ability")
 ability_controller_scene = ExtResource("1_controller")
-icon = ExtResource("3_icon")
+icon = SubResource("AtlasTexture_ksuly")
+icon_modulate = Color(1, 0.16, 0, 1)
 id = "meteor"
 max_quantity = 1
 name = "Meteor"

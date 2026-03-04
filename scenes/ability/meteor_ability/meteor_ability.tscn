@@ -1,20 +1,55 @@
-[gd_scene format=3]
+[gd_scene format=3 uid="uid://c2kltc5nvht05"]
 
-[ext_resource type="Script" path="res://scenes/ability/meteor_ability/meteor_ability.gd" id="1_script"]
-[ext_resource type="Texture2D" path="res://scenes/ability/sword_ability/sword.png" id="2_placeholder"]
+[ext_resource type="Script" uid="uid://xohf7mun530m" path="res://scenes/ability/meteor_ability/meteor_ability.gd" id="1_script"]
+[ext_resource type="Texture2D" uid="uid://d3ynjf0hdqte" path="res://scenes/ability/meteor_ability/rock_round.png" id="2_hxvtd"]
 [ext_resource type="PackedScene" path="res://scenes/component/hitbox_component.tscn" id="3_hitbox"]
+[ext_resource type="Script" uid="uid://byqfkykonp7n1" path="res://scenes/ability/meteor_ability/meteor_aoe_ring.gd" id="4_ring"]
+[ext_resource type="AudioStream" uid="uid://cs7skv7qebdch" path="res://assets/audio/sfx/freesound_crunchpixstudio-big-bomb-explosion-394474.mp3" id="5_explosion"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_1"]
-radius = 12.0
+radius = 8.0
 
-[node name="MeteorAbility" type="Node2D"]
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_ww6jx"]
+particle_flag_disable_z = true
+emission_shape = 6
+emission_ring_axis = Vector3(0, 0, 1)
+emission_ring_height = 1.0
+emission_ring_radius = 6.0
+emission_ring_inner_radius = 4.0
+emission_ring_cone_angle = 90.0
+direction = Vector3(0, -1, 0)
+angular_velocity_min = 1.9999839
+angular_velocity_max = 1.9999839
+radial_velocity_min = 19.999977
+radial_velocity_max = 39.999977
+gravity = Vector3(0, 70, 0)
+color = Color(1, 0.52156866, 0.34901962, 0.78431374)
+
+[node name="MeteorAbility" type="Node2D" unique_id=127196185]
 script = ExtResource("1_script")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("2_placeholder")
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=2062114089]
+modulate = Color(1, 0.16078432, 0, 1)
+texture_filter = 1
 scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_hxvtd")
+region_enabled = true
+region_rect = Rect2(0, 0, 32, 32)
 
-[node name="HitboxComponent" parent="." instance=ExtResource("3_hitbox")]
+[node name="HitboxComponent" parent="." unique_id=1099662479 instance=ExtResource("3_hitbox")]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent" unique_id=836122460]
 shape = SubResource("CircleShape2D_1")
+disabled = true
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="." unique_id=1989345808]
+amount = 16
+lifetime = 0.4
+interp_to_end = 1.0
+process_material = SubResource("ParticleProcessMaterial_ww6jx")
+
+[node name="AoeRing" type="Node2D" parent="." unique_id=1181170729]
+script = ExtResource("4_ring")
+
+[node name="ExplosionStreamPlayer" type="AudioStreamPlayer2D" parent="." unique_id=1456896042]
+stream = ExtResource("5_explosion")

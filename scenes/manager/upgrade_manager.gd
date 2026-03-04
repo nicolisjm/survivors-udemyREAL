@@ -22,18 +22,12 @@ var path_flamethrower: AbilityUpgradePath = preload("res://resources/upgrades/fl
 var path_boulder: AbilityUpgradePath = preload("res://resources/upgrades/boulder_path.tres") as AbilityUpgradePath
 var path_earth_spikes: AbilityUpgradePath = preload("res://resources/upgrades/earth_spikes_path.tres") as AbilityUpgradePath
 var path_ice_shards: AbilityUpgradePath = preload("res://resources/upgrades/ice_shards_path.tres") as AbilityUpgradePath
-var path_blizzard: AbilityUpgradePath = preload("res://resources/upgrades/blizzard_path.tres") as AbilityUpgradePath
-var path_wind_slice: AbilityUpgradePath = preload("res://resources/upgrades/wind_slice_path.tres") as AbilityUpgradePath
 var path_tornado: AbilityUpgradePath = preload("res://resources/upgrades/tornado_path.tres") as AbilityUpgradePath
-var path_aura: AbilityUpgradePath = preload("res://resources/upgrades/aura_path.tres") as AbilityUpgradePath
 var path_bomb: AbilityUpgradePath = preload("res://resources/upgrades/bomb_path.tres") as AbilityUpgradePath
 var path_bow_arrow: AbilityUpgradePath = preload("res://resources/upgrades/bow_arrow_path.tres") as AbilityUpgradePath
 var path_boomerang: AbilityUpgradePath = preload("res://resources/upgrades/boomerang_path.tres") as AbilityUpgradePath
 var path_claws: AbilityUpgradePath = preload("res://resources/upgrades/claws_path.tres") as AbilityUpgradePath
-var path_tail_swipe: AbilityUpgradePath = preload("res://resources/upgrades/tail_swipe_path.tres") as AbilityUpgradePath
 var path_bite: AbilityUpgradePath = preload("res://resources/upgrades/bite_path.tres") as AbilityUpgradePath
-var path_smite: AbilityUpgradePath = preload("res://resources/upgrades/smite_path.tres") as AbilityUpgradePath
-var path_shadow_grab: AbilityUpgradePath = preload("res://resources/upgrades/shadow_grab_path.tres") as AbilityUpgradePath
 var _ability_paths: Array[AbilityUpgradePath] = []
 
 var upgrade_move_speed = preload("res://resources/upgrades/move_speed.tres")
@@ -85,18 +79,13 @@ func _ready() -> void:
 	ability_levels["boulder"] = 0
 	ability_levels["earth_spikes"] = 0
 	ability_levels["ice_shards"] = 0
-	ability_levels["blizzard"] = 0
-	ability_levels["wind_slice"] = 0
 	ability_levels["tornado"] = 0
-	ability_levels["aura"] = 0
 	ability_levels["bomb"] = 0
 	ability_levels["bow_arrow"] = 0
 	ability_levels["boomerang"] = 0
 	ability_levels["claws"] = 0
-	ability_levels["tail_swipe"] = 0
 	ability_levels["bite"] = 0
-	ability_levels["smite"] = 0
-	ability_levels["shadow_grab"] = 0
+	ability_levels["sword"] = 0
 	var start_id := StartingAbilityRegistry.selected_starting_ability_id
 	ability_levels[start_id] = 1  # pre-attached starting ability (must be after all = 0 so it is not overwritten)
 
@@ -108,12 +97,15 @@ func _ready() -> void:
 		path_bite,
 		path_ball_lightning,
 		path_flamethrower,
+		path_boulder,
 		path_claws,
 		path_bow_arrow,
 		path_bomb,
 		path_boomerang,
 		path_earth_spikes,
-		path_ice_shards
+		path_ice_shards,
+		path_meteor,
+		path_tornado
 	]
 	# Initialize display order: starting ability first, then others as acquired.
 	_acquired_ability_order.append(start_id)
@@ -136,7 +128,12 @@ func _ready() -> void:
 
 func _apply_starting_ability_controller() -> void:
 	var start_id: String = StartingAbilityRegistry.selected_starting_ability_id
-	var path: AbilityUpgradePath = _get_path_for_ability(start_id)
+	var path: AbilityUpgradePath = StartingAbilityRegistry.get_path_for_ability_id(start_id)
+	if path == null:
+		# Cut or invalid ability (e.g. old save); fallback to sword
+		start_id = "sword"
+		StartingAbilityRegistry.selected_starting_ability_id = start_id
+		path = StartingAbilityRegistry.get_path_for_ability_id(start_id)
 	if path == null or path.upgrades.size() == 0:
 		return
 	var ability: Ability = path.upgrades[0] as Ability
@@ -195,7 +192,7 @@ func get_path_for_ability(ability_id: String) -> AbilityUpgradePath:
 
 
 ## Returns up to MAX_MAIN_ABILITIES entries in acquisition order: first = left slot, second = center, third = right.
-## Each entry: { "ability_id": String, "level": int, "icon": Texture2D }
+## Each entry: { "ability_id": String, "level": int, "icon": Texture2D, "icon_modulate": Color }
 func get_acquired_main_abilities() -> Array:
 	var result: Array = []
 	for ability_id in _acquired_ability_order:
@@ -206,9 +203,12 @@ func get_acquired_main_abilities() -> Array:
 			continue
 		var path: AbilityUpgradePath = _get_path_for_ability(ability_id)
 		var icon: Texture2D = null
+		var icon_modulate: Color = Color.WHITE
 		if path != null and path.upgrades.size() > 0 and path.upgrades[0] is Ability:
-			icon = (path.upgrades[0] as Ability).icon
-		result.append({ "ability_id": ability_id, "level": level, "icon": icon })
+			var ability: Ability = path.upgrades[0] as Ability
+			icon = ability.icon
+			icon_modulate = ability.icon_modulate
+		result.append({ "ability_id": ability_id, "level": level, "icon": icon, "icon_modulate": icon_modulate })
 	return result
 
 

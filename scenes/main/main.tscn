@@ -6,7 +6,7 @@
 [ext_resource type="TileSet" uid="uid://u7s0cm1mf0cj" path="res://resources/tile_set.tres" id="1_iuonh"]
 [ext_resource type="PackedScene" uid="uid://d2tm6kilarbit" path="res://scenes/game_object/camera/GameCamera.tscn" id="1_k2fmo"]
 [ext_resource type="PackedScene" uid="uid://derak8g2ftdn6" path="res://scenes/UI/arena_time_ui.tscn" id="1_ow5a4"]
-[ext_resource type="PackedScene" path="res://scenes/UI/end_screen.tscn" id="2_ouso4"]
+[ext_resource type="PackedScene" uid="uid://d3ihw6tugmcqk" path="res://scenes/UI/end_screen.tscn" id="2_ouso4"]
 [ext_resource type="PackedScene" uid="uid://b2p5k4w5bl471" path="res://scenes/manager/arena_time_manager.tscn" id="2_ow5a4"]
 [ext_resource type="PackedScene" uid="uid://cvwrwcxyluicr" path="res://scenes/UI/experience_bar.tscn" id="2_yyfjg"]
 [ext_resource type="PackedScene" uid="uid://b4qcoxttdoh4j" path="res://scenes/manager/experience_manager.tscn" id="4_yyfjg"]
@@ -50,7 +50,7 @@ experience_manager = NodePath("../ExperienceManager")
 [node name="GameCamera" parent="." unique_id=295122192 instance=ExtResource("1_k2fmo")]
 position = Vector2(1024, 772)
 position_smoothing_enabled = true
-position_smoothing_speed = 8.0
+position_smoothing_speed = 40.0
 
 [node name="TileMapLayer" type="TileMapLayer" parent="." unique_id=1766405355]
 z_index = -1

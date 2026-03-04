@@ -4,7 +4,7 @@ const LETTERS := "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 
 @onready var panel_container: PanelContainer = %PanelContainer
 @onready var initials_panel: VBoxContainer = %InitialsEntryPanel
-@onready var slot_buttons: Array[Button] = [%Slot0Button, %Slot1Button, %Slot2Button]
+@onready var slot_labels: Array[Label] = [%Slot0Label, %Slot1Label, %Slot2Label]
 
 var _pending_time_survived: float = 0.0
 var _pending_exp: float = 0.0
@@ -22,8 +22,12 @@ func _ready() -> void:
 	get_tree().paused = true
 	$%RestartButton.pressed.connect(on_restart_button_pressed)
 	$%QuitButton.pressed.connect(on_quit_button_pressed)
-	for i in slot_buttons.size():
-		slot_buttons[i].pressed.connect(_on_slot_clicked.bind(i))
+	$%Slot0UpButton.pressed.connect(_on_slot_arrow.bind(0, 1))
+	$%Slot0DownButton.pressed.connect(_on_slot_arrow.bind(0, -1))
+	$%Slot1UpButton.pressed.connect(_on_slot_arrow.bind(1, 1))
+	$%Slot1DownButton.pressed.connect(_on_slot_arrow.bind(1, -1))
+	$%Slot2UpButton.pressed.connect(_on_slot_arrow.bind(2, 1))
+	$%Slot2DownButton.pressed.connect(_on_slot_arrow.bind(2, -1))
 	$%InitialsConfirmButton.pressed.connect(_on_initials_confirm)
 
 
@@ -51,11 +55,12 @@ func _start_initials_entry() -> void:
 
 func _update_initials_display() -> void:
 	for i in 3:
-		slot_buttons[i].text = LETTERS[_slot_letter_indices[i]]
+		slot_labels[i].text = LETTERS[_slot_letter_indices[i]]
 
 
-func _on_slot_clicked(slot_index: int) -> void:
-	_slot_letter_indices[slot_index] = (_slot_letter_indices[slot_index] + 1) % LETTERS.length()
+func _on_slot_arrow(slot_index: int, direction: int) -> void:
+	var len_letters := LETTERS.length()
+	_slot_letter_indices[slot_index] = (_slot_letter_indices[slot_index] + direction + len_letters) % len_letters
 	_update_initials_display()
 
 

@@ -1,13 +1,17 @@
 [gd_resource type="Resource" script_class="Ability" format=3 uid="uid://bwvvi0qub0mtl"]
 
-[ext_resource type="PackedScene" path="res://scenes/ability/boulder_ability_controller/boulder_ability_controller.tscn" id="1_controller"]
+[ext_resource type="PackedScene" uid="uid://b7o6nbupy3v7d" path="res://scenes/ability/boulder_ability_controller/boulder_ability_controller.tscn" id="1_controller"]
 [ext_resource type="Script" uid="uid://bpw3kuyytb1cx" path="res://resources/upgrades/ability.gd" id="2_ability"]
-[ext_resource type="Texture2D" uid="uid://cd2obi7dehuqv" path="res://scenes/ability/sword_ability/sword.png" id="3_icon"]
+[ext_resource type="Texture2D" uid="uid://dut47whr0f5hi" path="res://scenes/ability/boulder_ability/rock_round.png" id="2_xkh84"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_32ve7"]
+atlas = ExtResource("2_xkh84")
+region = Rect2(0, 0, 32, 32)
 
 [resource]
 script = ExtResource("2_ability")
 ability_controller_scene = ExtResource("1_controller")
-icon = ExtResource("3_icon")
+icon = SubResource("AtlasTexture_32ve7")
 id = "boulder"
 max_quantity = 1
 name = "Boulder"

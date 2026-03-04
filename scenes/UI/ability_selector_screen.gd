@@ -52,7 +52,7 @@ func _apply_portrait_layout() -> void:
 
 	if ViewportHelper.is_portrait():
 		grid_container.columns = 3
-		panel.custom_minimum_size = Vector2(320, 420)
+		panel.custom_minimum_size = Vector2(320, 300)
 		preview_panel.custom_minimum_size = Vector2(120, 80)
 		# Center UI in arena (middle 360px)
 		var arena_margin := int((vp_size.y - ARENA_SIZE.y) / 2.0)
@@ -97,15 +97,18 @@ func _populate_grid() -> void:
 
 		var first_upgrade: AbilityUpgrade = path.upgrades[0] as AbilityUpgrade if path.upgrades.size() > 0 else null
 		var icon: Texture2D = null
+		var icon_modulate: Color = Color.WHITE
 		if first_upgrade is Ability:
-			icon = (first_upgrade as Ability).icon
+			var ability: Ability = first_upgrade as Ability
+			icon = ability.icon
+			icon_modulate = ability.icon_modulate
 
-		var slot := _create_slot(ability_id, icon, unlocked_slot)
+		var slot := _create_slot(ability_id, icon, icon_modulate, unlocked_slot)
 		grid_container.add_child(slot)
 		_slot_buttons[ability_id] = slot
 
 
-func _create_slot(ability_id: String, icon: Texture2D, unlocked: bool) -> PanelContainer:
+func _create_slot(ability_id: String, icon: Texture2D, icon_modulate: Color, unlocked: bool) -> PanelContainer:
 	var style := StyleBoxFlat.new()
 	style.bg_color = Color(0.2, 0.2, 0.25, 0.9)
 	style.border_width_left = NORMAL_BORDER_WIDTH
@@ -142,6 +145,7 @@ func _create_slot(ability_id: String, icon: Texture2D, unlocked: bool) -> PanelC
 	tex_rect.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
 	tex_rect.clip_contents = true
 	tex_rect.texture = icon
+	tex_rect.modulate = icon_modulate
 	center.add_child(tex_rect)
 	btn.add_child(center)
 	panel.add_child(btn)

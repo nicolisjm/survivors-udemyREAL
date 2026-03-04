@@ -1,6 +1,6 @@
-[gd_scene format=3]
+[gd_scene format=3 uid="uid://cefow58y8qh5b"]
 
-[ext_resource type="Script" path="res://scenes/UI/ability_selector_screen.gd" id="1_script"]
+[ext_resource type="Script" uid="uid://cqbw40nly2cka" path="res://scenes/UI/ability_selector_screen.gd" id="1_script"]
 [ext_resource type="PackedScene" path="res://scenes/UI/sound_button.tscn" id="2_button"]
 
 [node name="AbilitySelectorScreen" type="CanvasLayer" unique_id=378186594]
@@ -23,7 +23,7 @@ theme_override_constants/margin_bottom = 16
 layout_mode = 2
 
 [node name="PanelContainer" type="PanelContainer" parent="MarginContainer/CenterContainer" unique_id=2032444227]
-custom_minimum_size = Vector2(300, 300)
+custom_minimum_size = Vector2(300, 240)
 layout_mode = 2
 
 [node name="MarginContainer" type="MarginContainer" parent="MarginContainer/CenterContainer/PanelContainer" unique_id=1683037663]

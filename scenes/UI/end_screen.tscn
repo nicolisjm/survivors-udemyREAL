@@ -1,9 +1,9 @@
-[gd_scene format=3]
+[gd_scene format=3 uid="uid://d3ihw6tugmcqk"]
 
-[ext_resource type="Script" path="res://scenes/UI/end_screen.gd" id="1_3ktt3"]
+[ext_resource type="Script" uid="uid://54ag48gp1sy8" path="res://scenes/UI/end_screen.gd" id="1_3ktt3"]
 [ext_resource type="PackedScene" path="res://scenes/UI/sound_button.tscn" id="2_2xf1k"]
-[ext_resource type="AudioStream" path="res://assets/audio/sfx/jingles_victory.ogg" id="2_cjddi"]
-[ext_resource type="AudioStream" path="res://assets/audio/sfx/jingles_defeat.ogg" id="3_vhg70"]
+[ext_resource type="AudioStream" uid="uid://wve1tfyj8bqv" path="res://assets/audio/sfx/jingles_victory.ogg" id="2_cjddi"]
+[ext_resource type="AudioStream" uid="uid://bta2m5hqx2vi6" path="res://assets/audio/sfx/jingles_defeat.ogg" id="3_vhg70"]
 
 [sub_resource type="Animation" id="Animation_l62tb"]
 length = 0.001
@@ -151,7 +151,7 @@ horizontal_alignment = 1
 unique_name_in_owner = true
 visible = false
 layout_mode = 2
-theme_override_constants/separation = 12
+theme_override_constants/separation = 4
 
 [node name="InitialsTitleLabel" type="Label" parent="MarginContainer/PanelContainer/MarginContainer/VBoxContainer/InitialsEntryPanel" unique_id=1560568251]
 layout_mode = 2
@@ -162,28 +162,91 @@ horizontal_alignment = 1
 
 [node name="SlotsHBox" type="HBoxContainer" parent="MarginContainer/PanelContainer/MarginContainer/VBoxContainer/InitialsEntryPanel" unique_id=1560568252]
 layout_mode = 2
-theme_override_constants/separation = 12
+theme_override_constants/separation = 4
 
-[node name="Slot0Button" parent="MarginContainer/PanelContainer/MarginContainer/VBoxContainer/InitialsEntryPanel/SlotsHBox" unique_id=1560568253 instance=ExtResource("2_2xf1k")]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(40, 32)
+[node name="Slot0HBox" type="HBoxContainer" parent="MarginContainer/PanelContainer/MarginContainer/VBoxContainer/InitialsEntryPanel/SlotsHBox" unique_id=1560568253]
 layout_mode = 2
-theme_override_font_sizes/font_size = 24
-text = "A"
+theme_override_constants/separation = 1
 
-[node name="Slot1Button" parent="MarginContainer/PanelContainer/MarginContainer/VBoxContainer/InitialsEntryPanel/SlotsHBox" unique_id=1560568254 instance=ExtResource("2_2xf1k")]
+[node name="Slot0UpButton" parent="MarginContainer/PanelContainer/MarginContainer/VBoxContainer/InitialsEntryPanel/SlotsHBox/Slot0HBox" unique_id=1560568256 instance=ExtResource("2_2xf1k")]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(40, 32)
+custom_minimum_size = Vector2(28, 26)
 layout_mode = 2
-theme_override_font_sizes/font_size = 24
-text = "A"
+theme_override_font_sizes/font_size = 14
+text = "▲"
 
-[node name="Slot2Button" parent="MarginContainer/PanelContainer/MarginContainer/VBoxContainer/InitialsEntryPanel/SlotsHBox" unique_id=1560568255 instance=ExtResource("2_2xf1k")]
+[node name="Slot0Label" type="Label" parent="MarginContainer/PanelContainer/MarginContainer/VBoxContainer/InitialsEntryPanel/SlotsHBox/Slot0HBox" unique_id=1560568257]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(40, 32)
+custom_minimum_size = Vector2(28, 0)
 layout_mode = 2
-theme_override_font_sizes/font_size = 24
+theme_type_variation = &"BlueOutlineLabel"
+theme_override_font_sizes/font_size = 20
 text = "A"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Slot0DownButton" parent="MarginContainer/PanelContainer/MarginContainer/VBoxContainer/InitialsEntryPanel/SlotsHBox/Slot0HBox" unique_id=1560568258 instance=ExtResource("2_2xf1k")]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(28, 26)
+layout_mode = 2
+theme_override_font_sizes/font_size = 14
+text = "▼"
+
+[node name="Slot1HBox" type="HBoxContainer" parent="MarginContainer/PanelContainer/MarginContainer/VBoxContainer/InitialsEntryPanel/SlotsHBox" unique_id=1560568254]
+layout_mode = 2
+theme_override_constants/separation = 1
+
+[node name="Slot1UpButton" parent="MarginContainer/PanelContainer/MarginContainer/VBoxContainer/InitialsEntryPanel/SlotsHBox/Slot1HBox" unique_id=1560568260 instance=ExtResource("2_2xf1k")]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(28, 26)
+layout_mode = 2
+theme_override_font_sizes/font_size = 14
+text = "▲"
+
+[node name="Slot1Label" type="Label" parent="MarginContainer/PanelContainer/MarginContainer/VBoxContainer/InitialsEntryPanel/SlotsHBox/Slot1HBox" unique_id=1560568261]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(28, 0)
+layout_mode = 2
+theme_type_variation = &"BlueOutlineLabel"
+theme_override_font_sizes/font_size = 20
+text = "A"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Slot1DownButton" parent="MarginContainer/PanelContainer/MarginContainer/VBoxContainer/InitialsEntryPanel/SlotsHBox/Slot1HBox" unique_id=1560568262 instance=ExtResource("2_2xf1k")]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(28, 26)
+layout_mode = 2
+theme_override_font_sizes/font_size = 14
+text = "▼"
+
+[node name="Slot2HBox" type="HBoxContainer" parent="MarginContainer/PanelContainer/MarginContainer/VBoxContainer/InitialsEntryPanel/SlotsHBox" unique_id=1560568255]
+layout_mode = 2
+theme_override_constants/separation = 1
+
+[node name="Slot2UpButton" parent="MarginContainer/PanelContainer/MarginContainer/VBoxContainer/InitialsEntryPanel/SlotsHBox/Slot2HBox" unique_id=1560568263 instance=ExtResource("2_2xf1k")]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(28, 26)
+layout_mode = 2
+theme_override_font_sizes/font_size = 14
+text = "▲"
+
+[node name="Slot2Label" type="Label" parent="MarginContainer/PanelContainer/MarginContainer/VBoxContainer/InitialsEntryPanel/SlotsHBox/Slot2HBox" unique_id=1560568264]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(28, 0)
+layout_mode = 2
+theme_type_variation = &"BlueOutlineLabel"
+theme_override_font_sizes/font_size = 20
+text = "A"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Slot2DownButton" parent="MarginContainer/PanelContainer/MarginContainer/VBoxContainer/InitialsEntryPanel/SlotsHBox/Slot2HBox" unique_id=1560568265 instance=ExtResource("2_2xf1k")]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(28, 26)
+layout_mode = 2
+theme_override_font_sizes/font_size = 14
+text = "▼"
 
 [node name="InitialsConfirmButton" parent="MarginContainer/PanelContainer/MarginContainer/VBoxContainer/InitialsEntryPanel/SlotsHBox" unique_id=1560568259 instance=ExtResource("2_2xf1k")]
 unique_name_in_owner = true

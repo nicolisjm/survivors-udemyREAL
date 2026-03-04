@@ -60,11 +60,16 @@ func set_ability_upgrade(upgrade: AbilityUpgrade, upgrade_manager: UpgradeManage
 		elif upgrade.level >= 2:
 			sub_name = upgrade.name
 		if first_upgrade is Ability:
-			icon = (first_upgrade as Ability).icon
+			var ability: Ability = first_upgrade as Ability
+			icon = ability.icon
+			icon_texture_rect.modulate = ability.icon_modulate
+		else:
+			icon_texture_rect.modulate = Color.WHITE
 	else:
 		main_name = upgrade.name
 		if upgrade.sub_name != "":
 			sub_name = upgrade.sub_name
+		icon_texture_rect.modulate = Color.WHITE
 
 	name_label.text = main_name
 	level_label.text = level_str

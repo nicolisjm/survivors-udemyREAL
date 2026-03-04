@@ -1,20 +1,97 @@
-[gd_scene format=3]
+[gd_scene format=3 uid="uid://gkrf8fmcljsn"]
 
-[ext_resource type="Script" path="res://scenes/ability/tornado_ability/tornado_ability.gd" id="1_script"]
-[ext_resource type="Texture2D" path="res://scenes/ability/sword_ability/sword.png" id="2_placeholder"]
+[ext_resource type="Script" uid="uid://blykl00ns8u8j" path="res://scenes/ability/tornado_ability/tornado_ability.gd" id="1_script"]
 [ext_resource type="PackedScene" path="res://scenes/component/hitbox_component.tscn" id="3_hitbox"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_1"]
-radius = 25.0
+radius = 18.0
 
-[node name="TornadoAbility" type="Node2D"]
+[sub_resource type="CircleShape2D" id="CircleShape2D_pull"]
+radius = 36.0
+
+[sub_resource type="Curve" id="Curve_q063o"]
+_limits = [0.0, 100.0, 0.0, 1.0]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.7491857, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_63xml"]
+curve = SubResource("Curve_q063o")
+
+[sub_resource type="Curve" id="Curve_2xkyx"]
+_limits = [-2.0, 2.0, 0.0, 1.0]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_a0ytg"]
+curve = SubResource("Curve_2xkyx")
+
+[sub_resource type="Curve" id="Curve_8k3o8"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_q063o"]
+curve = SubResource("Curve_8k3o8")
+
+[sub_resource type="Curve" id="Curve_a0ytg"]
+_data = [Vector2(0.012539186, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_8k3o8"]
+curve = SubResource("Curve_a0ytg")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_63xml"]
+particle_flag_disable_z = true
+emission_shape = 6
+emission_ring_axis = Vector3(0, 0, 1)
+emission_ring_height = 1.0
+emission_ring_radius = 6.0
+emission_ring_inner_radius = 2.0
+emission_ring_cone_angle = 90.0
+direction = Vector3(0, -1, 0)
+initial_velocity_min = 10.0
+initial_velocity_max = 10.0
+orbit_velocity_min = 2.0000002
+orbit_velocity_max = 2.0000002
+orbit_velocity_curve = SubResource("CurveTexture_a0ytg")
+radial_velocity_min = 0.99997765
+radial_velocity_max = 0.99997765
+gravity = Vector3(0, -70, 0)
+damping_min = 100.00001
+damping_max = 100.00001
+damping_curve = SubResource("CurveTexture_63xml")
+scale_min = 2.0
+scale_max = 4.0
+scale_curve = SubResource("CurveTexture_q063o")
+color = Color(0.728822, 0.728822, 0.728822, 1)
+turbulence_enabled = true
+turbulence_initial_displacement_min = 1.0000015
+turbulence_initial_displacement_max = 1.0000015
+turbulence_influence_over_life = SubResource("CurveTexture_8k3o8")
+
+[node name="TornadoAbility" type="Node2D" unique_id=622961329]
 script = ExtResource("1_script")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("2_placeholder")
-scale = Vector2(0.5, 0.5)
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=840063505]
+visible = false
 
-[node name="HitboxComponent" parent="." instance=ExtResource("3_hitbox")]
+[node name="HitboxComponent" parent="." unique_id=2098972280 instance=ExtResource("3_hitbox")]
+collision_mask = 32
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent" unique_id=574119793]
 shape = SubResource("CircleShape2D_1")
+
+[node name="PullArea" type="Area2D" parent="." unique_id=2099827252]
+collision_layer = 0
+collision_mask = 32
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PullArea" unique_id=1885068810]
+shape = SubResource("CircleShape2D_pull")
+
+[node name="TickTimer" type="Timer" parent="." unique_id=563154339]
+wait_time = 0.3
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="." unique_id=1198214083]
+amount = 48
+lifetime = 2.0
+randomness = 1.0
+process_material = SubResource("ParticleProcessMaterial_63xml")

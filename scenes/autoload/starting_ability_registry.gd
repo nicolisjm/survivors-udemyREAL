@@ -17,7 +17,7 @@ func _ready() -> void:
 	_init_all_paths()
 
 
-## Order matches Ability Backlog (Full List) in ability_creation_pipeline plan: sword, axe, chain_lightning, ball_lightning, meteor, … (smite excluded from grid).
+## Selectable starting abilities. Cut (not shown): smite, shadow_grab, tail_swipe, blizzard, wind_slice, aura.
 func _init_all_paths() -> void:
 	_all_paths = [
 		preload("res://resources/upgrades/sword_path.tres") as AbilityUpgradePath,
@@ -29,18 +29,12 @@ func _init_all_paths() -> void:
 		preload("res://resources/upgrades/boulder_path.tres") as AbilityUpgradePath,
 		preload("res://resources/upgrades/earth_spikes_path.tres") as AbilityUpgradePath,
 		preload("res://resources/upgrades/ice_shards_path.tres") as AbilityUpgradePath,
-		preload("res://resources/upgrades/blizzard_path.tres") as AbilityUpgradePath,
-		preload("res://resources/upgrades/wind_slice_path.tres") as AbilityUpgradePath,
 		preload("res://resources/upgrades/tornado_path.tres") as AbilityUpgradePath,
-		preload("res://resources/upgrades/aura_path.tres") as AbilityUpgradePath,
 		preload("res://resources/upgrades/bomb_path.tres") as AbilityUpgradePath,
 		preload("res://resources/upgrades/bow_arrow_path.tres") as AbilityUpgradePath,
 		preload("res://resources/upgrades/boomerang_path.tres") as AbilityUpgradePath,
 		preload("res://resources/upgrades/claws_path.tres") as AbilityUpgradePath,
-		preload("res://resources/upgrades/tail_swipe_path.tres") as AbilityUpgradePath,
 		preload("res://resources/upgrades/bite_path.tres") as AbilityUpgradePath,
-		preload("res://resources/upgrades/smite_path.tres") as AbilityUpgradePath,
-		preload("res://resources/upgrades/shadow_grab_path.tres") as AbilityUpgradePath,
 	]
 
 
@@ -89,13 +83,20 @@ func get_all_ability_paths() -> Array[AbilityUpgradePath]:
 	return _all_paths.duplicate()
 
 
-## Paths that can be selected as starting ability (excludes smite).
+## Paths that can be selected as starting ability (all in _all_paths; cut abilities are no longer in _all_paths).
 func get_selectable_ability_paths() -> Array[AbilityUpgradePath]:
 	var result: Array[AbilityUpgradePath] = []
 	for path in _all_paths:
-		if path != null and path.ability_id != "smite":
+		if path != null:
 			result.append(path)
 	return result
+
+
+func get_path_for_ability_id(ability_id: String) -> AbilityUpgradePath:
+	for path in _all_paths:
+		if path != null and path.ability_id == ability_id:
+			return path
+	return null
 
 
 func get_ability_display_name(ability_id: String) -> String:
